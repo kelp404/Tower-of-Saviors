@@ -10,10 +10,7 @@ module.exports = (config) ->
             'test/lib/angularjs/angular.1.2.1.min.js'
             'test/lib/angularjs/angular-mocks.1.2.1.js'
             'test/lib/jquery/jquery-2.0.3.js'
-            'test/lib/angular-validator/dist/angular-validator.js'
-            'test/lib/angular-validator/dist/angular-validator-rules.js'
-            'dist/angular-form-builder.js'
-            'dist/angular-form-builder-components.js'
+            'dist/tower-of-saviors.js'
             'test/specs/*.coffee'
         ]
 
@@ -27,7 +24,7 @@ module.exports = (config) ->
 
         # web server port
         # CLI --port 9876
-        port: 8083
+        port: 8081
 
         # enable / disable colors in the output (reporters and logs)
         # CLI --colors --no-colors
