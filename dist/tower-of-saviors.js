@@ -85,7 +85,7 @@
           function(data) {
             var result;
             result = {};
-            eval("result = " + (data.substr(1, data.length - 4)));
+            eval("result = " + data);
             return result;
           }
         ].concat($http.defaults.transformResponse)

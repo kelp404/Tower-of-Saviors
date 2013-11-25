@@ -56,7 +56,7 @@ a.provider '$tos', ->
             url: 'data/zh-TW/cards.js'
             transformResponse: [(data) ->
                 result = {}
-                eval "result = #{data.substr 1, data.length - 4}"
+                eval "result = #{data}"
                 result
             ].concat($http.defaults.transformResponse)
         v.success (data) ->
