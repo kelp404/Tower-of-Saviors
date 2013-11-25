@@ -53,7 +53,7 @@ a.provider '$tos', ->
         ###
         v = $http
             method: 'get'
-            url: 'data/zh-TW/cards.js'
+            url: 'data/zh-TW/cards.min.js'
             transformResponse: [(data) ->
                 result = {}
                 eval "result = #{data}"

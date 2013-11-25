@@ -22,7 +22,21 @@ module.exports = (grunt) ->
                 cwd: 'data'
                 src: ['**/*.coffee']
                 dest: 'data/'
-                ext: '.js'
+                ext: '.ori.js'
+
+        uglify:
+            options:
+                mangle: no
+                compress: no
+                report: 'min'
+            data:
+                files: [
+                    expand: yes
+                    cwd: 'data'
+                    src: ['**/*.ori.js']
+                    dest: 'data'
+                    ext: '.min.js'
+                ]
 
         watch:
             compass:
@@ -30,9 +44,14 @@ module.exports = (grunt) ->
                 tasks: ['compass']
                 options:
                     spawn: no
-            coffee:
-                files: ['./src/*.coffee', './data/**/*.coffee']
-                tasks: ['coffee']
+            coffeeSource:
+                files: ['./src/*.coffee']
+                tasks: ['coffee:source']
+                options:
+                    spawn: no
+            coffeeData:
+                files: ['./data/**/*.coffee']
+                tasks: ['coffee:data', 'uglify']
                 options:
                     spawn: no
 
@@ -63,4 +82,5 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-contrib-coffee'
     grunt.loadNpmTasks 'grunt-contrib-watch'
     grunt.loadNpmTasks 'grunt-contrib-connect'
+    grunt.loadNpmTasks 'grunt-contrib-uglify'
     grunt.loadNpmTasks 'grunt-karma'

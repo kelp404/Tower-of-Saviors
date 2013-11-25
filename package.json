@@ -1,7 +1,7 @@
 {
   "name": "Tower-of-Saviors",
   "version": "0.0.0-beta1",
-  "description": "Tower of Saviors guide",
+  "description": "Tower of Saviors gallery",
   "homepage": "https://github.com/kelp404/Tower-of-Saviors",
   "repository": {
     "type": "git",
@@ -45,6 +45,7 @@
     "karma-coffee-preprocessor": "~0.1.0",
     "karma-phantomjs-launcher": "~0.1.0",
     "karma": "~0.10.5",
-    "grunt-karma": "~0.6.2"
+    "grunt-karma": "~0.6.2",
+    "grunt-contrib-uglify": "~0.2.7"
   }
 }

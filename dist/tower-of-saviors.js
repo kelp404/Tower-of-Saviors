@@ -80,7 +80,7 @@
       var v;
       v = $http({
         method: 'get',
-        url: 'data/zh-TW/cards.js',
+        url: 'data/zh-TW/cards.min.js',
         transformResponse: [
           function(data) {
             var result;
