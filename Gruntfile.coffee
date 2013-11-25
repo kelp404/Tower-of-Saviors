@@ -14,6 +14,15 @@ module.exports = (grunt) ->
             source:
                 files:
                     './dist/tower-of-saviors.js': ['./src/*.coffee']
+            data:
+                options:
+                    bare: yes
+                expand: yes
+                flatten: no
+                cwd: 'data'
+                src: ['**/*.coffee']
+                dest: 'data/'
+                ext: '.js'
 
         watch:
             compass:
@@ -22,7 +31,7 @@ module.exports = (grunt) ->
                 options:
                     spawn: no
             coffee:
-                files: ['./src/*.coffee']
+                files: ['./src/*.coffee', './data/**/*.coffee']
                 tasks: ['coffee']
                 options:
                     spawn: no
