@@ -4,11 +4,8 @@
   a = angular.module('tos.controller', ['tos.provider']);
 
   IndexController = function($scope, $injector, cards) {
-    var $tos;
     $scope.cards = cards;
-    console.log(cards);
-    $tos = $injector.get('$tos');
-    return $tos.getCards();
+    return console.log(cards);
   };
 
   IndexController.$inject = ['$scope', '$injector', 'cards'];
@@ -73,6 +70,7 @@
       h = $http({
         method: 'get',
         url: url,
+        cache: true,
         transformResponse: [
           function(data) {
             return eval(data);

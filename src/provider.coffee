@@ -41,6 +41,7 @@ a.provider '$tos', ->
         h = $http
             method: 'get'
             url: url
+            cache: yes
             transformResponse: [(data) ->
                 eval data
             ].concat $http.defaults.transformResponse
