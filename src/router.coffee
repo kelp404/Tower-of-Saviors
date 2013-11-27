@@ -1,5 +1,5 @@
 
-a = angular.module 'tos.router', ['tos.controller', 'ui.router']
+a = angular.module 'tos.router', ['tos.controller', 'tos.provider', 'ui.router']
 
 
 # ----------------------------------------
@@ -13,6 +13,10 @@ config = ($stateProvider, $urlRouterProvider) ->
     # ----------------------------------------
     $stateProvider.state 'index',
         url: '/'
+        resolve:
+            cards: ['$tos', ($tos) ->
+                $tos.getCards()
+            ]
         views:
             content:
                 templateUrl: 'views/content/list.html'

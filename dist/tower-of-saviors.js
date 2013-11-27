@@ -3,13 +3,15 @@
 
   a = angular.module('tos.controller', ['tos.provider']);
 
-  IndexController = function($scope, $injector) {
+  IndexController = function($scope, $injector, cards) {
     var $tos;
+    $scope.cards = cards;
+    console.log(cards);
     $tos = $injector.get('$tos');
     return $tos.getCards();
   };
 
-  IndexController.$inject = ['$scope', '$injector'];
+  IndexController.$inject = ['$scope', '$injector', 'cards'];
 
   a.controller('IndexController', IndexController);
 
@@ -66,10 +68,25 @@
       $injector = injector;
       return $http = $injector.get('$http');
     };
+    this.getResource = function(url) {
+      var h;
+      h = $http({
+        method: 'get',
+        url: url,
+        transformResponse: [
+          function(data) {
+            return eval(data);
+          }
+        ].concat($http.defaults.transformResponse)
+      });
+      return h.error(function() {
+        return console.log('error');
+      });
+    };
     this.getCards = function() {
       /*
       Get all cards.
-      @return:
+      @return: {$http}
           id: {int} The card id.
           name: {string} The card name.
           imageSm: {string} The small image url.
@@ -77,24 +94,11 @@
           attribute: {string} The card's attribute. [light, dark, water, fire, wood]
       */
 
-      var v;
-      v = $http({
-        method: 'get',
-        url: 'data/zh-TW/cards.min.js',
-        transformResponse: [
-          function(data) {
-            var result;
-            result = {};
-            eval("result = " + data);
-            return result;
-          }
-        ].concat($http.defaults.transformResponse)
+      var h;
+      h = _this.getResource("data/" + _this.currentLanguage + "/cards.min.js");
+      return h.then(function(response) {
+        return response.data;
       });
-      v.success(function(data) {
-        console.log('---- success ------');
-        return console.log(data);
-      });
-      return [];
     };
     this.get = function($injector) {
       this.setupProvider($injector);
@@ -113,12 +117,19 @@
 (function() {
   var a, config, run;
 
-  a = angular.module('tos.router', ['tos.controller', 'ui.router']);
+  a = angular.module('tos.router', ['tos.controller', 'tos.provider', 'ui.router']);
 
   config = function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
     return $stateProvider.state('index', {
       url: '/',
+      resolve: {
+        cards: [
+          '$tos', function($tos) {
+            return $tos.getCards();
+          }
+        ]
+      },
       views: {
         content: {
           templateUrl: 'views/content/list.html',

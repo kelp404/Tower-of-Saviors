@@ -37,6 +37,16 @@ a.provider '$tos', ->
         $injector = injector
         $http = $injector.get '$http'
 
+    @getResource = (url) =>
+        h = $http
+            method: 'get'
+            url: url
+            transformResponse: [(data) ->
+                eval data
+            ].concat $http.defaults.transformResponse
+        h.error ->
+            console.log 'error'
+
 
     # ----------------------------------------
     # public functions
@@ -44,25 +54,16 @@ a.provider '$tos', ->
     @getCards = =>
         ###
         Get all cards.
-        @return:
+        @return: {$http}
             id: {int} The card id.
             name: {string} The card name.
             imageSm: {string} The small image url.
             race: {string} The card's race. [human, dragon, beast, elf, god, fiend, ee(evolve elements)]
             attribute: {string} The card's attribute. [light, dark, water, fire, wood]
         ###
-        v = $http
-            method: 'get'
-            url: 'data/zh-TW/cards.min.js'
-            transformResponse: [(data) ->
-                result = {}
-                eval "result = #{data}"
-                result
-            ].concat($http.defaults.transformResponse)
-        v.success (data) ->
-            console.log '---- success ------'
-            console.log data
-        []
+        h = @getResource "data/#{@currentLanguage}/cards.min.js"
+        h.then (response) ->
+            response.data
 
 
     # ----------------------------------------
