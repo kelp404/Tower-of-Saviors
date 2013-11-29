@@ -86,10 +86,10 @@
       Get all cards.
       @return: {$http}
           id: {int} The card id.
-          name: {string} The card name.
-          imageSm: {string} The small image url.
-          race: {string} The card's race. [human, dragon, beast, elf, god, fiend, ee(evolve elements)]
-          attribute: {string} The card's attribute. [light, dark, water, fire, wood]
+              name: {string} The card name.
+              imageSm: {string} The small image url.
+              race: {string} The card's race. [human, dragon, beast, elf, god, fiend, ee(evolve elements)]
+              attribute: {string} The card's attribute. [light, dark, water, fire, wood]
       */
 
       var h;
