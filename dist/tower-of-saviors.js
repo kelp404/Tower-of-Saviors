@@ -4,8 +4,7 @@
   a = angular.module('tos.controller', ['tos.provider']);
 
   IndexController = function($scope, $injector, cards) {
-    $scope.cards = cards;
-    return console.log(cards);
+    return $scope.cards = cards;
   };
 
   IndexController.$inject = ['$scope', '$injector', 'cards'];
@@ -52,12 +51,13 @@
       if (_this.languages[navigator.language] != null) {
         return navigator.language;
       } else {
-        switch (navigator.language) {
-          case 'zh-CN':
-          case 'zh-HK':
+        switch (navigator.language.toLowerCase()) {
+          case 'zh-tw':
+          case 'zh-cn':
+          case 'zh-hk':
             return 'zh-TW';
           default:
-            return 'en';
+            return 'zh-TW';
         }
       }
     })();

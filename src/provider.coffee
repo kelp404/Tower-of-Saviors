@@ -25,9 +25,9 @@ a.provider '$tos', ->
         if @languages[navigator.language]?
             navigator.language
         else
-            switch navigator.language
-                when 'zh-CN', 'zh-HK' then 'zh-TW'
-                else 'en'
+            switch navigator.language.toLowerCase()
+                when 'zh-tw', 'zh-cn', 'zh-hk' then 'zh-TW'
+                else 'zh-TW'
 
 
     # ----------------------------------------
