@@ -1,4 +1,36 @@
 <div class="gallery">
+    <!-- mobile menu -->
+    <nav class="navbar navbar-default visible-xs" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/">Tower of Saviors</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Light</a></li>
+                <li><a href="#">Dark</a></li>
+                <li><a href="#">Water</a></li>
+                <li><a href="#">Fire</a></li>
+                <li><a href="#">Wood</a></li>
+            </ul>
+            <hr/>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Human</a></li>
+                <li><a href="#">Dragon</a></li>
+                <li><a href="#">Beast</a></li>
+                <li><a href="#">Elf</a></li>
+                <li><a href="#">God</a></li>
+                <li><a href="#">Fiend</a></li>
+                <li><a href="#">Evolve Elements</a></li>
+            </ul>
+        </div>
+    </nav>
+    
     <div ng-repeat="card in cards" class="card col-xs-3 col-sm-2 col-md-1">
         <a href="#/cards/{{card.id}}"><img ng-src="{{card.imageSm}}" title="{{card.name}}" class="img-responsive"/></a>
     </div>

@@ -193,7 +193,27 @@
     var $rootScope, $state;
     $rootScope = $injector.get('$rootScope');
     $state = $injector.get('$state');
-    return $rootScope.$state = $state;
+    $rootScope.$state = $state;
+    NProgress.configure({
+      showSpinner: false
+    });
+    $rootScope.$on('$stateChangeStart', function(self, toState, toParams, fromState) {
+      if (fromState.views) {
+        return NProgress.start();
+      }
+    });
+    $rootScope.$on('$stateChangeSuccess', function() {
+      return NProgress.done();
+    });
+    return $rootScope.$on('$stateChangeError', function() {
+      NProgress.done();
+      return $.av.pop({
+        title: 'Error',
+        message: 'The route loading failed.',
+        template: 'error',
+        mode: 'notification'
+      });
+    });
   };
 
   run.inject = ['$injector'];
