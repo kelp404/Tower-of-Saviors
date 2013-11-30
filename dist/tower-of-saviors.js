@@ -86,16 +86,27 @@
       Get all cards.
       @return: {$http}
           id: {int} The card id.
-              name: {string} The card name.
-              imageSm: {string} The small image url.
-              race: {string} The card's race. [human, dragon, beast, elf, god, fiend, ee(evolve elements)]
-              attribute: {string} The card's attribute. [light, dark, water, fire, wood]
+          name: {string} The card name.
+          imageSm: {string} The small image url.
+          race: {string} The card's race. [human, dragon, beast, elf, god, fiend, ee(evolve elements)]
+          attribute: {string} The card's attribute. [light, dark, water, fire, wood]
       */
 
       var h;
       h = _this.getResource("data/" + _this.currentLanguage + "/cards.min.js");
       return h.then(function(response) {
-        return response.data;
+        var cards, id, ids, result, _i, _len;
+        result = [];
+        cards = response.data;
+        ids = Object.keys(cards).sort(function(a, b) {
+          return a - b;
+        });
+        for (_i = 0, _len = ids.length; _i < _len; _i++) {
+          id = ids[_i];
+          cards[id].id = id;
+          result.push(cards[id]);
+        }
+        return result;
       });
     };
     this.get = function($injector) {
