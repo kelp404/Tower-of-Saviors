@@ -4,7 +4,7 @@
 
 /* mixin animation */
 @mixin animation ($name, $time) {
-	-webkit-animation: $name $time; /* Safari and Chrome */
+    -webkit-animation: $name $time; /* Safari and Chrome */
     -moz-animation: $name $time; /* Firefox */
     -ms-animation: $name $time; /* Internet Explorer */
     -o-animation: $name $time; /* Opera */

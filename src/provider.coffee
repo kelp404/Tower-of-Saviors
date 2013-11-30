@@ -46,7 +46,11 @@ a.provider '$tos', ->
                 eval data
             ].concat $http.defaults.transformResponse
         h.error ->
-            console.log 'error'
+            $.av.pop
+                title: 'Error'
+                message: 'Data loading failed.'
+                template: 'error'
+                mode: 'notification'
 
 
     # ----------------------------------------

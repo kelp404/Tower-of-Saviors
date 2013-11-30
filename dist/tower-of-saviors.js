@@ -86,7 +86,12 @@
         ].concat($http.defaults.transformResponse)
       });
       return h.error(function() {
-        return console.log('error');
+        return $.av.pop({
+          title: 'Error',
+          message: 'Data loading failed.',
+          template: 'error',
+          mode: 'notification'
+        });
       });
     };
     this.getCards = function() {
