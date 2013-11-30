@@ -19,8 +19,23 @@ config = ($stateProvider, $urlRouterProvider) ->
             ]
         views:
             content:
-                templateUrl: 'views/content/list.html'
+                templateUrl: 'views/content/cards.html'
                 controller: 'IndexController'
+
+
+    # ----------------------------------------
+    # card details
+    # ----------------------------------------
+    $stateProvider.state 'card',
+        url: '/cards/:cardId'
+        resolve:
+            card: ['$tos', '$stateParams', ($tos, $stateParams) ->
+                $tos.getCard $stateParams.cardId
+            ]
+        views:
+            content:
+                templateUrl: 'views/content/card.html'
+                controller: 'CardController'
 
 config.$inject = ['$stateProvider', '$urlRouterProvider']
 a.config config

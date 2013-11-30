@@ -1,5 +1,5 @@
 (function() {
-  var IndexController, a;
+  var CardController, IndexController, a;
 
   a = angular.module('tos.controller', ['tos.provider']);
 
@@ -10,6 +10,14 @@
   IndexController.$inject = ['$scope', '$injector', 'cards'];
 
   a.controller('IndexController', IndexController);
+
+  CardController = function($scope, $injector, card) {
+    return $scope.card = card;
+  };
+
+  CardController.$inject = ['$scope', '$injector', 'card'];
+
+  a.controller('CardController', CardController);
 
 }).call(this);
 
@@ -109,12 +117,20 @@
         return result;
       });
     };
+    this.getCard = function(cardId) {
+      var h;
+      h = _this.getResource("data/" + _this.currentLanguage + "/cards/" + cardId + ".min.js");
+      return h.then(function(response) {
+        return response.data;
+      });
+    };
     this.get = function($injector) {
       this.setupProvider($injector);
       return {
         languages: this.languages,
         currentLanguage: this.currentLanguage,
-        getCards: this.getCards
+        getCards: this.getCards,
+        getCard: this.getCard
       };
     };
     this.get.inject = ['$injector'];
@@ -130,7 +146,7 @@
 
   config = function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
-    return $stateProvider.state('index', {
+    $stateProvider.state('index', {
       url: '/',
       resolve: {
         cards: [
@@ -141,8 +157,24 @@
       },
       views: {
         content: {
-          templateUrl: 'views/content/list.html',
+          templateUrl: 'views/content/cards.html',
           controller: 'IndexController'
+        }
+      }
+    });
+    return $stateProvider.state('card', {
+      url: '/cards/:cardId',
+      resolve: {
+        card: [
+          '$tos', '$stateParams', function($tos, $stateParams) {
+            return $tos.getCard($stateParams.cardId);
+          }
+        ]
+      },
+      views: {
+        content: {
+          templateUrl: 'views/content/card.html',
+          controller: 'CardController'
         }
       }
     });

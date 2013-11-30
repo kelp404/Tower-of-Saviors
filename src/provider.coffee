@@ -72,6 +72,10 @@ a.provider '$tos', ->
                 result.push cards[id]
             result
 
+    @getCard = (cardId) =>
+        h = @getResource "data/#{@currentLanguage}/cards/#{cardId}.min.js"
+        h.then (response) -> response.data
+
 
     # ----------------------------------------
     # $get
@@ -82,6 +86,7 @@ a.provider '$tos', ->
         languages: @languages
         currentLanguage: @currentLanguage
         getCards: @getCards
+        getCard: @getCard
     @get.inject = ['$injector']
     @$get = @get
     return
