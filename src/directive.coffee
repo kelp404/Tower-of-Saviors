@@ -15,3 +15,13 @@ tosLang = ($injector) ->
 
 tosLang.$inject = ['$injector']
 a.directive 'tosLang', tosLang
+
+
+# ----------------------------------------
+# tos-fadein-onload
+# ----------------------------------------
+tosFadeinOnload = ->
+    restrict: 'A'
+    link: (scope, element) ->
+        element.bind 'load', -> element.addClass 'fadein'
+a.directive 'tosFadeinOnload', tosFadeinOnload

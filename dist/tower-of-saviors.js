@@ -28,7 +28,7 @@
 }).call(this);
 
 (function() {
-  var a, tosLang;
+  var a, tosFadeinOnload, tosLang;
 
   a = angular.module('tos.directive', ['tos.provider']);
 
@@ -48,6 +48,19 @@
   tosLang.$inject = ['$injector'];
 
   a.directive('tosLang', tosLang);
+
+  tosFadeinOnload = function() {
+    return {
+      restrict: 'A',
+      link: function(scope, element) {
+        return element.bind('load', function() {
+          return element.addClass('fadein');
+        });
+      }
+    };
+  };
+
+  a.directive('tosFadeinOnload', tosFadeinOnload);
 
 }).call(this);
 

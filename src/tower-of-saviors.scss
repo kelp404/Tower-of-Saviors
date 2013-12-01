@@ -17,10 +17,14 @@
 @-o-keyframes fadein { from {opacity: 0;} to {opacity: 1;}}
 
 
+.fadein {
+    @include animation(fadein, 0.7s);
+}
 
+
+/* ---------------- cards -------------- */
 .gallery .card {
     padding: 1px;
-    @include animation(fadein, 0.7s);
 }
 .card {
     .icon {
