@@ -35,8 +35,8 @@ a.provider '$lan', ->
             wood: '木'
 
             human: '人類'
-            dragon: '龍類'
-            beast: '獸類'
+            dragon: '龍族'
+            beast: '獸族'
             elf: '妖精'
             god: '神族'
             fiend: '魔族'
