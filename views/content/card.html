@@ -1,1 +1,8 @@
-<h2>{{card.name}}</h2>
+<div class="card">
+    <img ng-src="{{card.imageMd}}" class="img-responsive pull-right"/>
+    <div class="visible-xs visible-sm" style="height: 7px; clear: both;"></div>
+
+    <img ng-src="{{card.imageSm}}" class="icon pull-left"/>
+    <h3 class="name">{{card.name}}</h3>
+    <hr/>
+</div>
