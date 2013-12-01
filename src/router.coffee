@@ -8,6 +8,9 @@ a = angular.module 'tos.router', ['tos.controller', 'tos.provider', 'ui.router']
 config = ($stateProvider, $urlRouterProvider) ->
     $urlRouterProvider.otherwise '/'
 
+    navigation =
+        templateUrl: 'views/menu/navigation.html'
+
     # ----------------------------------------
     # index
     # ----------------------------------------
@@ -18,6 +21,7 @@ config = ($stateProvider, $urlRouterProvider) ->
                 $tos.getCards()
             ]
         views:
+            nav: navigation
             content:
                 templateUrl: 'views/content/cards.html'
                 controller: 'IndexController'
@@ -33,6 +37,7 @@ config = ($stateProvider, $urlRouterProvider) ->
                 $tos.getCard $stateParams.cardId
             ]
         views:
+            nav: navigation
             content:
                 templateUrl: 'views/content/card.html'
                 controller: 'CardController'

@@ -21,8 +21,7 @@ a.provider '$lan', ->
             elf: 'Elf'
             god: 'God'
             fiend: 'Fiend'
-            ee: 'Evolve Elements'
-            lue: 'Level Up Elements'
+            element: 'Element'
 
 
         # ----------------------------------------
@@ -41,8 +40,7 @@ a.provider '$lan', ->
             elf: '妖精'
             god: '神族'
             fiend: '魔族'
-            ee: '強化素材'
-            lue: '進化素材'
+            element: '素材'
 
 
     # ----------------------------------------

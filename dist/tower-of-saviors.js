@@ -64,8 +64,7 @@
         elf: 'Elf',
         god: 'God',
         fiend: 'Fiend',
-        ee: 'Evolve Elements',
-        lue: 'Level Up Elements'
+        element: 'Element'
       },
       'zh-TW': {
         light: '光',
@@ -79,8 +78,7 @@
         elf: '妖精',
         god: '神族',
         fiend: '魔族',
-        ee: '強化素材',
-        lue: '進化素材'
+        element: '素材'
       }
     };
     this.get = function() {
@@ -230,7 +228,11 @@
   a = angular.module('tos.router', ['tos.controller', 'tos.provider', 'ui.router']);
 
   config = function($stateProvider, $urlRouterProvider) {
+    var navigation;
     $urlRouterProvider.otherwise('/');
+    navigation = {
+      templateUrl: 'views/menu/navigation.html'
+    };
     $stateProvider.state('index', {
       url: '/',
       resolve: {
@@ -241,6 +243,7 @@
         ]
       },
       views: {
+        nav: navigation,
         content: {
           templateUrl: 'views/content/cards.html',
           controller: 'IndexController'
@@ -257,6 +260,7 @@
         ]
       },
       views: {
+        nav: navigation,
         content: {
           templateUrl: 'views/content/card.html',
           controller: 'CardController'
