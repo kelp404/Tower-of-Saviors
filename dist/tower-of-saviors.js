@@ -92,7 +92,9 @@
         attribute: 'Attribute',
         cost: 'Cost',
         species: 'Species',
-        rarity: 'Rarity'
+        rarity: 'Rarity',
+        activeSkill: 'Active Skill',
+        leaderSkill: 'Leader Skill'
       },
       'zh-TW': {
         light: '光',
@@ -115,7 +117,9 @@
         attribute: '屬性',
         cost: '空間',
         species: '系列',
-        rarity: '稀有'
+        rarity: '稀有',
+        activeSkill: '主動技',
+        leaderSkill: '隊長技'
       }
     };
     this.get = function() {

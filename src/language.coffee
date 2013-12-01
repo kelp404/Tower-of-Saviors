@@ -33,6 +33,8 @@ a.provider '$lan', ->
             cost: 'Cost'
             species: 'Species'
             rarity: 'Rarity'
+            activeSkill: 'Active Skill'
+            leaderSkill: 'Leader Skill'
 
         # ----------------------------------------
         # Chinese
@@ -62,6 +64,8 @@ a.provider '$lan', ->
             cost: '空間'
             species: '系列'
             rarity: '稀有'
+            activeSkill: '主動技'
+            leaderSkill: '隊長技'
 
 
     # ----------------------------------------
