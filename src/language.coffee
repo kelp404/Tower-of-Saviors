@@ -23,6 +23,9 @@ a.provider '$lan', ->
             fiend: 'Fiend'
             element: 'Element'
 
+            race: 'Race'
+            attribute: 'Attribute'
+
 
         # ----------------------------------------
         # Chinese
@@ -41,6 +44,9 @@ a.provider '$lan', ->
             god: '神族'
             fiend: '魔族'
             element: '素材'
+
+            race: '種族'
+            attribute: '屬性'
 
 
     # ----------------------------------------

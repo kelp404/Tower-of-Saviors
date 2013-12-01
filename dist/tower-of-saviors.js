@@ -64,7 +64,9 @@
         elf: 'Elf',
         god: 'God',
         fiend: 'Fiend',
-        element: 'Element'
+        element: 'Element',
+        race: 'Race',
+        attribute: 'Attribute'
       },
       'zh-TW': {
         light: '光',
@@ -78,7 +80,9 @@
         elf: '妖精',
         god: '神族',
         fiend: '魔族',
-        element: '素材'
+        element: '素材',
+        race: '種族',
+        attribute: '屬性'
       }
     };
     this.get = function() {
