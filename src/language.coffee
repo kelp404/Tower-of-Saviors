@@ -23,9 +23,16 @@ a.provider '$lan', ->
             fiend: 'Fiend'
             element: 'Element'
 
+            hp: 'HP'
+            attack: 'Attack'
+            recovery: 'Recovery'
+            total: 'Total'
+
             race: 'Race'
             attribute: 'Attribute'
-
+            cost: 'Cost'
+            species: 'Species'
+            rarity: 'Rarity'
 
         # ----------------------------------------
         # Chinese
@@ -45,8 +52,16 @@ a.provider '$lan', ->
             fiend: '魔族'
             element: '素材'
 
+            hp: '生命'
+            attack: '攻擊'
+            recovery: '回復'
+            total: '總計'
+
             race: '種族'
             attribute: '屬性'
+            cost: '空間'
+            species: '系列'
+            rarity: '稀有'
 
 
     # ----------------------------------------

@@ -17,8 +17,50 @@
                 <td tos-lang="{{card.attribute}}"></td>
             </tr>
             <tr>
+                <td tos-lang="rarity">Rarity</td>
+                <td>
+                    <span ng-repeat="index in rarityArray">★</span>
+                </td>
+            </tr>
+            <tr>
+                <td tos-lang="cost">Cost</td>
+                <td tos-lang="{{card.cost}}"></td>
+            </tr>
+            <tr>
                 <td tos-lang="race">Race</td>
                 <td tos-lang="{{card.race}}"></td>
+            </tr>
+            <tr>
+                <td tos-lang="species">Species</td>
+                <td tos-lang="{{card.species}}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>LV</th>
+                <th tos-lang="hp"></th>
+                <th tos-lang="attack"></th>
+                <th tos-lang="recovery"></th>
+                <th tos-lang="total"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td ng-bind="card.properties.lvMin.lv"></td>
+                <td ng-bind="card.properties.lvMin.hp"></td>
+                <td ng-bind="card.properties.lvMin.attack"></td>
+                <td ng-bind="card.properties.lvMin.recovery"></td>
+                <td ng-bind="card.properties.lvMin.total"></td>
+            </tr>
+            <tr>
+                <td ng-bind="card.properties.lvMax.lv"></td>
+                <td ng-bind="card.properties.lvMax.hp"></td>
+                <td ng-bind="card.properties.lvMax.attack"></td>
+                <td ng-bind="card.properties.lvMax.recovery"></td>
+                <td ng-bind="card.properties.lvMax.total"></td>
             </tr>
             </tbody>
         </table>

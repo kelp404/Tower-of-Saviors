@@ -18,6 +18,7 @@ a.controller 'IndexController', IndexController
 # ----------------------------------------
 CardController = ($scope, $injector, card) ->
     $scope.card = card
+    $scope.rarityArray = [0...card.rarity]
 
 CardController.$inject = ['$scope', '$injector', 'card']
 a.controller 'CardController', CardController

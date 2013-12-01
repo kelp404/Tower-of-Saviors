@@ -12,7 +12,13 @@
   a.controller('IndexController', IndexController);
 
   CardController = function($scope, $injector, card) {
-    return $scope.card = card;
+    var _i, _ref, _results;
+    $scope.card = card;
+    return $scope.rarityArray = (function() {
+      _results = [];
+      for (var _i = 0, _ref = card.rarity; 0 <= _ref ? _i < _ref : _i > _ref; 0 <= _ref ? _i++ : _i--){ _results.push(_i); }
+      return _results;
+    }).apply(this);
   };
 
   CardController.$inject = ['$scope', '$injector', 'card'];
@@ -65,8 +71,15 @@
         god: 'God',
         fiend: 'Fiend',
         element: 'Element',
+        hp: 'HP',
+        attack: 'Attack',
+        recovery: 'Recovery',
+        total: 'Total',
         race: 'Race',
-        attribute: 'Attribute'
+        attribute: 'Attribute',
+        cost: 'Cost',
+        species: 'Species',
+        rarity: 'Rarity'
       },
       'zh-TW': {
         light: '光',
@@ -81,8 +94,15 @@
         god: '神族',
         fiend: '魔族',
         element: '素材',
+        hp: '生命',
+        attack: '攻擊',
+        recovery: '回復',
+        total: '總計',
         race: '種族',
-        attribute: '屬性'
+        attribute: '屬性',
+        cost: '空間',
+        species: '系列',
+        rarity: '稀有'
       }
     };
     this.get = function() {
