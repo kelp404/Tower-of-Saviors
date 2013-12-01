@@ -22,26 +22,26 @@
 }).call(this);
 
 (function() {
-  var a, tosLan;
+  var a, tosLang;
 
   a = angular.module('tos.directive', ['tos.provider']);
 
-  tosLan = function($injector) {
+  tosLang = function($injector) {
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {
         var $tos;
         $tos = $injector.get('$tos');
-        return attrs.$observe('tosLan', function(value) {
+        return attrs.$observe('tosLang', function(value) {
           return element.text($tos._(value));
         });
       }
     };
   };
 
-  tosLan.$inject = ['$injector'];
+  tosLang.$inject = ['$injector'];
 
-  a.directive('tosLan', tosLan);
+  a.directive('tosLang', tosLang);
 
 }).call(this);
 

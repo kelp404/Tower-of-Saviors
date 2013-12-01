@@ -2,16 +2,16 @@ a = angular.module 'tos.directive', ['tos.provider']
 
 
 # ----------------------------------------
-# tos-lan
+# tos-lang
 # ----------------------------------------
-tosLan = ($injector) ->
+tosLang = ($injector) ->
     restrict: 'A'
     link: (scope, element, attrs) ->
         # providers
         $tos = $injector.get '$tos'
 
-        attrs.$observe 'tosLan', (value) ->
+        attrs.$observe 'tosLang', (value) ->
             element.text $tos._(value)
 
-tosLan.$inject = ['$injector']
-a.directive 'tosLan', tosLan
+tosLang.$inject = ['$injector']
+a.directive 'tosLang', tosLang

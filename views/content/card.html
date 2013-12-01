@@ -1,8 +1,26 @@
 <div class="card">
-    <img ng-src="{{card.imageMd}}" class="img-responsive pull-right"/>
+    <img ng-src="{{card.imageMd}}" class="img-responsive visible-md pull-right" style="max-width: 420px;"/>
+    <img ng-src="{{card.imageMd}}" class="img-responsive hidden-md pull-right"/>
     <div class="visible-xs visible-sm" style="height: 7px; clear: both;"></div>
 
+    <!-- icon, name -->
     <img ng-src="{{card.imageSm}}" class="icon pull-left"/>
-    <h3 class="name">{{card.name}}</h3>
+    <h3 class="name" ng-bind="card.name"></h3>
     <hr/>
+
+    <!-- table for mobile -->
+    <div class="hidden-md hidden-lg">
+        <table class="table table-striped">
+            <tbody>
+            <tr>
+                <td tos-lan="attribute">Attribute</td>
+                <td tos-lang="{{card.attribute}}"></td>
+            </tr>
+            <tr>
+                <td tos-lang="race">Race</td>
+                <td tos-lang="{{card.race}}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

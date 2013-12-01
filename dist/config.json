@@ -1,7 +1,12 @@
 {
   "vars": {
+    "@screen-xs-min": "320px",
     "@screen-sm-min": "480px",
-    "@container-sm": "((480px + @grid-gutter-width))"
+    "@screen-md-min": "768px",
+    "@screen-lg-min": "992px",
+    "@container-sm": "((480px + @grid-gutter-width))",
+    "@container-md": "((720px + @grid-gutter-width))",
+    "@container-lg": "((940px + @grid-gutter-width))"
   },
   "css": [
     "print.less",
