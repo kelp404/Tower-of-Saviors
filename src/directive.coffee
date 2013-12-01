@@ -23,5 +23,6 @@ a.directive 'tosLang', tosLang
 tosFadeinOnload = ->
     restrict: 'A'
     link: (scope, element) ->
-        element.bind 'load', -> element.addClass 'fadein'
+        element.addClass 'fade'
+        element.bind 'load', -> element.addClass 'in'
 a.directive 'tosFadeinOnload', tosFadeinOnload

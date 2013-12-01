@@ -53,8 +53,9 @@
     return {
       restrict: 'A',
       link: function(scope, element) {
+        element.addClass('fade');
         return element.bind('load', function() {
-          return element.addClass('fadein');
+          return element.addClass('in');
         });
       }
     };
