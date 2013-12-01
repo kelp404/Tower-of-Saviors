@@ -37,4 +37,4 @@ origin:
     friendPointSeal: yes
     diamondSeal: no
     others: '首選主角 20 級抽獎'
-    levels: '第一階段封印'
+    levels: ['第一階段封印']

@@ -166,7 +166,7 @@
           id: {int} The card id.
           name: {string} The card name.
           imageSm: {string} The small image url.
-          race: {string} The card's race. [human, dragon, beast, elf, god, fiend, ee(evolve elements)]
+          race: {string} The card's race. [human, dragon, beast, elf, god, fiend, element]
           attribute: {string} The card's attribute. [light, dark, water, fire, wood]
       */
 
