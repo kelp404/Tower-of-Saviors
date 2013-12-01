@@ -1,5 +1,5 @@
 
-a = angular.module 'tos.provider', []
+a = angular.module 'tos.provider', ['tos.languageResource']
 
 a.provider '$tos', ->
     # ----------------------------------------
@@ -7,6 +7,7 @@ a.provider '$tos', ->
     # ----------------------------------------
     $injector = null
     $http = null
+    $lan = null
 
 
     # ----------------------------------------
@@ -36,6 +37,7 @@ a.provider '$tos', ->
     @setupProvider = (injector) ->
         $injector = injector
         $http = $injector.get '$http'
+        $lan = $injector.get '$lan'
 
     @getResource = (url) =>
         h = $http
@@ -80,6 +82,14 @@ a.provider '$tos', ->
         h = @getResource "data/#{@currentLanguage}/cards/#{cardId}.min.js"
         h.then (response) -> response.data
 
+    @_ = (key) =>
+        ###
+        Get the language resource by the key.
+        ###
+        text = $lan.resource[@currentLanguage][key]
+        return text if text?
+        key
+
 
     # ----------------------------------------
     # $get
@@ -89,6 +99,7 @@ a.provider '$tos', ->
 
         languages: @languages
         currentLanguage: @currentLanguage
+        _: @_
         getCards: @getCards
         getCard: @getCard
     @get.inject = ['$injector']

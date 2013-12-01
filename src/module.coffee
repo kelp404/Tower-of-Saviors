@@ -1,1 +1,1 @@
-angular.module 'tos', ['tos.router']
+angular.module 'tos', ['tos.router', 'tos.directive']

@@ -22,27 +22,93 @@
 }).call(this);
 
 (function() {
-  var a;
+  var a, tosLan;
 
   a = angular.module('tos.directive', ['tos.provider']);
 
-}).call(this);
+  tosLan = function($injector) {
+    return {
+      restrict: 'A',
+      link: function(scope, element, attrs) {
+        var $tos;
+        $tos = $injector.get('$tos');
+        return attrs.$observe('tosLan', function(value) {
+          return element.text($tos._(value));
+        });
+      }
+    };
+  };
 
-(function() {
-  angular.module('tos', ['tos.router']);
+  tosLan.$inject = ['$injector'];
+
+  a.directive('tosLan', tosLan);
 
 }).call(this);
 
 (function() {
   var a;
 
-  a = angular.module('tos.provider', []);
+  a = angular.module('tos.languageResource', []);
+
+  a.provider('$lan', function() {
+    this.resource = {
+      en: {
+        light: 'Light',
+        dark: 'Dark',
+        water: 'Water',
+        fire: 'Fire',
+        wood: 'Wood',
+        human: 'Human',
+        dragon: 'Dragon',
+        beast: 'Beast',
+        elf: 'Elf',
+        god: 'God',
+        fiend: 'Fiend',
+        ee: 'Evolve Elements',
+        lue: 'Level Up Elements'
+      },
+      'zh-TW': {
+        light: '光',
+        dark: '暗',
+        water: '水',
+        fire: '火',
+        wood: '木',
+        human: '人類',
+        dragon: '龍類',
+        beast: '獸類',
+        elf: '妖精',
+        god: '神族',
+        fiend: '魔族',
+        ee: '強化素材',
+        lue: '進化素材'
+      }
+    };
+    this.get = function() {
+      return {
+        resource: this.resource
+      };
+    };
+    this.$get = this.get;
+  });
+
+}).call(this);
+
+(function() {
+  angular.module('tos', ['tos.router', 'tos.directive']);
+
+}).call(this);
+
+(function() {
+  var a;
+
+  a = angular.module('tos.provider', ['tos.languageResource']);
 
   a.provider('$tos', function() {
-    var $http, $injector,
+    var $http, $injector, $lan,
       _this = this;
     $injector = null;
     $http = null;
+    $lan = null;
     this.languages = {
       /*
       All language codes.
@@ -71,7 +137,8 @@
     })();
     this.setupProvider = function(injector) {
       $injector = injector;
-      return $http = $injector.get('$http');
+      $http = $injector.get('$http');
+      return $lan = $injector.get('$lan');
     };
     this.getResource = function(url) {
       var h;
@@ -129,11 +196,24 @@
         return response.data;
       });
     };
+    this._ = function(key) {
+      /*
+      Get the language resource by the key.
+      */
+
+      var text;
+      text = $lan.resource[_this.currentLanguage][key];
+      if (text != null) {
+        return text;
+      }
+      return key;
+    };
     this.get = function($injector) {
       this.setupProvider($injector);
       return {
         languages: this.languages,
         currentLanguage: this.currentLanguage,
+        _: this._,
         getCards: this.getCards,
         getCard: this.getCard
       };
