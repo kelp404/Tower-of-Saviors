@@ -94,7 +94,12 @@
         species: 'Species',
         rarity: 'Rarity',
         activeSkill: 'Active Skill',
-        leaderSkill: 'Leader Skill'
+        leaderSkill: 'Leader Skill',
+        origin: 'Origin',
+        friendPointSeal: 'Friend Point Seal',
+        diamondSeal: 'Diamond Seal',
+        levels: 'Levels',
+        others: 'Others'
       },
       'zh-TW': {
         light: '光',
@@ -119,7 +124,12 @@
         species: '系列',
         rarity: '稀有',
         activeSkill: '主動技',
-        leaderSkill: '隊長技'
+        leaderSkill: '隊長技',
+        origin: '來源',
+        friendPointSeal: '友情抽獎',
+        diamondSeal: '魔法石抽獎',
+        levels: '關卡',
+        others: '其他'
       }
     };
     this.get = function() {

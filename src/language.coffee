@@ -35,6 +35,11 @@ a.provider '$lan', ->
             rarity: 'Rarity'
             activeSkill: 'Active Skill'
             leaderSkill: 'Leader Skill'
+            origin: 'Origin'
+            friendPointSeal: 'Friend Point Seal'
+            diamondSeal: 'Diamond Seal'
+            levels: 'Levels'
+            others: 'Others'
 
         # ----------------------------------------
         # Chinese
@@ -66,6 +71,11 @@ a.provider '$lan', ->
             rarity: '稀有'
             activeSkill: '主動技'
             leaderSkill: '隊長技'
+            origin: '來源'
+            friendPointSeal: '友情抽獎'
+            diamondSeal: '魔法石抽獎'
+            levels: '關卡'
+            others: '其他'
 
 
     # ----------------------------------------

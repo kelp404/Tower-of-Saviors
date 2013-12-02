@@ -8,8 +8,9 @@
     <h3 class="name" ng-bind="card.name"></h3>
     <hr/>
 
-    <!-- table for mobile -->
+    <!-- mobile -->
     <div class="hidden-md hidden-lg">
+        <!-- information -->
         <table class="table table-striped">
             <tbody>
             <tr>
@@ -37,6 +38,7 @@
             </tbody>
         </table>
 
+        <!-- basic properties -->
         <table class="table table-striped">
             <thead>
             <tr>
@@ -65,6 +67,7 @@
             </tbody>
         </table>
 
+        <!-- skills -->
         <h4 tos-lang="activeSkill"></h4>
         <blockquote>
             <p ng-bind="card.activeSkill.name"></p>
@@ -75,5 +78,39 @@
             <p ng-bind="card.leaderSkill.name"></p>
             <small ng-bind="card.leaderSkill.description"></small>
         </blockquote>
+
+        <!-- origin -->
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th tos-lang="origin"></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td tos-lang="friendPointSeal"></td>
+                <td>
+                    <span ng-if="card.origin.friendPointSeal" class="glyphicon glyphicon-ok text-success"></span>
+                    <span ng-if="!card.origin.friendPointSeal" class="glyphicon glyphicon-remove text-muted"></span>
+                </td>
+            </tr>
+            <tr>
+                <td tos-lang="diamondSeal"></td>
+                <td>
+                    <span ng-if="card.origin.diamondSeal" class="glyphicon glyphicon-ok text-success"></span>
+                    <span ng-if="!card.origin.diamondSeal" class="glyphicon glyphicon-remove text-muted"></span>
+                </td>
+            </tr>
+            <tr>
+                <td tos-lang="levels"></td>
+                <td><div ng-repeat="text in card.origin.levels track by $index" ng-bind="text"></div></td>
+            </tr>
+            <tr>
+                <td tos-lang="others"></td>
+                <td><div ng-repeat="text in card.origin.others track by $index" ng-bind="text"></div></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>

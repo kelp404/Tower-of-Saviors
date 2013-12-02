@@ -31,7 +31,7 @@ leaderSkill:
     description: '連擊 (Combo) 時攻擊力提升'
 evolve:
     origin: null
-    resource: null
+    resources: null
     result: null
 origin:
     friendPointSeal: yes

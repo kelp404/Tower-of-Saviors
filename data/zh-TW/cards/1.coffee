@@ -31,10 +31,10 @@ leaderSkill:
     description: '水屬性攻擊 1.5 倍'
 evolve:
     origin: null
-    resource: [264]
+    resources: [264]
     result: 2
 origin:
     friendPointSeal: yes
     diamondSeal: no
-    others: '首選主角 20 級抽獎'
+    others: ['首選主角 20 級抽獎']
     levels: ['第一階段封印']
