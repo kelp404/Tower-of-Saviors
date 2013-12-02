@@ -34,7 +34,7 @@ config = ($stateProvider, $urlRouterProvider) ->
         url: '/cards/:cardId'
         resolve:
             card: ['$tos', '$stateParams', ($tos, $stateParams) ->
-                $tos.getCard $stateParams.cardId
+                $tos.getCard $stateParams.cardId, yes
             ]
         views:
             nav: navigation

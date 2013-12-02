@@ -79,6 +79,23 @@
             <small ng-bind="card.leaderSkill.description"></small>
         </blockquote>
 
+        <!-- evolve -->
+        <div ng-if="card.evolve.origin || card.evolve.result" class="evolve">
+            <span ng-if="card.evolve.origin">
+                <img ng-src="{{dependencies.cards[card.evolve.origin].imageSm}}"/>
+                <span class="glyphicon glyphicon-arrow-right text-success"></span>
+            </span>
+            <img ng-src="{{card.imageSm}}"/>
+            <span ng-if="card.evolve.resources">
+                <span class="glyphicon glyphicon-plus text-success"></span>
+                <img ng-repeat="id in card.evolve.resources track by $index" ng-src="{{dependencies.cards[id].imageSm}}"/>
+            </span>
+            <span ng-if="card.evolve.result">
+                <span class="glyphicon glyphicon-arrow-right text-info"></span>
+                <img ng-src="{{dependencies.cards[card.evolve.result].imageSm}}"/>
+            </span>
+        </div>
+
         <!-- origin -->
         <table class="table table-striped">
             <thead>

@@ -78,9 +78,12 @@ a.provider '$tos', ->
                 result.push cards[id]
             result
 
-    @getCard = (cardId) =>
+    @getCard = (cardId, isForRouter=no) =>
         h = @getResource "data/#{@currentLanguage}/cards/#{cardId}.min.js"
-        h.then (response) -> response.data
+        if isForRouter
+            h.then (response) -> response.data
+        else
+            h
 
     @_ = (key) =>
         ###

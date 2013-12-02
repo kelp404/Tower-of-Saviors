@@ -12,17 +12,38 @@
   a.controller('IndexController', IndexController);
 
   CardController = function($scope, $injector, card) {
-    var $rootScope, _i, _ref, _results;
+    var $rootScope, $tos, id, _i, _j, _len, _ref, _ref1, _results;
+    $tos = $injector.get('$tos');
     $rootScope = $injector.get('$rootScope');
     $rootScope.$state.current.resolve.title = function() {
       return "" + card.name + " - ";
     };
     $scope.card = card;
-    return $scope.rarityArray = (function() {
+    $scope.rarityArray = (function() {
       _results = [];
       for (var _i = 0, _ref = card.rarity; 0 <= _ref ? _i < _ref : _i > _ref; 0 <= _ref ? _i++ : _i--){ _results.push(_i); }
       return _results;
     }).apply(this);
+    $scope.dependencies = {
+      cards: {}
+    };
+    if (card.evolve.origin) {
+      $tos.getCard(card.evolve.origin).success(function(data) {
+        return $scope.dependencies.cards[card.evolve.origin] = data;
+      });
+    }
+    _ref1 = card.evolve.resources;
+    for (_j = 0, _len = _ref1.length; _j < _len; _j++) {
+      id = _ref1[_j];
+      $tos.getCard(id).success(function(data) {
+        return $scope.dependencies.cards[id] = data;
+      });
+    }
+    if (card.evolve.result) {
+      return $tos.getCard(card.evolve.result).success(function(data) {
+        return $scope.dependencies.cards[card.evolve.result] = data;
+      });
+    }
   };
 
   CardController.$inject = ['$scope', '$injector', 'card'];
@@ -242,12 +263,19 @@
         return result;
       });
     };
-    this.getCard = function(cardId) {
+    this.getCard = function(cardId, isForRouter) {
       var h;
+      if (isForRouter == null) {
+        isForRouter = false;
+      }
       h = _this.getResource("data/" + _this.currentLanguage + "/cards/" + cardId + ".min.js");
-      return h.then(function(response) {
-        return response.data;
-      });
+      if (isForRouter) {
+        return h.then(function(response) {
+          return response.data;
+        });
+      } else {
+        return h;
+      }
     };
     this._ = function(key) {
       /*
@@ -310,7 +338,7 @@
       resolve: {
         card: [
           '$tos', '$stateParams', function($tos, $stateParams) {
-            return $tos.getCard($stateParams.cardId);
+            return $tos.getCard($stateParams.cardId, true);
           }
         ]
       },
