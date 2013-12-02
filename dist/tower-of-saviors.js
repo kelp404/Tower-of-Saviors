@@ -12,7 +12,11 @@
   a.controller('IndexController', IndexController);
 
   CardController = function($scope, $injector, card) {
-    var _i, _ref, _results;
+    var $rootScope, _i, _ref, _results;
+    $rootScope = $injector.get('$rootScope');
+    $rootScope.$state.current.resolve.title = function() {
+      return "" + card.name + " - ";
+    };
     $scope.card = card;
     return $scope.rarityArray = (function() {
       _results = [];

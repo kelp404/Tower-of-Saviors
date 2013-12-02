@@ -17,6 +17,9 @@ a.controller 'IndexController', IndexController
 # CardController
 # ----------------------------------------
 CardController = ($scope, $injector, card) ->
+    $rootScope = $injector.get '$rootScope'
+    $rootScope.$state.current.resolve.title = -> "#{card.name} - "
+
     $scope.card = card
     $scope.rarityArray = [0...card.rarity]
 
