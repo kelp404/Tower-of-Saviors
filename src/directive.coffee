@@ -18,6 +18,18 @@ a.directive 'tosLang', tosLang
 
 
 # ----------------------------------------
+# tos-goto-top
+# ----------------------------------------
+tosGotoTop = ->
+    restrict: 'A'
+    link: (scope, element) ->
+        element.click ->
+            $('html, body').animate scrollTop: 0, 300
+            no
+a.directive 'tosGotoTop', tosGotoTop
+
+
+# ----------------------------------------
 # tos-fadein-onload
 # ----------------------------------------
 tosFadeinOnload = ->

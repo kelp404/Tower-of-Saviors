@@ -85,7 +85,7 @@
                 <a href="#/cards/{{card.evolve.origin}}"><img ng-src="{{dependencies.cards[card.evolve.origin].imageSm}}"/></a>
                 <span class="glyphicon glyphicon-arrow-right text-success"></span>
             </span>
-            <img ng-src="{{card.imageSm}}"/>
+            <a href="#" tos-goto-top><img ng-src="{{card.imageSm}}"/></a>
             <span ng-if="card.evolve.resources">
                 <span class="glyphicon glyphicon-plus text-success"></span>
                 <a ng-repeat="id in card.evolve.resources track by $index" href="#/cards/{{id}}"><img ng-src="{{dependencies.cards[id].imageSm}}"/></a>

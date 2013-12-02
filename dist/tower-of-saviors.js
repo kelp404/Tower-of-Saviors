@@ -121,7 +121,7 @@
 }).call(this);
 
 (function() {
-  var a, tosFadeinOnload, tosLang;
+  var a, tosFadeinOnload, tosGotoTop, tosLang;
 
   a = angular.module('tos.directive', ['tos.provider']);
 
@@ -141,6 +141,22 @@
   tosLang.$inject = ['$injector'];
 
   a.directive('tosLang', tosLang);
+
+  tosGotoTop = function() {
+    return {
+      restrict: 'A',
+      link: function(scope, element) {
+        return element.click(function() {
+          $('html, body').animate({
+            scrollTop: 0
+          }, 300);
+          return false;
+        });
+      }
+    };
+  };
+
+  a.directive('tosGotoTop', tosGotoTop);
 
   tosFadeinOnload = function() {
     return {
