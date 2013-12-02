@@ -82,17 +82,17 @@
         <!-- evolve -->
         <div ng-if="card.evolve.origin || card.evolve.result" class="evolve">
             <span ng-if="card.evolve.origin">
-                <img ng-src="{{dependencies.cards[card.evolve.origin].imageSm}}"/>
+                <a href="#/cards/{{card.evolve.origin}}"><img ng-src="{{dependencies.cards[card.evolve.origin].imageSm}}"/></a>
                 <span class="glyphicon glyphicon-arrow-right text-success"></span>
             </span>
             <img ng-src="{{card.imageSm}}"/>
             <span ng-if="card.evolve.resources">
                 <span class="glyphicon glyphicon-plus text-success"></span>
-                <img ng-repeat="id in card.evolve.resources track by $index" ng-src="{{dependencies.cards[id].imageSm}}"/>
+                <a ng-repeat="id in card.evolve.resources track by $index" href="#/cards/{{id}}"><img ng-src="{{dependencies.cards[id].imageSm}}"/></a>
             </span>
             <span ng-if="card.evolve.result">
                 <span class="glyphicon glyphicon-arrow-right text-info"></span>
-                <img ng-src="{{dependencies.cards[card.evolve.result].imageSm}}"/>
+                <a href="#/cards/{{card.evolve.result}}"><img ng-src="{{dependencies.cards[card.evolve.result].imageSm}}"/></a>
             </span>
         </div>
 
