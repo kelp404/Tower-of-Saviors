@@ -374,12 +374,13 @@
     });
     return $rootScope.$on('$stateChangeError', function() {
       NProgress.done();
-      return $.av.pop({
+      $.av.pop({
         title: 'Error',
         message: 'The route loading failed.',
         template: 'error',
         mode: 'notification'
       });
+      return history.back();
     });
   };
 

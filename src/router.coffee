@@ -70,6 +70,7 @@ run = ($injector) ->
             message: 'The route loading failed.'
             template: 'error'
             mode: 'notification'
+        history.back()
 
 run.inject = ['$injector']
 a.run run
