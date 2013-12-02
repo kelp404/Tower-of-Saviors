@@ -6,27 +6,25 @@
     <div class="navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="return false;"><span tos-lang="attribute">Attribute</span> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">One more separated link</a></li>
+                    <li ng-class="{active: isActive('light')}"><a href="{{href('light')}}" tos-lang="light">Light</a></li>
+                    <li ng-class="{active: isActive('dark')}"><a href="{{href('dark')}}" tos-lang="dark">Dark</a></li>
+                    <li ng-class="{active: isActive('water')}"><a href="{{href('water')}}" tos-lang="water">Water</a></li>
+                    <li ng-class="{active: isActive('fire')}"><a href="{{href('fire')}}" tos-lang="fire">Fire</a></li>
+                    <li ng-class="{active: isActive('wood')}"><a href="{{href('wood')}}" tos-lang="wood">Wood</a></li>
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" onclick="return false;"><span tos-lang="race">Race</span> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">One more separated link</a></li>
+                    <li ng-class="{active: isActive('god')}"><a href="{{href('god')}}" tos-lang="god">God</a></li>
+                    <li ng-class="{active: isActive('fiend')}"><a href="{{href('fiend')}}" tos-lang="fiend">Fiend</a></li>
+                    <li ng-class="{active: isActive('human')}"><a href="{{href('human')}}" tos-lang="human">Human</a></li>
+                    <li ng-class="{active: isActive('beast')}"><a href="{{href('beast')}}" tos-lang="beast">Beast</a></li>
+                    <li ng-class="{active: isActive('dragon')}"><a href="{{href('dragon')}}" tos-lang="dragon">Dragon</a></li>
+                    <li ng-class="{active: isActive('elf')}"><a href="{{href('elf')}}" tos-lang="elf">Elf</a></li>
+                    <li ng-class="{active: isActive('element')}"><a href="{{href('element')}}" tos-lang="element">Element</a></li>
                 </ul>
             </li>
         </ul>
@@ -46,21 +44,21 @@
     </div>
     <div class="collapse navbar-collapse" id="navbar-mobile">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#" tos-lang="light">Light</a></li>
-            <li><a href="#" tos-lang="dark">Dark</a></li>
-            <li><a href="#" tos-lang="water">Water</a></li>
-            <li><a href="#" tos-lang="fire">Fire</a></li>
-            <li><a href="#" tos-lang="wood">Wood</a></li>
+            <li ng-class="{active: isActive('light')}"><a href="{{href('light')}}" tos-lang="light">Light</a></li>
+            <li ng-class="{active: isActive('dark')}"><a href="{{href('dark')}}" tos-lang="dark">Dark</a></li>
+            <li ng-class="{active: isActive('water')}"><a href="{{href('water')}}" tos-lang="water">Water</a></li>
+            <li ng-class="{active: isActive('fire')}"><a href="{{href('fire')}}" tos-lang="fire">Fire</a></li>
+            <li ng-class="{active: isActive('wood')}"><a href="{{href('wood')}}" tos-lang="wood">Wood</a></li>
         </ul>
         <hr/>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#" tos-lang="god">God</a></li>
-            <li><a href="#" tos-lang="fiend">Fiend</a></li>
-            <li><a href="#" tos-lang="human">Human</a></li>
-            <li><a href="#" tos-lang="beast">Beast</a></li>
-            <li><a href="#" tos-lang="dragon">Dragon</a></li>
-            <li><a href="#" tos-lang="elf">Elf</a></li>
-            <li><a href="#" tos-lang="element">Element</a></li>
+            <li ng-class="{active: isActive('god')}"><a href="{{href('god')}}" tos-lang="god">God</a></li>
+            <li ng-class="{active: isActive('fiend')}"><a href="{{href('fiend')}}" tos-lang="fiend">Fiend</a></li>
+            <li ng-class="{active: isActive('human')}"><a href="{{href('human')}}" tos-lang="human">Human</a></li>
+            <li ng-class="{active: isActive('beast')}"><a href="{{href('beast')}}" tos-lang="beast">Beast</a></li>
+            <li ng-class="{active: isActive('dragon')}"><a href="{{href('dragon')}}" tos-lang="dragon">Dragon</a></li>
+            <li ng-class="{active: isActive('elf')}"><a href="{{href('elf')}}" tos-lang="elf">Elf</a></li>
+            <li ng-class="{active: isActive('element')}"><a href="{{href('element')}}" tos-lang="element">Element</a></li>
         </ul>
     </div>
 </nav>

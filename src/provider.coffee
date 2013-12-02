@@ -85,6 +85,24 @@ a.provider '$tos', ->
         else
             h
 
+    @searchCards = (keywords, cards) =>
+        attributes = []
+        races = []
+        for keyword in keywords
+            switch keyword
+                when 'human', 'dragon', 'beast', 'elf', 'god', 'fiend', 'element'
+                    races.push keyword
+                when 'light', 'dark', 'water', 'fire', 'wood'
+                    attributes.push keyword
+                else
+        result = []
+        for card in cards
+            if card.attribute in attributes
+                result.push card
+            else if card.race in races
+                result.push card
+        result
+
     @_ = (key) =>
         ###
         Get the language resource by the key.
@@ -105,6 +123,7 @@ a.provider '$tos', ->
         _: @_
         getCards: @getCards
         getCard: @getCard
+        searchCards: @searchCards
     @get.inject = ['$injector']
     @$get = @get
     return

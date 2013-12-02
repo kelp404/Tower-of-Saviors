@@ -1,15 +1,83 @@
 (function() {
-  var CardController, IndexController, a;
+  var CardController, IndexController, NavigationController, SearchController, a,
+    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   a = angular.module('tos.controller', ['tos.provider']);
 
-  IndexController = function($scope, $injector, cards) {
+  NavigationController = function($scope, $injector) {
+    var $state, $stateParams, keyword, _i, _len, _ref;
+    $stateParams = $injector.get('$stateParams');
+    $state = $injector.get('$state');
+    $scope.keywords = [];
+    if ($stateParams.keywords != null) {
+      _ref = $stateParams.keywords.split(',');
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        keyword = _ref[_i];
+        keyword = keyword.trim().toLowerCase();
+        if (keyword !== '') {
+          $scope.keywords.push(keyword);
+        }
+      }
+    }
+    $scope.isActive = function(link) {
+      return __indexOf.call($scope.keywords, link) >= 0;
+    };
+    $scope.href = function(link) {
+      var keywords, x;
+      if (__indexOf.call($scope.keywords, link) >= 0) {
+        keywords = (function() {
+          var _j, _len1, _ref1, _results;
+          _ref1 = $scope.keywords;
+          _results = [];
+          for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+            x = _ref1[_j];
+            if (x !== link) {
+              _results.push(x);
+            }
+          }
+          return _results;
+        })();
+        return "#/search/" + (keywords.join(','));
+      } else {
+        return "#/search/" + ($scope.keywords.join(',')) + "," + link;
+      }
+    };
+    if ($state.current.name === 'search' && $scope.keywords.length === 0) {
+      return location.href = '#/';
+    }
+  };
+
+  NavigationController.$inject = ['$scope', '$injector'];
+
+  a.controller('NavigationController', NavigationController);
+
+  IndexController = function($scope, cards) {
     return $scope.cards = cards;
   };
 
-  IndexController.$inject = ['$scope', '$injector', 'cards'];
+  IndexController.$inject = ['$scope', 'cards'];
 
   a.controller('IndexController', IndexController);
+
+  SearchController = function($scope, $injector, cards) {
+    var $stateParams, $tos, keyword, keywords, _i, _len, _ref;
+    $stateParams = $injector.get('$stateParams');
+    $tos = $injector.get('$tos');
+    if ($stateParams.keywords == null) {
+      $stateParams.keywords = '';
+    }
+    keywords = [];
+    _ref = $stateParams.keywords.split(',');
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      keyword = _ref[_i];
+      keywords.push(keyword.trim().toLowerCase());
+    }
+    return $scope.cards = $tos.searchCards(keywords, cards);
+  };
+
+  SearchController.$inject = ['$scope', '$injector', 'cards'];
+
+  a.controller('SearchController', SearchController);
 
   CardController = function($scope, $injector, card) {
     var $rootScope, $tos, id, _i, _j, _len, _ref, _ref1, _results;
@@ -173,7 +241,8 @@
 }).call(this);
 
 (function() {
-  var a;
+  var a,
+    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   a = angular.module('tos.provider', ['tos.languageResource']);
 
@@ -277,6 +346,42 @@
         return h;
       }
     };
+    this.searchCards = function(keywords, cards) {
+      var attributes, card, keyword, races, result, _i, _j, _len, _len1, _ref, _ref1;
+      attributes = [];
+      races = [];
+      for (_i = 0, _len = keywords.length; _i < _len; _i++) {
+        keyword = keywords[_i];
+        switch (keyword) {
+          case 'human':
+          case 'dragon':
+          case 'beast':
+          case 'elf':
+          case 'god':
+          case 'fiend':
+          case 'element':
+            races.push(keyword);
+            break;
+          case 'light':
+          case 'dark':
+          case 'water':
+          case 'fire':
+          case 'wood':
+            attributes.push(keyword);
+            break;
+        }
+      }
+      result = [];
+      for (_j = 0, _len1 = cards.length; _j < _len1; _j++) {
+        card = cards[_j];
+        if (_ref = card.attribute, __indexOf.call(attributes, _ref) >= 0) {
+          result.push(card);
+        } else if (_ref1 = card.race, __indexOf.call(races, _ref1) >= 0) {
+          result.push(card);
+        }
+      }
+      return result;
+    };
     this._ = function(key) {
       /*
       Get the language resource by the key.
@@ -296,7 +401,8 @@
         currentLanguage: this.currentLanguage,
         _: this._,
         getCards: this.getCards,
-        getCard: this.getCard
+        getCard: this.getCard,
+        searchCards: this.searchCards
       };
     };
     this.get.inject = ['$injector'];
@@ -314,7 +420,8 @@
     var navigation;
     $urlRouterProvider.otherwise('/');
     navigation = {
-      templateUrl: 'views/menu/navigation.html'
+      templateUrl: 'views/menu/navigation.html',
+      controller: 'NavigationController'
     };
     $stateProvider.state('index', {
       url: '/',
@@ -330,6 +437,23 @@
         content: {
           templateUrl: 'views/content/cards.html',
           controller: 'IndexController'
+        }
+      }
+    });
+    $stateProvider.state('search', {
+      url: '/search/:keywords',
+      resolve: {
+        cards: [
+          '$tos', function($tos) {
+            return $tos.getCards();
+          }
+        ]
+      },
+      views: {
+        nav: navigation,
+        content: {
+          templateUrl: 'views/content/cards.html',
+          controller: 'SearchController'
         }
       }
     });

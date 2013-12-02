@@ -10,6 +10,7 @@ config = ($stateProvider, $urlRouterProvider) ->
 
     navigation =
         templateUrl: 'views/menu/navigation.html'
+        controller: 'NavigationController'
 
     # ----------------------------------------
     # index
@@ -26,6 +27,20 @@ config = ($stateProvider, $urlRouterProvider) ->
                 templateUrl: 'views/content/cards.html'
                 controller: 'IndexController'
 
+    # ----------------------------------------
+    # search
+    # ----------------------------------------
+    $stateProvider.state 'search',
+        url: '/search/:keywords'
+        resolve:
+            cards: ['$tos', ($tos) ->
+                $tos.getCards()
+            ]
+        views:
+            nav: navigation
+            content:
+                templateUrl: 'views/content/cards.html'
+                controller: 'SearchController'
 
     # ----------------------------------------
     # card details
