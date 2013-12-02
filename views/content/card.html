@@ -1,15 +1,15 @@
 <div class="card">
-    <img ng-src="{{card.imageMd}}" class="img-responsive visible-md pull-right" style="max-width: 420px;"/>
-    <img ng-src="{{card.imageMd}}" class="img-responsive hidden-md pull-right"/>
+    <!--<img ng-src="{{card.imageMd}}" class="img-responsive pull-right" style="max-width: 420px;"/>-->
+    <img ng-src="{{card.imageMd}}" class="img-responsive pull-right col-xs-12 col-md-6 no-padding"/>
     <div class="visible-xs visible-sm" style="height: 7px; clear: both;"></div>
 
     <!-- icon, name -->
-    <img ng-src="{{card.imageSm}}" class="icon pull-left"/>
-    <h3 class="name" ng-bind="card.name"></h3>
-    <hr/>
+    <div class="col-xs-12 col-md-6 information">
+        <img ng-src="{{card.imageSm}}" class="icon pull-left"/>
+        <h3 class="name" ng-bind="card.name"></h3>
+    </div>
 
-    <!-- mobile -->
-    <div class="hidden-md hidden-lg">
+    <div class="col-xs-12 col-md-6">
         <!-- information -->
         <table class="table table-striped">
             <tbody>
@@ -37,7 +37,9 @@
             </tr>
             </tbody>
         </table>
+    </div>
 
+    <div class="col-xs-12">
         <!-- basic properties -->
         <table class="table table-striped">
             <thead>
