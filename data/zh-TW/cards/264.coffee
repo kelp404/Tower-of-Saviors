@@ -1,7 +1,7 @@
 id: 264
 name: '詛咒之劍'
-imageSm: 'images/cards/264-100.png'
-imageMd: 'images/cards/264-600.png'
+imageSm: 'images/cards/100/264.png'
+imageMd: 'images/cards/600/264.png'
 race: 'element'
 attribute: 'fire'
 species: '進化素材'

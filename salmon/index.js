@@ -61,8 +61,8 @@
             src = $(img).attr('src');
           }
           src = src.replace(/thumb\/|\/60px-.*/g, '');
-          fileName = src.match(/^.*\/([0-9]+i\.png)$/)[1].replace('i.png', '-100.png');
-          _results.push(_this.fetchImage(src, fileName));
+          fileName = src.match(/^.*\/([0-9]+i\.png)$/)[1].replace('i.png', '.png');
+          _results.push(_this.fetchImage(src, "100/" + fileName));
         }
         return _results;
       });
@@ -78,18 +78,17 @@
       });
     };
 
-    Salmon.prototype.fetchCards = function() {
+    Salmon.prototype.fetchCards = function(start) {
       var cards,
         _this = this;
       cards = {};
       return this.fetchIndex(function(error, response, body) {
-        var $, link, total, _i, _len, _ref, _results;
+        var $, index, link, total, _i, _ref, _results;
         $ = _this.setupJquery(body);
         total = $('#mw-content-text a').length;
-        _ref = $('#mw-content-text a');
         _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          link = _ref[_i];
+        for (index = _i = start, _ref = $('#mw-content-text a').length; _i < _ref; index = _i += 1) {
+          link = $('#mw-content-text a')[index];
           _results.push(_this.fetchCard("" + _this.origin + ($(link).attr('href')), cards, total));
         }
         return _results;
@@ -107,8 +106,9 @@
           name: name
         };
         if (Object.keys(pool).length === total) {
-          return console.log('done');
+          console.log('done');
         }
+        return _this.fetchImage($('#mw-content-text img:first').attr('src'), "600/" + id + ".png");
       });
     };
 
@@ -118,6 +118,6 @@
 
   salmon = new Salmon();
 
-  salmon.fetchCards();
+  salmon.fetchCards(0);
 
 }).call(this);

@@ -37,19 +37,20 @@ class Salmon
                 src = $(img).attr 'data-src'
                 src ?= $(img).attr 'src'
                 src = src.replace /thumb\/|\/60px-.*/g, ''
-                fileName = src.match(/^.*\/([0-9]+i\.png)$/)[1].replace 'i.png', '-100.png'
-                @fetchImage src, fileName
+                fileName = src.match(/^.*\/([0-9]+i\.png)$/)[1].replace 'i.png', '.png'
+                @fetchImage src, "100/#{fileName}"
 
     fetchImage: (url, fileName) =>
         @request url: url, encoding: null, (error, response, body) =>
             @fs.writeFile "images/cards/#{fileName}", body
 
-    fetchCards: =>
+    fetchCards: (start) =>
         cards = {}
         @fetchIndex (error, response, body) =>
             $ = @setupJquery body
             total = $('#mw-content-text a').length
-            for link in $('#mw-content-text a')
+            for index in [start...$('#mw-content-text a').length] by 1
+                link = $('#mw-content-text a')[index]
                 @fetchCard "#{@origin}#{$(link).attr('href')}", cards, total
 
     fetchCard: (url, pool, total) =>
@@ -61,9 +62,9 @@ class Salmon
                 name: name
             if Object.keys(pool).length is total
                 console.log 'done'
-#            @fetchImage $('#mw-content-text img:first').attr('src'), "#{id}-600.png"
+            @fetchImage $('#mw-content-text img:first').attr('src'), "600/#{id}.png"
 
 
 salmon = new Salmon()
 #salmon.fetchIcons()
-salmon.fetchCards()
+salmon.fetchCards 0

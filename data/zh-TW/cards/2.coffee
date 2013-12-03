@@ -1,7 +1,7 @@
 id: 2
 name: '高級水術士莫莉'
-imageSm: 'images/cards/002-100.png'
-imageMd: 'images/cards/002-600.png'
+imageSm: 'images/cards/100/002.png'
+imageMd: 'images/cards/600/002.png'
 race: 'human'
 attribute: 'water'
 species: '主角'

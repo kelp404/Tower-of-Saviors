@@ -1,7 +1,7 @@
 id: 1
 name: '莫莉'
-imageSm: 'images/cards/001-100.png'
-imageMd: 'images/cards/001-600.png'
+imageSm: 'images/cards/100/001.png'
+imageMd: 'images/cards/600/001.png'
 race: 'human'
 attribute: 'water'
 species: '主角'
