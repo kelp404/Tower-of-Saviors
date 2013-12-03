@@ -44,27 +44,88 @@ class Salmon
         @request url: url, encoding: null, (error, response, body) =>
             @fs.writeFile "images/cards/#{fileName}", body
 
-    fetchCards: (start) =>
+    fetchCards: (start, end) =>
         cards = {}
         @fetchIndex (error, response, body) =>
             $ = @setupJquery body
             total = $('#mw-content-text a').length
-            for index in [start...$('#mw-content-text a').length] by 1
+            for index in [start..end] by 1 when index < total
                 link = $('#mw-content-text a')[index]
-                @fetchCard "#{@origin}#{$(link).attr('href')}", cards, total
+                @fetchCard "#{@origin}#{$(link).attr('href')}", cards, end - start + 1
 
     fetchCard: (url, pool, total) =>
         @request url, (error, response, body) =>
             $ = @setupJquery body
-            id = $($('.wikitable tr')[1]).find('td:first').text().replace /\s/g, ''
-            name = $($('.wikitable tr')[0]).find('td').text().replace /\s/g, ''
+            id = $($('.wikitable tr')[1]).find('td:first').text().trim()
+            name = $($($('.wikitable tr')[0]).find('td')[1]).text().trim()
+            race = $($($('.wikitable tr')[1]).find('td')[3]).text().trim()
+            attribute = $($($('.wikitable tr')[0]).find('td')[2]).text().trim()
+
             pool[id] =
                 name: name
+                imageSm: "images/cards/100/#{id}.png"
+                race: @bleachRace race
+                attribute: @bleachAttribute attribute
             if Object.keys(pool).length is total
-                console.log 'done'
-            @fetchImage $('#mw-content-text img:first').attr('src'), "600/#{id}.png"
+                @writeCardsCoffee pool
+#            @fetchImage $('#mw-content-text img:first').attr('src'), "600/#{id}.png"
+
+    writeCardsCoffee: (cards) =>
+        coffee = ''
+        ids = Object.keys(cards).sort()
+        for id in ids
+            card = cards[id]
+            coffee +=
+                """
+                #{id * 1}:
+                    name: '#{card.name}'
+                    imageSm: '#{card.imageSm}'
+                    race: '#{card.race}'
+                    attribute: '#{card.attribute}'
+
+                """
+        @fs.writeFile "data/#{@lang}/cards.coffee", coffee
+        console.log "written #{Object.keys(cards).length} items."
+
+    bleachRace: (source) ->
+        race = source
+        switch source.toLowerCase()
+            when 'human', '人類'
+                race = 'human'
+            when 'dragon', '龍族', '龍類'
+                race = 'dragon'
+            when 'beast', '獸族', '獸類'
+                race = 'beast'
+            when 'elf', '妖精', '妖精類'
+                race = 'elf'
+            when 'god', '神族'
+                race = 'god'
+            when 'fiend', '魔族'
+                race = 'fiend'
+            when '強化素材', '進化素材'
+                race = 'element'
+            else
+                console.error "bleach race failed: #{race}"
+        race
+
+    bleachAttribute: (source) ->
+        attribute = source
+        switch source.toLowerCase()
+            when 'light', '光'
+                attribute = 'light'
+            when 'dark', '暗'
+                attribute = 'dark'
+            when 'water', '水'
+                attribute = 'water'
+            when 'fire', '火'
+                attribute = 'fire'
+            when 'wood', '木'
+                attribute = 'wood'
+            else
+                console.error "bleach attribute failed: #{source}"
+        attribute
 
 
 salmon = new Salmon()
 #salmon.fetchIcons()
-salmon.fetchCards 0
+salmon.fetchCards 0, 50

@@ -6,6 +6,7 @@
     function Salmon(lang, url) {
       this.lang = lang;
       this.url = url;
+      this.writeCardsCoffee = __bind(this.writeCardsCoffee, this);
       this.fetchCard = __bind(this.fetchCard, this);
       this.fetchCards = __bind(this.fetchCards, this);
       this.fetchImage = __bind(this.fetchImage, this);
@@ -78,18 +79,21 @@
       });
     };
 
-    Salmon.prototype.fetchCards = function(start) {
+    Salmon.prototype.fetchCards = function(start, end) {
       var cards,
         _this = this;
       cards = {};
       return this.fetchIndex(function(error, response, body) {
-        var $, index, link, total, _i, _ref, _results;
+        var $, index, link, total, _i, _results;
         $ = _this.setupJquery(body);
         total = $('#mw-content-text a').length;
         _results = [];
-        for (index = _i = start, _ref = $('#mw-content-text a').length; _i < _ref; index = _i += 1) {
+        for (index = _i = start; _i <= end; index = _i += 1) {
+          if (!(index < total)) {
+            continue;
+          }
           link = $('#mw-content-text a')[index];
-          _results.push(_this.fetchCard("" + _this.origin + ($(link).attr('href')), cards, total));
+          _results.push(_this.fetchCard("" + _this.origin + ($(link).attr('href')), cards, end - start + 1));
         }
         return _results;
       });
@@ -98,18 +102,106 @@
     Salmon.prototype.fetchCard = function(url, pool, total) {
       var _this = this;
       return this.request(url, function(error, response, body) {
-        var $, id, name;
+        var $, attribute, id, name, race;
         $ = _this.setupJquery(body);
-        id = $($('.wikitable tr')[1]).find('td:first').text().replace(/\s/g, '');
-        name = $($('.wikitable tr')[0]).find('td').text().replace(/\s/g, '');
+        id = $($('.wikitable tr')[1]).find('td:first').text().trim();
+        name = $($($('.wikitable tr')[0]).find('td')[1]).text().trim();
+        race = $($($('.wikitable tr')[1]).find('td')[3]).text().trim();
+        attribute = $($($('.wikitable tr')[0]).find('td')[2]).text().trim();
         pool[id] = {
-          name: name
+          name: name,
+          imageSm: "images/cards/100/" + id + ".png",
+          race: _this.bleachRace(race),
+          attribute: _this.bleachAttribute(attribute)
         };
         if (Object.keys(pool).length === total) {
-          console.log('done');
+          return _this.writeCardsCoffee(pool);
         }
-        return _this.fetchImage($('#mw-content-text img:first').attr('src'), "600/" + id + ".png");
       });
+    };
+
+    Salmon.prototype.writeCardsCoffee = function(cards) {
+      var card, coffee, id, ids, _i, _len;
+      coffee = '';
+      ids = Object.keys(cards).sort();
+      for (_i = 0, _len = ids.length; _i < _len; _i++) {
+        id = ids[_i];
+        card = cards[id];
+        coffee += "" + (id * 1) + ":\n    name: '" + card.name + "'\n    imageSm: '" + card.imageSm + "'\n    race: '" + card.race + "'\n    attribute: '" + card.attribute + "'\n";
+      }
+      this.fs.writeFile("data/" + this.lang + "/cards.coffee", coffee);
+      return console.log("written " + (Object.keys(cards).length) + " items.");
+    };
+
+    Salmon.prototype.bleachRace = function(source) {
+      var race;
+      race = source;
+      switch (source.toLowerCase()) {
+        case 'human':
+        case '人類':
+          race = 'human';
+          break;
+        case 'dragon':
+        case '龍族':
+        case '龍類':
+          race = 'dragon';
+          break;
+        case 'beast':
+        case '獸族':
+        case '獸類':
+          race = 'beast';
+          break;
+        case 'elf':
+        case '妖精':
+        case '妖精類':
+          race = 'elf';
+          break;
+        case 'god':
+        case '神族':
+          race = 'god';
+          break;
+        case 'fiend':
+        case '魔族':
+          race = 'fiend';
+          break;
+        case '強化素材':
+        case '進化素材':
+          race = 'element';
+          break;
+        default:
+          console.error("bleach race failed: " + race);
+      }
+      return race;
+    };
+
+    Salmon.prototype.bleachAttribute = function(source) {
+      var attribute;
+      attribute = source;
+      switch (source.toLowerCase()) {
+        case 'light':
+        case '光':
+          attribute = 'light';
+          break;
+        case 'dark':
+        case '暗':
+          attribute = 'dark';
+          break;
+        case 'water':
+        case '水':
+          attribute = 'water';
+          break;
+        case 'fire':
+        case '火':
+          attribute = 'fire';
+          break;
+        case 'wood':
+        case '木':
+          attribute = 'wood';
+          break;
+        default:
+          console.error("bleach attribute failed: " + source);
+      }
+      return attribute;
     };
 
     return Salmon;
@@ -118,6 +210,6 @@
 
   salmon = new Salmon();
 
-  salmon.fetchCards(0);
+  salmon.fetchCards(0, 50);
 
 }).call(this);
