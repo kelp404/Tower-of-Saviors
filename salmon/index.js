@@ -6,7 +6,11 @@
     function Salmon(lang, url) {
       this.lang = lang;
       this.url = url;
-      this.fetchImages = __bind(this.fetchImages, this);
+      this.fetchCards = __bind(this.fetchCards, this);
+      this.fetchIcon = __bind(this.fetchIcon, this);
+      this.fetchIcons = __bind(this.fetchIcons, this);
+      this.setupJquery = __bind(this.setupJquery, this);
+      this.fetchIndex = __bind(this.fetchIndex, this);
       if (this.lang == null) {
         this.lang = 'zh-TW';
       }
@@ -16,40 +20,68 @@
       this.request = require('request');
       this.jquery = require('jquery');
       this.fs = require('fs');
+      this.jsdom = require('jsdom');
     }
 
-    Salmon.prototype.fetchImages = function() {
+    Salmon.prototype.fetchIndex = function(func) {
       var _this = this;
-      this.request(this.url, function(error, response, body) {
-        var $, img, src, window, _i, _len, _ref, _results;
+      return this.request(this.url, function(error, response, body) {
         if (!error && response.statusCode < 300) {
-          window = require('jsdom').jsdom(body, null, {
-            FetchExternalResources: false,
-            ProcessExternalResources: false,
-            MutationEvents: false,
-            QuerySelector: false
-          }).createWindow();
-          $ = _this.jquery.create(window);
-          _ref = $('[data-image-key]');
-          _results = [];
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            img = _ref[_i];
-            src = $(img).attr('data-src');
-            if (src == null) {
-              src = $(img).attr('src');
-            }
-            src = src.replace(/thumb\/|\/60px-.*/g, '');
-            _results.push(_this.request({
-              url: src,
-              encoding: null
-            }, function(error, response, body) {
-              var fileName;
-              fileName = response.request.href.match(/^.*\/([0-9]+i\.png)$/)[1].replace('i.png', '-100.png');
-              return _this.fs.writeFile("images/cards/" + fileName, body);
-            }));
-          }
-          return _results;
+          return func(error, response, body);
+        } else {
+          return console.error("fetch '" + _this.url + "' failed.");
         }
+      });
+    };
+
+    Salmon.prototype.setupJquery = function(body) {
+      var window;
+      window = this.jsdom.jsdom(body, null, {
+        FetchExternalResources: false,
+        ProcessExternalResources: false,
+        MutationEvents: false,
+        QuerySelector: false
+      }).createWindow();
+      return this.jquery.create(window);
+    };
+
+    Salmon.prototype.fetchIcons = function() {
+      var _this = this;
+      return this.fetchIndex(function(error, response, body) {
+        var $, fileName, img, src, _i, _len, _ref, _results;
+        $ = _this.setupJquery(body);
+        _ref = $('[data-image-key]');
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          img = _ref[_i];
+          src = $(img).attr('data-src');
+          if (src == null) {
+            src = $(img).attr('src');
+          }
+          src = src.replace(/thumb\/|\/60px-.*/g, '');
+          fileName = src.match(/^.*\/([0-9]+i\.png)$/)[1].replace('i.png', '-100.png');
+          _results.push(_this.fetchIcon(src, fileName));
+        }
+        return _results;
+      });
+    };
+
+    Salmon.prototype.fetchIcon = function(src, fileName) {
+      var _this = this;
+      return this.request({
+        url: src,
+        encoding: null
+      }, function(error, response, body) {
+        return _this.fs.writeFile("images/cards/" + fileName, body);
+      });
+    };
+
+    Salmon.prototype.fetchCards = function() {
+      var _this = this;
+      return this.fetchIndex(function(error, response, body) {
+        var $;
+        $ = _this.setupJquery(body);
+        return $('#mw-content-text').find('a');
       });
     };
 
@@ -59,6 +91,6 @@
 
   salmon = new Salmon();
 
-  salmon.fetchImages();
+  salmon.fetchIcons();
 
 }).call(this);

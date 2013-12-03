@@ -9,27 +9,46 @@ class Salmon
         @request = require 'request'
         @jquery = require 'jquery'
         @fs = require 'fs'
+        @jsdom = require 'jsdom'
 
-    fetchImages: =>
+    fetchIndex: (func) =>
         @request @url, (error, response, body) =>
             if not error and response.statusCode < 300
-                # parse the html and create a dom window
-                window = require('jsdom').jsdom body, null,
-                    FetchExternalResources: no
-                    ProcessExternalResources: no
-                    MutationEvents: no
-                    QuerySelector: no
-                .createWindow()
-                # apply jquery to the window
-                $ = @jquery.create window
-                for img in $('[data-image-key]')
-                    src = $(img).attr 'data-src'
-                    src ?= $(img).attr 'src'
-                    src = src.replace /thumb\/|\/60px-.*/g, ''
-                    @request url: src, encoding: null, (error, response, body) =>
-                        fileName = response.request.href.match(/^.*\/([0-9]+i\.png)$/)[1].replace 'i.png', '-100.png'
-                        @fs.writeFile "images/cards/#{fileName}", body
-        return
+                func error, response, body
+            else
+                console.error "fetch '#{@url}' failed."
+
+    setupJquery: (body) =>
+        # parse the html and create a dom window
+        window = @jsdom.jsdom body, null,
+            FetchExternalResources: no
+            ProcessExternalResources: no
+            MutationEvents: no
+            QuerySelector: no
+        .createWindow()
+        # apply jquery to the window
+        @jquery.create window
+
+    fetchIcons: =>
+        @fetchIndex (error, response, body) =>
+            $ = @setupJquery body
+            for img in $('[data-image-key]')
+                src = $(img).attr 'data-src'
+                src ?= $(img).attr 'src'
+                src = src.replace /thumb\/|\/60px-.*/g, ''
+                fileName = src.match(/^.*\/([0-9]+i\.png)$/)[1].replace 'i.png', '-100.png'
+                @fetchIcon src, fileName
+
+    fetchIcon: (src, fileName) =>
+        @request url: src, encoding: null, (error, response, body) =>
+            @fs.writeFile "images/cards/#{fileName}", body
+
+    fetchCards: =>
+        @fetchIndex (error, response, body) =>
+            $ = @setupJquery body
+            $('#mw-content-text').find('a')
+
 
 salmon = new Salmon()
-salmon.fetchImages()
+salmon.fetchIcons()
+#salmon.fetchCards()
