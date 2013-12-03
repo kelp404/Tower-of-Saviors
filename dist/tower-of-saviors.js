@@ -363,7 +363,7 @@
       }
     };
     this.searchCards = function(keywords, cards) {
-      var attributes, card, keyword, races, result, _i, _j, _len, _len1, _ref, _ref1;
+      var attributes, card, keyword, races, result, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1, _ref2, _ref3;
       attributes = [];
       races = [];
       for (_i = 0, _len = keywords.length; _i < _len; _i++) {
@@ -388,12 +388,26 @@
         }
       }
       result = [];
-      for (_j = 0, _len1 = cards.length; _j < _len1; _j++) {
-        card = cards[_j];
-        if (_ref = card.attribute, __indexOf.call(attributes, _ref) >= 0) {
-          result.push(card);
-        } else if (_ref1 = card.race, __indexOf.call(races, _ref1) >= 0) {
-          result.push(card);
+      if (attributes.length > 0 && races.length > 0) {
+        for (_j = 0, _len1 = cards.length; _j < _len1; _j++) {
+          card = cards[_j];
+          if ((_ref = card.attribute, __indexOf.call(attributes, _ref) >= 0) && (_ref1 = card.race, __indexOf.call(races, _ref1) >= 0)) {
+            result.push(card);
+          }
+        }
+      } else if (attributes.length > 0) {
+        for (_k = 0, _len2 = cards.length; _k < _len2; _k++) {
+          card = cards[_k];
+          if (_ref2 = card.attribute, __indexOf.call(attributes, _ref2) >= 0) {
+            result.push(card);
+          }
+        }
+      } else if (races.length > 0) {
+        for (_l = 0, _len3 = cards.length; _l < _len3; _l++) {
+          card = cards[_l];
+          if (_ref3 = card.race, __indexOf.call(races, _ref3) >= 0) {
+            result.push(card);
+          }
         }
       }
       return result;

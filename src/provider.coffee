@@ -96,11 +96,13 @@ a.provider '$tos', ->
                     attributes.push keyword
                 else
         result = []
-        for card in cards
-            if card.attribute in attributes
+        if attributes.length > 0 and races.length > 0
+            for card in cards when card.attribute in attributes and card.race in races
                 result.push card
-            else if card.race in races
-                result.push card
+        else if attributes.length > 0
+            result.push(card) for card in cards when card.attribute in attributes
+        else if races.length > 0
+            result.push(card) for card in cards when card.race in races
         result
 
     @_ = (key) =>
