@@ -23,6 +23,13 @@ module.exports = (grunt) ->
                 src: ['**/*.coffee']
                 dest: 'data/'
                 ext: '.ori.js'
+            salmon:
+                expand: yes
+                flatten: no
+                cwd: 'salmon'
+                src: ['**/*.coffee']
+                dest: 'salmon/'
+                ext: '.js'
 
         uglify:
             options:
@@ -52,6 +59,11 @@ module.exports = (grunt) ->
             coffeeData:
                 files: ['./data/**/*.coffee']
                 tasks: ['coffee:data', 'uglify']
+                options:
+                    spawn: no
+            coffeeSalmon:
+                files: ['./salmon/*.coffee']
+                tasks: ['coffee:salmon']
                 options:
                     spawn: no
 
