@@ -22,17 +22,13 @@ class Salmon
                 .createWindow()
                 # apply jquery to the window
                 $ = @jquery.create window
-                for index in [0...50] by 1
-                    img = $('[data-image-key]')[index]
+                for img in $('[data-image-key]')
                     src = $(img).attr 'data-src'
                     src ?= $(img).attr 'src'
                     src = src.replace /thumb\/|\/60px-.*/g, ''
-                    match = src.match(/^.*\/([0-9]+i\.png)$/)
-                    if match
-                        fileName = match[1].replace 'i.png', '-100.png'
-                        @request(src).pipe @fs.createWriteStream("images/cards/#{fileName}")
-                    else
-                        console.error "error #{src}"
+                    @request url: src, encoding: null, (error, response, body) =>
+                        fileName = response.request.href.match(/^.*\/([0-9]+i\.png)$/)[1].replace 'i.png', '-100.png'
+                        @fs.writeFile "images/cards/#{fileName}", body
         return
 
 salmon = new Salmon()

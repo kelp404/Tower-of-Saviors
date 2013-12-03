@@ -21,7 +21,7 @@
     Salmon.prototype.fetchImages = function() {
       var _this = this;
       this.request(this.url, function(error, response, body) {
-        var $, fileName, img, index, match, src, window, _i, _results;
+        var $, img, src, window, _i, _len, _ref, _results;
         if (!error && response.statusCode < 300) {
           window = require('jsdom').jsdom(body, null, {
             FetchExternalResources: false,
@@ -30,21 +30,23 @@
             QuerySelector: false
           }).createWindow();
           $ = _this.jquery.create(window);
+          _ref = $('[data-image-key]');
           _results = [];
-          for (index = _i = 0; _i < 50; index = _i += 1) {
-            img = $('[data-image-key]')[index];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            img = _ref[_i];
             src = $(img).attr('data-src');
             if (src == null) {
               src = $(img).attr('src');
             }
             src = src.replace(/thumb\/|\/60px-.*/g, '');
-            match = src.match(/^.*\/([0-9]+i\.png)$/);
-            if (match) {
-              fileName = match[1].replace('i.png', '-100.png');
-              _results.push(_this.request(src).pipe(_this.fs.createWriteStream("images/cards/" + fileName)));
-            } else {
-              _results.push(console.error("error " + src));
-            }
+            _results.push(_this.request({
+              url: src,
+              encoding: null
+            }, function(error, response, body) {
+              var fileName;
+              fileName = response.request.href.match(/^.*\/([0-9]+i\.png)$/)[1].replace('i.png', '-100.png');
+              return _this.fs.writeFile("images/cards/" + fileName, body);
+            }));
           }
           return _results;
         }
