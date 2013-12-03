@@ -4,6 +4,7 @@ class Salmon
         # properties
         @lang ?= 'zh-TW'
         @url ?= 'http://zh.tos.wikia.com/wiki/Category:%E5%9C%96%E9%91%92'
+        @origin = @url.match(/^(.*\/\/(\w|\.)+).*$/)[1]
 
         # modules
         @request = require 'request'
@@ -37,18 +38,25 @@ class Salmon
                 src ?= $(img).attr 'src'
                 src = src.replace /thumb\/|\/60px-.*/g, ''
                 fileName = src.match(/^.*\/([0-9]+i\.png)$/)[1].replace 'i.png', '-100.png'
-                @fetchIcon src, fileName
+                @fetchImage src, fileName
 
-    fetchIcon: (src, fileName) =>
-        @request url: src, encoding: null, (error, response, body) =>
+    fetchImage: (url, fileName) =>
+        @request url: url, encoding: null, (error, response, body) =>
             @fs.writeFile "images/cards/#{fileName}", body
 
     fetchCards: =>
         @fetchIndex (error, response, body) =>
             $ = @setupJquery body
-            $('#mw-content-text').find('a')
+            for link in $('#mw-content-text a')
+                @fetchCard "#{@origin}#{$(link).attr('href')}"
+
+    fetchCard: (url) =>
+        @request url, (error, response, body) =>
+            $ = @setupJquery body
+            id = $($('.wikitable tr')[1]).find('td:first').text().trim()
+            @fetchImage $('#mw-content-text img:first').attr('src'), "#{id}-600.png"
 
 
 salmon = new Salmon()
 salmon.fetchIcons()
-#salmon.fetchCards()
+salmon.fetchCards()

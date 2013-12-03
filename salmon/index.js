@@ -6,8 +6,9 @@
     function Salmon(lang, url) {
       this.lang = lang;
       this.url = url;
+      this.fetchCard = __bind(this.fetchCard, this);
       this.fetchCards = __bind(this.fetchCards, this);
-      this.fetchIcon = __bind(this.fetchIcon, this);
+      this.fetchImage = __bind(this.fetchImage, this);
       this.fetchIcons = __bind(this.fetchIcons, this);
       this.setupJquery = __bind(this.setupJquery, this);
       this.fetchIndex = __bind(this.fetchIndex, this);
@@ -17,6 +18,7 @@
       if (this.url == null) {
         this.url = 'http://zh.tos.wikia.com/wiki/Category:%E5%9C%96%E9%91%92';
       }
+      this.origin = this.url.match(/^(.*\/\/(\w|\.)+).*$/)[1];
       this.request = require('request');
       this.jquery = require('jquery');
       this.fs = require('fs');
@@ -60,16 +62,16 @@
           }
           src = src.replace(/thumb\/|\/60px-.*/g, '');
           fileName = src.match(/^.*\/([0-9]+i\.png)$/)[1].replace('i.png', '-100.png');
-          _results.push(_this.fetchIcon(src, fileName));
+          _results.push(_this.fetchImage(src, fileName));
         }
         return _results;
       });
     };
 
-    Salmon.prototype.fetchIcon = function(src, fileName) {
+    Salmon.prototype.fetchImage = function(url, fileName) {
       var _this = this;
       return this.request({
-        url: src,
+        url: url,
         encoding: null
       }, function(error, response, body) {
         return _this.fs.writeFile("images/cards/" + fileName, body);
@@ -79,9 +81,25 @@
     Salmon.prototype.fetchCards = function() {
       var _this = this;
       return this.fetchIndex(function(error, response, body) {
-        var $;
+        var $, link, _i, _len, _ref, _results;
         $ = _this.setupJquery(body);
-        return $('#mw-content-text').find('a');
+        _ref = $('#mw-content-text a');
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          link = _ref[_i];
+          _results.push(_this.fetchCard("" + _this.origin + ($(link).attr('href'))));
+        }
+        return _results;
+      });
+    };
+
+    Salmon.prototype.fetchCard = function(url) {
+      var _this = this;
+      return this.request(url, function(error, response, body) {
+        var $, id;
+        $ = _this.setupJquery(body);
+        id = $($('.wikitable tr')[1]).find('td:first').text().trim();
+        return _this.fetchImage($('#mw-content-text img:first').attr('src'), "" + id + "-600.png");
       });
     };
 
@@ -92,5 +110,7 @@
   salmon = new Salmon();
 
   salmon.fetchIcons();
+
+  salmon.fetchCards();
 
 }).call(this);
