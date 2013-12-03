@@ -45,18 +45,25 @@ class Salmon
             @fs.writeFile "images/cards/#{fileName}", body
 
     fetchCards: =>
+        cards = {}
         @fetchIndex (error, response, body) =>
             $ = @setupJquery body
+            total = $('#mw-content-text a').length
             for link in $('#mw-content-text a')
-                @fetchCard "#{@origin}#{$(link).attr('href')}"
+                @fetchCard "#{@origin}#{$(link).attr('href')}", cards, total
 
-    fetchCard: (url) =>
+    fetchCard: (url, pool, total) =>
         @request url, (error, response, body) =>
             $ = @setupJquery body
-            id = $($('.wikitable tr')[1]).find('td:first').text().trim()
-            @fetchImage $('#mw-content-text img:first').attr('src'), "#{id}-600.png"
+            id = $($('.wikitable tr')[1]).find('td:first').text().replace /\s/g, ''
+            name = $($('.wikitable tr')[0]).find('td').text().replace /\s/g, ''
+            pool[id] =
+                name: name
+            if Object.keys(pool).length is total
+                console.log 'done'
+#            @fetchImage $('#mw-content-text img:first').attr('src'), "#{id}-600.png"
 
 
 salmon = new Salmon()
-salmon.fetchIcons()
+#salmon.fetchIcons()
 salmon.fetchCards()

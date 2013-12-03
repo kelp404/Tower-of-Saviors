@@ -79,27 +79,36 @@
     };
 
     Salmon.prototype.fetchCards = function() {
-      var _this = this;
+      var cards,
+        _this = this;
+      cards = {};
       return this.fetchIndex(function(error, response, body) {
-        var $, link, _i, _len, _ref, _results;
+        var $, link, total, _i, _len, _ref, _results;
         $ = _this.setupJquery(body);
+        total = $('#mw-content-text a').length;
         _ref = $('#mw-content-text a');
         _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           link = _ref[_i];
-          _results.push(_this.fetchCard("" + _this.origin + ($(link).attr('href'))));
+          _results.push(_this.fetchCard("" + _this.origin + ($(link).attr('href')), cards, total));
         }
         return _results;
       });
     };
 
-    Salmon.prototype.fetchCard = function(url) {
+    Salmon.prototype.fetchCard = function(url, pool, total) {
       var _this = this;
       return this.request(url, function(error, response, body) {
-        var $, id;
+        var $, id, name;
         $ = _this.setupJquery(body);
-        id = $($('.wikitable tr')[1]).find('td:first').text().trim();
-        return _this.fetchImage($('#mw-content-text img:first').attr('src'), "" + id + "-600.png");
+        id = $($('.wikitable tr')[1]).find('td:first').text().replace(/\s/g, '');
+        name = $($('.wikitable tr')[0]).find('td').text().replace(/\s/g, '');
+        pool[id] = {
+          name: name
+        };
+        if (Object.keys(pool).length === total) {
+          return console.log('done');
+        }
       });
     };
 
@@ -108,8 +117,6 @@
   })();
 
   salmon = new Salmon();
-
-  salmon.fetchIcons();
 
   salmon.fetchCards();
 
