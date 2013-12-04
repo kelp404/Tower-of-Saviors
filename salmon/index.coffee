@@ -58,16 +58,84 @@ class Salmon
             $ = @setupJquery body
             id = $($('.wikitable tr')[1]).find('td:first').text().trim()
             name = $($($('.wikitable tr')[0]).find('td')[1]).text().trim()
-            race = $($($('.wikitable tr')[1]).find('td')[3]).text().trim()
-            attribute = $($($('.wikitable tr')[0]).find('td')[2]).text().trim()
+            race = @bleachRace $($($('.wikitable tr')[1]).find('td')[3]).text().trim()
+            attribute = @bleachAttribute $($($('.wikitable tr')[0]).find('td')[2]).text().trim()
+            species = $($($('.wikitable tr')[1]).find('td')[4]).text().trim()
+            rarity = parseInt $($($('.wikitable tr')[1]).find('td')[1]).text()
+            cost = parseInt $($($('.wikitable tr')[1]).find('td')[2]).text()
+            properties =
+                lvMin:
+                    lv: 1
+                    hp: parseInt $($($('.wikitable tr')[4]).find('td')[0]).text()
+                    attack: parseInt $($($('.wikitable tr')[4]).find('td')[1]).text()
+                    recovery: parseInt $($($('.wikitable tr')[4]).find('td')[2]).text()
+                    total: parseInt $($($('.wikitable tr')[4]).find('td')[3]).text()
+                lvMax:
+                    lv: parseInt $($($('.wikitable tr')[2]).find('td')[0]).text()
+                    hp: parseInt $($($('.wikitable tr')[5]).find('td')[0]).text()
+                    attack: parseInt $($($('.wikitable tr')[5]).find('td')[1]).text()
+                    recovery: parseInt $($($('.wikitable tr')[5]).find('td')[2]).text()
+                    total: parseInt $($($('.wikitable tr')[5]).find('td')[3]).text()
+            activeSkill =
+                name: $($($('.wikitable tr')[6]).find('td')[1]).text().trim()
+                description: $($($('.wikitable tr')[7]).find('td')[0]).text().trim()
+                cd:
+                    ori: $($($('.wikitable tr')[6]).find('td')[2]).text().trim()
+                    min: $($($('.wikitable tr')[6]).find('td')[3]).text().trim()
+            leaderSkill =
+                name: $($($('.wikitable tr')[8]).find('td')[1]).text().trim()
+                description: $($($('.wikitable tr')[9]).find('td')[0]).text().trim()
+            evolve =
+                origin: null
+                resources: []
+                result: null
+            origin =
+                friendPointSeal: no
+                diamondSeal: no
+                others: []
+                levels: []
+            if race is 'element'
+                origin.friendPointSeal = $($($('.wikitable tr')[10]).find('td')[1]).text().trim() is '有'
+                origin.diamondSeal = $($($('.wikitable tr')[10]).find('td')[2]).text().trim() is '有'
+                origin.others = do ->
+                    links = $($($('.wikitable tr')[10]).find('td')[3]).find('a')
+                    return [] if links.length is 0
+                    $(x).text().trim() for x in links
+                origin.levels = do ->
+                    links = $($($('.wikitable tr')[11]).find('td')[0]).find('a')
+                    return [] if links.length is 0
+                    $(x).text().trim() for x in links
+            else
+                origin.friendPointSeal = $($($('.wikitable tr')[11]).find('td')[1]).text().trim() is '有'
+                origin.diamondSeal = $($($('.wikitable tr')[11]).find('td')[2]).text().trim() is '有'
+                origin.others = do ->
+                    links = $($($('.wikitable tr')[11]).find('td')[3]).find('a')
+                    return [] if links.length is 0
+                    $(x).text().trim() for x in links
+                origin.levels = do ->
+                    links = $($($('.wikitable tr')[12]).find('td')[0]).find('a')
+                    return [] if links.length is 0
+                    $(x).text().trim() for x in links
 
             pool[id] =
+                id: id
                 name: name
                 imageSm: "images/cards/100/#{id}.png"
-                race: @bleachRace race
-                attribute: @bleachAttribute attribute
-            if Object.keys(pool).length is total
-                @writeCardsCoffee pool
+                imageMd: "images/cards/600/#{id}.png"
+                race: race
+                attribute: attribute
+                species: species
+                rarity: rarity
+                cost: cost
+                properties: properties
+                activeSkill: activeSkill
+                leaderSkill: leaderSkill
+                evolve: evolve
+                origin: origin
+            @writeCardCoffee pool[id]
+
+#            if Object.keys(pool).length is total
+#                @writeCardsCoffee pool
 #            @fetchImage $('#mw-content-text img:first').attr('src'), "600/#{id}.png"
 
     writeCardsCoffee: (cards) =>
@@ -86,6 +154,58 @@ class Salmon
                 """
         @fs.writeFile "data/#{@lang}/cards.coffee", coffee
         console.log "written #{Object.keys(cards).length} items."
+
+    writeCardCoffee: (card) =>
+        originOthers = ''
+        if card.origin.others.length > 0
+            originOthers = "'#{card.origin.others.join('\', \'')}'"
+        originLevels = ''
+        if card.origin.levels.length > 0
+            originLevels = "'#{card.origin.levels.join('\', \'')}'"
+        coffee =
+            """
+            id: #{card.id * 1}
+            name: '#{card.name}'
+            imageSm: '#{card.imageSm}'
+            imageMd: '#{card.imageMd}'
+            race: '#{card.race}'
+            attribute: '#{card.attribute}'
+            species: '#{card.species}'
+            rarity: #{card.rarity}
+            cost: #{card.cost}
+            properties:
+                lvMin:
+                    lv: #{card.properties.lvMin.lv}
+                    hp: #{card.properties.lvMin.hp}
+                    attack: #{card.properties.lvMin.attack}
+                    recovery: #{card.properties.lvMin.recovery}
+                    total: #{card.properties.lvMin.total}
+                lvMax:
+                    lv: #{card.properties.lvMax.lv}
+                    hp: #{card.properties.lvMax.hp}
+                    attack: #{card.properties.lvMax.attack}
+                    recovery: #{card.properties.lvMax.recovery}
+                    total: #{card.properties.lvMax.total}
+            activeSkill:
+                name: '#{card.activeSkill.name}'
+                description: '#{card.activeSkill.description}'
+                cd:
+                    ori: #{card.activeSkill.cd.ori}
+                    min: #{card.activeSkill.cd.min}
+            leaderSkill:
+                name: '#{card.leaderSkill.name}'
+                description: '#{card.leaderSkill.description}'
+            evolve:
+                origin: #{card.evolve.origin}
+                resources: [#{card.evolve.resources.join(', ')}]
+                result: #{card.evolve.result}
+            origin:
+                friendPointSeal: #{if card.origin.friendPointSeal then 'yes' else 'no'}
+                diamondSeal: #{if card.origin.diamondSeal then 'yes' else 'no'}
+                others: [#{originOthers}]
+                levels: [#{originLevels}]
+            """
+        @fs.writeFile "data/#{@lang}/cards/#{card.id * 1}.coffee", coffee
 
     bleachRace: (source) ->
         race = source
@@ -128,4 +248,4 @@ class Salmon
 
 salmon = new Salmon()
 #salmon.fetchIcons()
-salmon.fetchCards 0, 50
+salmon.fetchCards 239, 262
