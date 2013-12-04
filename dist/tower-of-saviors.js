@@ -104,7 +104,7 @@
     for (_j = 0, _len = _ref1.length; _j < _len; _j++) {
       id = _ref1[_j];
       $tos.getCard(id).success(function(data) {
-        return $scope.dependencies.cards[id] = data;
+        return $scope.dependencies.cards[data.id] = data;
       });
     }
     if (card.evolve.result) {

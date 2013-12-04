@@ -79,7 +79,7 @@ CardController = ($scope, $injector, card) ->
     if card.evolve.origin
         $tos.getCard(card.evolve.origin).success (data) -> $scope.dependencies.cards[card.evolve.origin] = data
     for id in card.evolve.resources
-        $tos.getCard(id).success (data) -> $scope.dependencies.cards[id] = data
+        $tos.getCard(id).success (data) -> $scope.dependencies.cards[data.id] = data
     if card.evolve.result
         $tos.getCard(card.evolve.result).success (data) -> $scope.dependencies.cards[card.evolve.result] = data
 
