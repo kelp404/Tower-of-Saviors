@@ -21,7 +21,7 @@ properties:
         recovery: 24
         total: 224
 activeSkill:
-    name: '符石解放‧水'
+    name: '符石解放 ‧ 水'
     description: '直接引爆木符石造成敵全體水屬性傷害'
     cd:
         ori: 14
