@@ -232,7 +232,7 @@
           evolve: evolve,
           origin: origin
         };
-        return _this.writeCardCoffee(pool[id]);
+        return _this.fetchImage($('#mw-content-text img:first').attr('src'), "600/" + id + ".png");
       });
     };
 
@@ -342,6 +342,6 @@
 
   salmon = new Salmon();
 
-  salmon.fetchCards(16, 19);
+  salmon.fetchCards(420);
 
 }).call(this);

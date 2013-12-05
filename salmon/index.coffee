@@ -136,11 +136,12 @@ class Salmon
                 leaderSkill: leaderSkill
                 evolve: evolve
                 origin: origin
-            @writeCardCoffee pool[id]
+
+#            @writeCardCoffee pool[id]
+            @fetchImage $('#mw-content-text img:first').attr('src'), "600/#{id}.png"
 
 #            if Object.keys(pool).length is total
 #                @writeCardsCoffee pool
-#            @fetchImage $('#mw-content-text img:first').attr('src'), "600/#{id}.png"
 
     writeCardsCoffee: (cards) =>
         coffee = ''
@@ -254,4 +255,4 @@ class Salmon
 
 salmon = new Salmon()
 #salmon.fetchIcons()
-salmon.fetchCards 16, 19
+salmon.fetchCards 420
