@@ -260,7 +260,7 @@
         originLevels = "'" + (card.origin.levels.join('\', \'')) + "'";
       }
       coffee = "id: " + (card.id * 1) + "\nname: '" + card.name + "'\nimageSm: '" + card.imageSm + "'\nimageMd: '" + card.imageMd + "'\nrace: '" + card.race + "'\nattribute: '" + card.attribute + "'\nspecies: '" + card.species + "'\nrarity: " + card.rarity + "\ncost: " + card.cost + "\nproperties:\n    lvMin:\n        lv: " + card.properties.lvMin.lv + "\n        hp: " + card.properties.lvMin.hp + "\n        attack: " + card.properties.lvMin.attack + "\n        recovery: " + card.properties.lvMin.recovery + "\n        total: " + card.properties.lvMin.total + "\n    lvMax:\n        lv: " + card.properties.lvMax.lv + "\n        hp: " + card.properties.lvMax.hp + "\n        attack: " + card.properties.lvMax.attack + "\n        recovery: " + card.properties.lvMax.recovery + "\n        total: " + card.properties.lvMax.total + "\nactiveSkill:\n    name: '" + card.activeSkill.name + "'\n    description: '" + card.activeSkill.description + "'\n    cd:\n        ori: " + card.activeSkill.cd.ori + "\n        min: " + card.activeSkill.cd.min + "\nleaderSkill:\n    name: '" + card.leaderSkill.name + "'\n    description: '" + card.leaderSkill.description + "'\nevolve:\n    origin: " + card.evolve.origin + "\n    resources: [" + (card.evolve.resources.join(', ')) + "]\n    result: " + card.evolve.result + "\norigin:\n    friendPointSeal: " + (card.origin.friendPointSeal ? 'yes' : 'no') + "\n    diamondSeal: " + (card.origin.diamondSeal ? 'yes' : 'no') + "\n    others: [" + originOthers + "]\n    levels: [" + originLevels + "]";
-      return this.fs.writeFile("data/" + this.lang + "/cards/" + (card.id * 1) + ".coffee", coffee);
+      return this.fs.writeFile("data/" + this.lang + "/cards/_source/" + (card.id * 1) + ".coffee", coffee);
     };
 
     Salmon.prototype.bleachRace = function(source) {
@@ -342,6 +342,6 @@
 
   salmon = new Salmon();
 
-  salmon.fetchCards(399);
+  salmon.fetchCards(425, 425);
 
 }).call(this);

@@ -209,7 +209,7 @@ class Salmon
                 others: [#{originOthers}]
                 levels: [#{originLevels}]
             """
-        @fs.writeFile "data/#{@lang}/cards/#{card.id * 1}.coffee", coffee
+        @fs.writeFile "data/#{@lang}/cards/_source/#{card.id * 1}.coffee", coffee
 
     bleachRace: (source) ->
         race = source
@@ -254,4 +254,4 @@ class Salmon
 
 salmon = new Salmon()
 #salmon.fetchIcons()
-salmon.fetchCards 399
+salmon.fetchCards 425, 425

@@ -31,7 +31,7 @@ leaderSkill:
     description: '水屬性攻擊 2 倍'
 evolve:
     origin: 3
-    resources: [429, 256, 269, 266]
+    resources: [429, 256, 256, 269, 266]
     result: 408
 origin:
     friendPointSeal: no
