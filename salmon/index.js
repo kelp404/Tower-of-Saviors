@@ -88,11 +88,14 @@
         var $, index, link, total, _i, _results;
         $ = _this.setupJquery(body);
         total = $('#mw-content-text a').length;
+        if (end == null) {
+          end = total - 1;
+        }
+        if (end >= total) {
+          end = total - 1;
+        }
         _results = [];
         for (index = _i = start; _i <= end; index = _i += 1) {
-          if (!(index < total)) {
-            continue;
-          }
           link = $('#mw-content-text a')[index];
           _results.push(_this.fetchCard("" + _this.origin + ($(link).attr('href')), cards, end - start + 1));
         }
@@ -109,6 +112,9 @@
         name = $($($('.wikitable tr')[0]).find('td')[1]).text().trim();
         race = _this.bleachRace($($($('.wikitable tr')[1]).find('td')[3]).text().trim());
         attribute = _this.bleachAttribute($($($('.wikitable tr')[0]).find('td')[2]).text().trim());
+        if (race === 'error' || attribute === 'error') {
+          console.log("======= error ======= " + id);
+        }
         species = $($($('.wikitable tr')[1]).find('td')[4]).text().trim();
         rarity = parseInt($($($('.wikitable tr')[1]).find('td')[1]).text());
         cost = parseInt($($($('.wikitable tr')[1]).find('td')[2]).text());
@@ -293,7 +299,8 @@
           race = 'element';
           break;
         default:
-          console.error("bleach race failed: " + race);
+          console.log(race);
+          race = 'error';
       }
       return race;
     };
@@ -323,7 +330,8 @@
           attribute = 'wood';
           break;
         default:
-          console.error("bleach attribute failed: " + source);
+          console.log(attribute);
+          attribute = 'error';
       }
       return attribute;
     };
@@ -334,6 +342,6 @@
 
   salmon = new Salmon();
 
-  salmon.fetchCards(239, 262);
+  salmon.fetchCards(399);
 
 }).call(this);

@@ -49,7 +49,9 @@ class Salmon
         @fetchIndex (error, response, body) =>
             $ = @setupJquery body
             total = $('#mw-content-text a').length
-            for index in [start..end] by 1 when index < total
+            end ?= total - 1
+            end = total - 1 if end >= total
+            for index in [start..end] by 1
                 link = $('#mw-content-text a')[index]
                 @fetchCard "#{@origin}#{$(link).attr('href')}", cards, end - start + 1
 
@@ -60,6 +62,8 @@ class Salmon
             name = $($($('.wikitable tr')[0]).find('td')[1]).text().trim()
             race = @bleachRace $($($('.wikitable tr')[1]).find('td')[3]).text().trim()
             attribute = @bleachAttribute $($($('.wikitable tr')[0]).find('td')[2]).text().trim()
+            if race is 'error' or attribute is 'error'
+                console.log "======= error ======= #{id}"
             species = $($($('.wikitable tr')[1]).find('td')[4]).text().trim()
             rarity = parseInt $($($('.wikitable tr')[1]).find('td')[1]).text()
             cost = parseInt $($($('.wikitable tr')[1]).find('td')[2]).text()
@@ -225,7 +229,8 @@ class Salmon
             when '強化素材', '進化素材'
                 race = 'element'
             else
-                console.error "bleach race failed: #{race}"
+                console.log race
+                race = 'error'
         race
 
     bleachAttribute: (source) ->
@@ -242,10 +247,11 @@ class Salmon
             when 'wood', '木'
                 attribute = 'wood'
             else
-                console.error "bleach attribute failed: #{source}"
+                console.log attribute
+                attribute = 'error'
         attribute
 
 
 salmon = new Salmon()
 #salmon.fetchIcons()
-salmon.fetchCards 239, 262
+salmon.fetchCards 399
