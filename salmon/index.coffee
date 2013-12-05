@@ -255,4 +255,4 @@ class Salmon
 
 salmon = new Salmon()
 #salmon.fetchIcons()
-salmon.fetchCards 20, 39
+salmon.fetchCards 270, 283
