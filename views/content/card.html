@@ -1,5 +1,4 @@
 <div class="card">
-    <!--<img ng-src="{{card.imageMd}}" class="img-responsive pull-right" style="max-width: 420px;"/>-->
     <img ng-src="{{card.imageMd}}" class="img-responsive pull-right col-xs-12 col-md-6 no-padding"/>
     <div class="visible-xs visible-sm" style="height: 7px; clear: both;"></div>
 
@@ -59,7 +58,7 @@
                 <td ng-bind="card.properties.lvMin.recovery"></td>
                 <td ng-bind="card.properties.lvMin.total"></td>
             </tr>
-            <tr>
+            <tr ng-if="card.properties.lvMax.lv > 1">
                 <td ng-bind="card.properties.lvMax.lv"></td>
                 <td ng-bind="card.properties.lvMax.hp"></td>
                 <td ng-bind="card.properties.lvMax.attack"></td>
