@@ -14,14 +14,19 @@ module.exports = (grunt) ->
             source:
                 files:
                     './dist/tower-of-saviors.js': ['./src/*.coffee']
-            data:
+            dataCards:
+                options:
+                    bare: yes
+                files:
+                    './data/zh-TW/cards.ori.js': ['./data/zh-TW/_source/cards.coffee']
+            dataCardTW:
                 options:
                     bare: yes
                 expand: yes
-                flatten: no
-                cwd: 'data'
-                src: ['**/*.coffee']
-                dest: 'data/'
+                flatten: yes
+                cwd: 'data/zh-TW/cards'
+                src: ['**/_source/*.coffee']
+                dest: 'data/zh-TW/cards/'
                 ext: '.ori.js'
             salmon:
                 expand: yes
@@ -58,7 +63,7 @@ module.exports = (grunt) ->
                     spawn: no
             coffeeData:
                 files: ['./data/**/*.coffee']
-                tasks: ['coffee:data', 'uglify']
+                tasks: ['coffee:dataCards', 'coffee:dataCardTW', 'uglify']
                 options:
                     spawn: no
             coffeeSalmon:
