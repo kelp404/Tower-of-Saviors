@@ -137,8 +137,8 @@ class Salmon
                 evolve: evolve
                 origin: origin
 
-#            @writeCardCoffee pool[id]
-            @fetchImage $('#mw-content-text img:first').attr('src'), "600/#{id}.png"
+            @writeCardCoffee pool[id]
+#            @fetchImage $('#mw-content-text img:first').attr('src'), "600/#{id}.png"
 
 #            if Object.keys(pool).length is total
 #                @writeCardsCoffee pool
@@ -255,4 +255,4 @@ class Salmon
 
 salmon = new Salmon()
 #salmon.fetchIcons()
-salmon.fetchCards 420
+salmon.fetchCards 20, 39
