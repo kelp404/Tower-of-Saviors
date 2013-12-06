@@ -58,27 +58,38 @@ a.provider '$tos', ->
     # ----------------------------------------
     # public functions
     # ----------------------------------------
-    @getCards = =>
+    @getCards = (flatten=no) =>
         ###
         Get all cards.
-        @return: {$http}
+        @param flatten: yes -> return .then(), no -> return $http()
+        @return flatten=no: {$http}
             id: {int} The card id.
-            name: {string} The card name.
-            imageSm: {string} The small image url.
-            race: {string} The card's race. [human, dragon, beast, elf, god, fiend, element]
-            attribute: {string} The card's attribute. [light, dark, water, fire, wood]
+                name: {string} The card name.
+                imageSm: {string} The small image url.
+                race: {string} The card's race. [human, dragon, beast, elf, god, fiend, element]
+                attribute: {string} The card's attribute. [light, dark, water, fire, wood]
+        @return flatten=yes: {$http}
+            [id, name, imageSm, race, attribute]
         ###
         h = @getResource "data/#{@currentLanguage}/cards.min.js"
         h.then (response) ->
-            result = []
             cards = response.data
-            ids = Object.keys(cards).sort (a, b) -> a - b
-            for id in ids
-                cards[id].id = id
-                result.push cards[id]
-            result
+            if flatten
+                result = []
+                ids = Object.keys(cards).sort (a, b) -> a - b
+                for id in ids
+                    cards[id].id = id
+                    result.push cards[id]
+                result
+            else
+                cards
 
     @getCard = (cardId, isForRouter=no) =>
+        ###
+        Get the card by id.
+        @param cardId: The card id.
+        @param isForRouter: yes -> return .then(), no -> return $http()
+        ###
         h = @getResource "data/#{@currentLanguage}/cards/#{cardId}.min.js"
         if isForRouter
             h.then (response) -> response.data
@@ -86,6 +97,11 @@ a.provider '$tos', ->
             h
 
     @searchCards = (keywords, cards) =>
+        ###
+        Search cards by keywords.
+        @param keywords: {array} ["keyword"]
+        @param cards: {array} [{id, name, ...}]
+        ###
         attributes = []
         races = []
         for keyword in keywords

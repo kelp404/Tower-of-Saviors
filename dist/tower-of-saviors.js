@@ -79,7 +79,7 @@
 
   a.controller('SearchController', SearchController);
 
-  CardController = function($scope, $injector, card) {
+  CardController = function($scope, $injector, card, cards) {
     var $rootScope, $tos, id, _i, _j, _len, _ref, _ref1, _results;
     $tos = $injector.get('$tos');
     $rootScope = $injector.get('$rootScope');
@@ -96,25 +96,19 @@
       cards: {}
     };
     if (card.evolve.origin) {
-      $tos.getCard(card.evolve.origin).success(function(data) {
-        return $scope.dependencies.cards[card.evolve.origin] = data;
-      });
+      $scope.dependencies.cards[card.evolve.origin] = cards[card.evolve.origin];
     }
     _ref1 = card.evolve.resources;
     for (_j = 0, _len = _ref1.length; _j < _len; _j++) {
       id = _ref1[_j];
-      $tos.getCard(id).success(function(data) {
-        return $scope.dependencies.cards[data.id] = data;
-      });
+      $scope.dependencies.cards[id] = cards[id];
     }
     if (card.evolve.result) {
-      return $tos.getCard(card.evolve.result).success(function(data) {
-        return $scope.dependencies.cards[card.evolve.result] = data;
-      });
+      return $scope.dependencies.cards[card.evolve.result] = cards[card.evolve.result];
     }
   };
 
-  CardController.$inject = ['$scope', '$injector', 'card'];
+  CardController.$inject = ['$scope', '$injector', 'card', 'cards'];
 
   a.controller('CardController', CardController);
 
@@ -320,32 +314,42 @@
         });
       });
     };
-    this.getCards = function() {
+    this.getCards = function(flatten) {
+      var h;
+      if (flatten == null) {
+        flatten = false;
+      }
       /*
       Get all cards.
-      @return: {$http}
+      @param flatten: yes -> return .then(), no -> return $http()
+      @return flatten=no: {$http}
           id: {int} The card id.
-          name: {string} The card name.
-          imageSm: {string} The small image url.
-          race: {string} The card's race. [human, dragon, beast, elf, god, fiend, element]
-          attribute: {string} The card's attribute. [light, dark, water, fire, wood]
+              name: {string} The card name.
+              imageSm: {string} The small image url.
+              race: {string} The card's race. [human, dragon, beast, elf, god, fiend, element]
+              attribute: {string} The card's attribute. [light, dark, water, fire, wood]
+      @return flatten=yes: {$http}
+          [id, name, imageSm, race, attribute]
       */
 
-      var h;
       h = _this.getResource("data/" + _this.currentLanguage + "/cards.min.js");
       return h.then(function(response) {
         var cards, id, ids, result, _i, _len;
-        result = [];
         cards = response.data;
-        ids = Object.keys(cards).sort(function(a, b) {
-          return a - b;
-        });
-        for (_i = 0, _len = ids.length; _i < _len; _i++) {
-          id = ids[_i];
-          cards[id].id = id;
-          result.push(cards[id]);
+        if (flatten) {
+          result = [];
+          ids = Object.keys(cards).sort(function(a, b) {
+            return a - b;
+          });
+          for (_i = 0, _len = ids.length; _i < _len; _i++) {
+            id = ids[_i];
+            cards[id].id = id;
+            result.push(cards[id]);
+          }
+          return result;
+        } else {
+          return cards;
         }
-        return result;
       });
     };
     this.getCard = function(cardId, isForRouter) {
@@ -353,6 +357,12 @@
       if (isForRouter == null) {
         isForRouter = false;
       }
+      /*
+      Get the card by id.
+      @param cardId: The card id.
+      @param isForRouter: yes -> return .then(), no -> return $http()
+      */
+
       h = _this.getResource("data/" + _this.currentLanguage + "/cards/" + cardId + ".min.js");
       if (isForRouter) {
         return h.then(function(response) {
@@ -363,6 +373,12 @@
       }
     };
     this.searchCards = function(keywords, cards) {
+      /*
+      Search cards by keywords.
+      @param keywords: {array} ["keyword"]
+      @param cards: {array} [{id, name, ...}]
+      */
+
       var attributes, card, keyword, races, result, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1, _ref2, _ref3;
       attributes = [];
       races = [];
@@ -458,7 +474,7 @@
       resolve: {
         cards: [
           '$tos', function($tos) {
-            return $tos.getCards();
+            return $tos.getCards(true);
           }
         ]
       },
@@ -475,7 +491,7 @@
       resolve: {
         cards: [
           '$tos', function($tos) {
-            return $tos.getCards();
+            return $tos.getCards(true);
           }
         ]
       },
@@ -490,6 +506,11 @@
     return $stateProvider.state('card', {
       url: '/cards/:cardId',
       resolve: {
+        cards: [
+          '$tos', function($tos) {
+            return $tos.getCards();
+          }
+        ],
         card: [
           '$tos', '$stateParams', function($tos, $stateParams) {
             return $tos.getCard($stateParams.cardId, true);

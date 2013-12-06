@@ -19,7 +19,7 @@ config = ($stateProvider, $urlRouterProvider) ->
         url: '/'
         resolve:
             cards: ['$tos', ($tos) ->
-                $tos.getCards()
+                $tos.getCards yes
             ]
         views:
             nav: navigation
@@ -34,7 +34,7 @@ config = ($stateProvider, $urlRouterProvider) ->
         url: '/search/:keywords'
         resolve:
             cards: ['$tos', ($tos) ->
-                $tos.getCards()
+                $tos.getCards yes
             ]
         views:
             nav: navigation
@@ -48,6 +48,9 @@ config = ($stateProvider, $urlRouterProvider) ->
     $stateProvider.state 'card',
         url: '/cards/:cardId'
         resolve:
+            cards: ['$tos', ($tos) ->
+                $tos.getCards()
+            ]
             card: ['$tos', '$stateParams', ($tos, $stateParams) ->
                 $tos.getCard $stateParams.cardId, yes
             ]

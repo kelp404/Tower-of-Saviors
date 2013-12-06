@@ -65,7 +65,7 @@ a.controller 'SearchController', SearchController
 # ----------------------------------------
 # CardController
 # ----------------------------------------
-CardController = ($scope, $injector, card) ->
+CardController = ($scope, $injector, card, cards) ->
     $tos = $injector.get '$tos'
     $rootScope = $injector.get '$rootScope'
     $rootScope.$state.current.resolve.title = -> "#{card.name} - "
@@ -77,11 +77,11 @@ CardController = ($scope, $injector, card) ->
     $scope.dependencies =
         cards: {}
     if card.evolve.origin
-        $tos.getCard(card.evolve.origin).success (data) -> $scope.dependencies.cards[card.evolve.origin] = data
+        $scope.dependencies.cards[card.evolve.origin] = cards[card.evolve.origin]
     for id in card.evolve.resources
-        $tos.getCard(id).success (data) -> $scope.dependencies.cards[data.id] = data
+        $scope.dependencies.cards[id] = cards[id]
     if card.evolve.result
-        $tos.getCard(card.evolve.result).success (data) -> $scope.dependencies.cards[card.evolve.result] = data
+        $scope.dependencies.cards[card.evolve.result] = cards[card.evolve.result]
 
-CardController.$inject = ['$scope', '$injector', 'card']
+CardController.$inject = ['$scope', '$injector', 'card', 'cards']
 a.controller 'CardController', CardController
