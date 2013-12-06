@@ -532,19 +532,48 @@
   a.config(config);
 
   run = function($injector) {
-    var $rootScope, $state;
+    var $rootScope, $state, status;
     $rootScope = $injector.get('$rootScope');
     $state = $injector.get('$state');
     $rootScope.$state = $state;
     NProgress.configure({
       showSpinner: false
     });
+    status = {
+      pool: [],
+      lastHash: location.hash,
+      rollbackTop: null
+    };
     $rootScope.$on('$stateChangeStart', function(self, toState, toParams, fromState) {
+      var item;
       if (fromState.views) {
-        return NProgress.start();
+        NProgress.start();
       }
+      if (status.pool.length > 0) {
+        item = status.pool.pop();
+        if (item.hash === location.hash) {
+          status.rollbackTop = item.scrollTop;
+          status.lastHash = location.hash;
+          return;
+        } else {
+          status.rollbackTop = null;
+          status.pool.push(item);
+        }
+      }
+      status.pool.push({
+        hash: status.lastHash,
+        scrollTop: $(window).scrollTop()
+      });
+      return status.lastHash = location.hash;
     });
     $rootScope.$on('$stateChangeSuccess', function() {
+      if (status.rollbackTop != null) {
+        setTimeout(function() {
+          return $('html, body').animate({
+            scrollTop: status.rollbackTop
+          }, 200);
+        }, 100);
+      }
       return NProgress.done();
     });
     return $rootScope.$on('$stateChangeError', function() {

@@ -77,9 +77,33 @@ run = ($injector) ->
 
     # NProgress
     NProgress.configure showSpinner: false
+
+    # state changed
+    status =
+        pool: []
+        lastHash: location.hash
+        rollbackTop: null
     $rootScope.$on '$stateChangeStart', (self, toState, toParams, fromState) ->
         NProgress.start() if fromState.views
+        if status.pool.length > 0
+            item = status.pool.pop()
+            if item.hash is location.hash
+                # back()
+                status.rollbackTop = item.scrollTop
+                status.lastHash = location.hash
+                return
+            else    # go()
+                status.rollbackTop = null
+                status.pool.push item
+        status.pool.push
+            hash: status.lastHash
+            scrollTop: $(window).scrollTop()
+        status.lastHash = location.hash
     $rootScope.$on '$stateChangeSuccess', ->
+        if status.rollbackTop?
+            setTimeout ->
+                $('html, body').animate scrollTop: status.rollbackTop, 200
+            , 100
         NProgress.done()
     $rootScope.$on '$stateChangeError', ->
         NProgress.done()
