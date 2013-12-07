@@ -342,6 +342,6 @@
 
   salmon = new Salmon();
 
-  salmon.fetchCards(343, 353);
+  salmon.fetchCards(378, 386);
 
 }).call(this);
