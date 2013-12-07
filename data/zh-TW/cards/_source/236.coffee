@@ -28,7 +28,7 @@ activeSkill:
         min: 15
 leaderSkill:
     name: '致命暴擊'
-    description: '每回合有 30% 機會攻擊力 6 倍。當生命力少於10%，機會由 30% 變成 50%'
+    description: '每回合有 30% 機會攻擊力 6 倍。當生命力少於 10%，機會由 30% 變成 50%'
 evolve:
     origin: 235
     resources: []
