@@ -3,18 +3,18 @@
     <div class="visible-xs visible-sm" style="height: 7px; clear: both;"></div>
 
     <!-- icon, name -->
-    <div class="col-xs-12 col-md-6 information">
+    <div class="col-xs-12 col-md-6 information" style="float: inherit;">
         <img ng-src="{{card.imageSm}}" class="icon pull-left"/>
         <h3 class="name" ng-bind="card.name"></h3>
     </div>
 
-    <div class="col-xs-12 col-md-6">
+    <div class="col-xs-12 col-md-6" style="float: inherit;">
         <!-- information -->
         <table class="table table-striped">
             <tbody>
             <tr>
                 <td tos-lang="attribute">Attribute</td>
-                <td tos-lang="{{card.attribute}}"></td>
+                <td><a tos-lang="{{card.attribute}}" href="#/search/{{card.attribute}}"></a></td>
             </tr>
             <tr>
                 <td tos-lang="rarity">Rarity</td>
@@ -28,7 +28,7 @@
             </tr>
             <tr>
                 <td tos-lang="race">Race</td>
-                <td tos-lang="{{card.race}}"></td>
+                <td><a tos-lang="{{card.race}}" href="#/search/{{card.race}}"></a></td>
             </tr>
             <tr>
                 <td tos-lang="species">Species</td>
