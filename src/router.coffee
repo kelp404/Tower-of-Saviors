@@ -43,6 +43,21 @@ config = ($stateProvider, $urlRouterProvider) ->
                 controller: 'SearchController'
 
     # ----------------------------------------
+    # species
+    # ----------------------------------------
+    $stateProvider.state 'species',
+        url: '/species/:species'
+        resolve:
+            cards: ['$tos', ($tos) ->
+                $tos.getCards yes
+            ]
+        views:
+            nav: navigation
+            content:
+                templateUrl: 'views/content/cards.html'
+                controller: 'SearchController'
+
+    # ----------------------------------------
     # card details
     # ----------------------------------------
     $stateProvider.state 'card',

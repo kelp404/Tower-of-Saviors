@@ -52,11 +52,15 @@ SearchController = ($scope, $injector, cards) ->
     $stateParams = $injector.get '$stateParams'
     $tos = $injector.get '$tos'
 
-    $stateParams.keywords ?= ''
-    keywords = []
-    for keyword in $stateParams.keywords.split ','
-        keywords.push keyword.trim().toLowerCase()
-    $scope.cards = $tos.searchCards keywords, cards
+    if $stateParams.species?
+        # search by species
+        $scope.cards = $tos.searchCardsBySpecies $stateParams.species, cards
+    else
+        $stateParams.keywords ?= ''
+        keywords = []
+        for keyword in $stateParams.keywords.split ','
+            keywords.push keyword.trim().toLowerCase()
+        $scope.cards = $tos.searchCards keywords, cards
 
 SearchController.$inject = ['$scope', '$injector', 'cards']
 a.controller 'SearchController', SearchController

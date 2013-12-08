@@ -121,6 +121,17 @@ a.provider '$tos', ->
             result.push(card) for card in cards when card.race in races
         result
 
+    @searchCardsBySpecies = (species, cards) =>
+        ###
+        Search cards by species.
+        @param keywords: {string} "species"
+        @param cards: {array} [{id, name, ...}]
+        ###
+        result = []
+        for card in cards when card.species is species
+            result.push card
+        result
+
     @_ = (key) =>
         ###
         Get the language resource by the key.
@@ -142,6 +153,7 @@ a.provider '$tos', ->
         getCards: @getCards
         getCard: @getCard
         searchCards: @searchCards
+        searchCardsBySpecies: @searchCardsBySpecies
     @get.inject = ['$injector']
     @$get = @get
     return

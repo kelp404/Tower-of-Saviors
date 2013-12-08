@@ -63,16 +63,20 @@
     var $stateParams, $tos, keyword, keywords, _i, _len, _ref;
     $stateParams = $injector.get('$stateParams');
     $tos = $injector.get('$tos');
-    if ($stateParams.keywords == null) {
-      $stateParams.keywords = '';
+    if ($stateParams.species != null) {
+      return $scope.cards = $tos.searchCardsBySpecies($stateParams.species, cards);
+    } else {
+      if ($stateParams.keywords == null) {
+        $stateParams.keywords = '';
+      }
+      keywords = [];
+      _ref = $stateParams.keywords.split(',');
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        keyword = _ref[_i];
+        keywords.push(keyword.trim().toLowerCase());
+      }
+      return $scope.cards = $tos.searchCards(keywords, cards);
     }
-    keywords = [];
-    _ref = $stateParams.keywords.split(',');
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      keyword = _ref[_i];
-      keywords.push(keyword.trim().toLowerCase());
-    }
-    return $scope.cards = $tos.searchCards(keywords, cards);
   };
 
   SearchController.$inject = ['$scope', '$injector', 'cards'];
@@ -494,6 +498,23 @@
       }
       return result;
     };
+    this.searchCardsBySpecies = function(species, cards) {
+      /*
+      Search cards by species.
+      @param keywords: {string} "species"
+      @param cards: {array} [{id, name, ...}]
+      */
+
+      var card, result, _i, _len;
+      result = [];
+      for (_i = 0, _len = cards.length; _i < _len; _i++) {
+        card = cards[_i];
+        if (card.species === species) {
+          result.push(card);
+        }
+      }
+      return result;
+    };
     this._ = function(key) {
       /*
       Get the language resource by the key.
@@ -514,7 +535,8 @@
         _: this._,
         getCards: this.getCards,
         getCard: this.getCard,
-        searchCards: this.searchCards
+        searchCards: this.searchCards,
+        searchCardsBySpecies: this.searchCardsBySpecies
       };
     };
     this.get.inject = ['$injector'];
@@ -554,6 +576,23 @@
     });
     $stateProvider.state('search', {
       url: '/search/:keywords',
+      resolve: {
+        cards: [
+          '$tos', function($tos) {
+            return $tos.getCards(true);
+          }
+        ]
+      },
+      views: {
+        nav: navigation,
+        content: {
+          templateUrl: 'views/content/cards.html',
+          controller: 'SearchController'
+        }
+      }
+    });
+    $stateProvider.state('species', {
+      url: '/species/:species',
       resolve: {
         cards: [
           '$tos', function($tos) {
