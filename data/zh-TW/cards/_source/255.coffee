@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/255.png'
 imageMd: 'images/cards/600/255.png'
 race: 'element'
 attribute: 'dark'
-species: '元素'
+species: 'evolveElements'
 rarity: 3
 cost: 4
 properties:

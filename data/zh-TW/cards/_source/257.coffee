@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/257.png'
 imageMd: 'images/cards/600/257.png'
 race: 'element'
 attribute: 'fire'
-species: '元素'
+species: 'evolveElements'
 rarity: 4
 cost: 6
 properties:

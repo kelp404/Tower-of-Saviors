@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/267.png'
 imageMd: 'images/cards/600/267.png'
 race: 'element'
 attribute: 'wood'
-species: '進化素材'
+species: 'evolveElements'
 rarity: 1
 cost: 3
 properties:

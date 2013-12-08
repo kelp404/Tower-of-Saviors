@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/241.png'
 imageMd: 'images/cards/600/241.png'
 race: 'element'
 attribute: 'water'
-species: '元素'
+species: 'evolveElements'
 rarity: 1
 cost: 1
 properties:
