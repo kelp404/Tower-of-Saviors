@@ -138,10 +138,10 @@ class Salmon
                 origin: origin
 
             @writeCardCoffee pool[id]
-#            @fetchImage $('#mw-content-text img:first').attr('src'), "600/#{id}.png"
+            @fetchImage $('#mw-content-text img:first').attr('src'), "600/#{id}.png"
 
-#            if Object.keys(pool).length is total
-#                @writeCardsCoffee pool
+            if Object.keys(pool).length is total
+                @writeCardsCoffee pool
 
     writeCardsCoffee: (cards) =>
         coffee = ''
@@ -212,6 +212,101 @@ class Salmon
             """
         @fs.writeFile "data/#{@lang}/cards/_source/#{card.id * 1}.coffee", coffee
 
+    updateData: =>
+        total = 448
+        pool = {}
+        for id in [1..448]
+            @fetchLocalData id, pool, total
+    fetchLocalData: (id, pool, total) =>
+        @request "#{@url}/#{id}.min.js", (error, response, body) =>
+            if not error and response.statusCode < 300
+                pool[id] = eval body
+            else
+                pool[id] = null
+
+            if Object.keys(pool).length is total
+                species = []
+                for key, card of pool when card and card.species not in species
+                    species.push card.species
+                console.log species
+
+
+    bleachSpecies: (source) ->
+        species = source
+        switch source
+            when '主角', 'Main Character'
+                species = 'main'
+            when '中國神獸', 'Chinese Beast'
+                species = 'chineseBeast'
+            when '防龍', 'Defensive Dragon'
+                species = 'defensiveDragon'
+            when '地精', 'Gnome'
+                species = 'gnome'
+            when '精靈', 'Elf'
+                species = 'elf'
+            when '蜥蜴', 'Salamander'
+                species = 'salamander'
+            when '魔女', 'Witch'
+                species = 'witch'
+            when '史萊姆', 'Slime'
+                species = 'slime'
+            when '狼人', 'Wolf'
+                species = 'wolf'
+            when '命運女神', 'Moirai Sister'
+                species = 'moiraiSister'
+            when '遊俠', 'Paladin'
+                species = 'paladin'
+            when '巨像'   # Gnome
+                species = 'colossus'
+            when '機械獸', 'Metallic Beast'
+                species = 'metallicBeast'
+            when '西方獸', 'Cthulhu Beast'
+                species = 'cthulhuBeast'
+            when '希臘神', 'Greek Gods'
+                species = 'greekGod'
+            when '北歐神', 'Northern European God'
+                species = 'northernEuropeanGod'
+            when '埃及神', 'Egyptian God'
+                species = 'egyptianGod'
+            when '西遊神', 'Journey West God'
+                species = 'journeyWestGod'
+            when '機械龍', 'Metallic Dragon'
+                species = 'metallicDragon'
+            when '元素', 'Evolve Elements', '進化素材', 'Special Evolve Elements'
+                species = 'evolveElements'
+            when '靈魂石', 'LevelUp Elements'
+                species = 'soulstone'
+            when '封王', 'Special Boss'
+                species = 'boss'
+            when '妖女', 'Fairy'
+                species = 'fairy'
+            when '異界龍', 'Cthulhu Dragon'
+                species = 'cthulhuDragon'
+            when '石像', 'Stone'
+                species = 'stone'
+            when '巫女', 'Hex'
+                species = 'hex'
+            when '貓公爵系列', 'Cat Duke'
+                species = 'catDuke'
+            when '黃道十二宮', 'Constellation'
+                species = 'constellation'
+            when '星靈', 'Star'
+                species = 'star'
+            when '小丑', 'Clown'
+                species = 'clown'
+            when '不死魔族', 'Undead'
+                species = 'Undead'
+            when '希臘妖獸', 'Greek Beast'
+                species = 'Greek Beast'
+            when '龍使', 'Dragon Envoy'
+                species = 'dragonEnvoy'
+            when 'B.Duck'
+                species = 'duck'
+            else
+                console.log species
+                species = 'error'
+        species
+
     bleachRace: (source) ->
         race = source
         switch source.toLowerCase()
@@ -253,6 +348,7 @@ class Salmon
         attribute
 
 
-salmon = new Salmon()
+salmon = new Salmon 'zh-TW', 'http://localhost:8000/data/zh-TW/cards'
+salmon.updateData()
 #salmon.fetchIcons()
-salmon.fetchCards 424, 424
+#salmon.fetchCards 424, 424

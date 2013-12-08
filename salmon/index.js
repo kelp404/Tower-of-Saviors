@@ -1,11 +1,14 @@
 (function() {
   var Salmon, salmon,
-    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   Salmon = (function() {
     function Salmon(lang, url) {
       this.lang = lang;
       this.url = url;
+      this.fetchLocalData = __bind(this.fetchLocalData, this);
+      this.updateData = __bind(this.updateData, this);
       this.writeCardCoffee = __bind(this.writeCardCoffee, this);
       this.writeCardsCoffee = __bind(this.writeCardsCoffee, this);
       this.fetchCard = __bind(this.fetchCard, this);
@@ -232,7 +235,11 @@
           evolve: evolve,
           origin: origin
         };
-        return _this.writeCardCoffee(pool[id]);
+        _this.writeCardCoffee(pool[id]);
+        _this.fetchImage($('#mw-content-text img:first').attr('src'), "600/" + id + ".png");
+        if (Object.keys(pool).length === total) {
+          return _this.writeCardsCoffee(pool);
+        }
       });
     };
 
@@ -261,6 +268,186 @@
       }
       coffee = "id: " + (card.id * 1) + "\nname: '" + card.name + "'\nimageSm: '" + card.imageSm + "'\nimageMd: '" + card.imageMd + "'\nrace: '" + card.race + "'\nattribute: '" + card.attribute + "'\nspecies: '" + card.species + "'\nrarity: " + card.rarity + "\ncost: " + card.cost + "\nproperties:\n    lvMin:\n        lv: " + card.properties.lvMin.lv + "\n        hp: " + card.properties.lvMin.hp + "\n        attack: " + card.properties.lvMin.attack + "\n        recovery: " + card.properties.lvMin.recovery + "\n        total: " + card.properties.lvMin.total + "\n    lvMax:\n        lv: " + card.properties.lvMax.lv + "\n        hp: " + card.properties.lvMax.hp + "\n        attack: " + card.properties.lvMax.attack + "\n        recovery: " + card.properties.lvMax.recovery + "\n        total: " + card.properties.lvMax.total + "\nactiveSkill:\n    name: '" + card.activeSkill.name + "'\n    description: '" + card.activeSkill.description + "'\n    cd:\n        ori: " + card.activeSkill.cd.ori + "\n        min: " + card.activeSkill.cd.min + "\nleaderSkill:\n    name: '" + card.leaderSkill.name + "'\n    description: '" + card.leaderSkill.description + "'\nevolve:\n    origin: " + card.evolve.origin + "\n    resources: [" + (card.evolve.resources.join(', ')) + "]\n    result: " + card.evolve.result + "\norigin:\n    friendPointSeal: " + (card.origin.friendPointSeal ? 'yes' : 'no') + "\n    diamondSeal: " + (card.origin.diamondSeal ? 'yes' : 'no') + "\n    others: [" + originOthers + "]\n    levels: [" + originLevels + "]";
       return this.fs.writeFile("data/" + this.lang + "/cards/_source/" + (card.id * 1) + ".coffee", coffee);
+    };
+
+    Salmon.prototype.updateData = function() {
+      var id, pool, total, _i, _results;
+      total = 448;
+      pool = {};
+      _results = [];
+      for (id = _i = 1; _i <= 448; id = ++_i) {
+        _results.push(this.fetchLocalData(id, pool, total));
+      }
+      return _results;
+    };
+
+    Salmon.prototype.fetchLocalData = function(id, pool, total) {
+      var _this = this;
+      return this.request("" + this.url + "/" + id + ".min.js", function(error, response, body) {
+        var card, key, species, _ref;
+        if (!error && response.statusCode < 300) {
+          pool[id] = eval(body);
+        } else {
+          pool[id] = null;
+        }
+        if (Object.keys(pool).length === total) {
+          species = [];
+          for (key in pool) {
+            card = pool[key];
+            if (card && (_ref = card.species, __indexOf.call(species, _ref) < 0)) {
+              species.push(card.species);
+            }
+          }
+          return console.log(species);
+        }
+      });
+    };
+
+    Salmon.prototype.bleachSpecies = function(source) {
+      var species;
+      species = source;
+      switch (source) {
+        case '主角':
+        case 'Main Character':
+          species = 'main';
+          break;
+        case '中國神獸':
+        case 'Chinese Beast':
+          species = 'chineseBeast';
+          break;
+        case '防龍':
+        case 'Defensive Dragon':
+          species = 'defensiveDragon';
+          break;
+        case '地精':
+        case 'Gnome':
+          species = 'gnome';
+          break;
+        case '精靈':
+        case 'Elf':
+          species = 'elf';
+          break;
+        case '蜥蜴':
+        case 'Salamander':
+          species = 'salamander';
+          break;
+        case '魔女':
+        case 'Witch':
+          species = 'witch';
+          break;
+        case '史萊姆':
+        case 'Slime':
+          species = 'slime';
+          break;
+        case '狼人':
+        case 'Wolf':
+          species = 'wolf';
+          break;
+        case '命運女神':
+        case 'Moirai Sister':
+          species = 'moiraiSister';
+          break;
+        case '遊俠':
+        case 'Paladin':
+          species = 'paladin';
+          break;
+        case '巨像':
+          species = 'colossus';
+          break;
+        case '機械獸':
+        case 'Metallic Beast':
+          species = 'metallicBeast';
+          break;
+        case '西方獸':
+        case 'Cthulhu Beast':
+          species = 'cthulhuBeast';
+          break;
+        case '希臘神':
+        case 'Greek Gods':
+          species = 'greekGod';
+          break;
+        case '北歐神':
+        case 'Northern European God':
+          species = 'northernEuropeanGod';
+          break;
+        case '埃及神':
+        case 'Egyptian God':
+          species = 'egyptianGod';
+          break;
+        case '西遊神':
+        case 'Journey West God':
+          species = 'journeyWestGod';
+          break;
+        case '機械龍':
+        case 'Metallic Dragon':
+          species = 'metallicDragon';
+          break;
+        case '元素':
+        case 'Evolve Elements':
+        case '進化素材':
+        case 'Special Evolve Elements':
+          species = 'evolveElements';
+          break;
+        case '靈魂石':
+        case 'LevelUp Elements':
+          species = 'soulstone';
+          break;
+        case '封王':
+        case 'Special Boss':
+          species = 'boss';
+          break;
+        case '妖女':
+        case 'Fairy':
+          species = 'fairy';
+          break;
+        case '異界龍':
+        case 'Cthulhu Dragon':
+          species = 'cthulhuDragon';
+          break;
+        case '石像':
+        case 'Stone':
+          species = 'stone';
+          break;
+        case '巫女':
+        case 'Hex':
+          species = 'hex';
+          break;
+        case '貓公爵系列':
+        case 'Cat Duke':
+          species = 'catDuke';
+          break;
+        case '黃道十二宮':
+        case 'Constellation':
+          species = 'constellation';
+          break;
+        case '星靈':
+        case 'Star':
+          species = 'star';
+          break;
+        case '小丑':
+        case 'Clown':
+          species = 'clown';
+          break;
+        case '不死魔族':
+        case 'Undead':
+          species = 'Undead';
+          break;
+        case '希臘妖獸':
+        case 'Greek Beast':
+          species = 'Greek Beast';
+          break;
+        case '龍使':
+        case 'Dragon Envoy':
+          species = 'dragonEnvoy';
+          break;
+        case 'B.Duck':
+          species = 'duck';
+          break;
+        default:
+          console.log(species);
+          species = 'error';
+      }
+      return species;
     };
 
     Salmon.prototype.bleachRace = function(source) {
@@ -340,8 +527,8 @@
 
   })();
 
-  salmon = new Salmon();
+  salmon = new Salmon('zh-TW', 'http://localhost:8000/data/zh-TW/cards');
 
-  salmon.fetchCards(424, 424);
+  salmon.updateData();
 
 }).call(this);
