@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/423.png'
 imageMd: 'images/cards/600/423.png'
 race: 'element'
 attribute: 'wood'
-species: '未歸類'
+species: 'others'
 rarity: 1
 cost: 1
 properties:
