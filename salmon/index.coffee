@@ -217,18 +217,36 @@ class Salmon
         pool = {}
         for id in [1..448]
             @fetchLocalData id, pool, total
-    fetchLocalData: (id, pool, total) =>
-        @request "#{@url}/#{id}.min.js", (error, response, body) =>
+    fetchLocalData: (cardId, pool, total) =>
+        @request "#{@url}/#{cardId}.min.js", (error, response, body) =>
             if not error and response.statusCode < 300
-                pool[id] = eval body
+                pool[cardId] = eval body
+                pool[cardId].species = @bleachSpecies pool[cardId].species
             else
-                pool[id] = null
+                pool[cardId] =
+                    name: null
+                    imageSm: 'images/cards/100/000.png'
+                    race: null
+                    attribute: null
+                    species: null
 
             if Object.keys(pool).length is total
-                species = []
-                for key, card of pool when card and card.species not in species
-                    species.push card.species
-                console.log species
+                console.log 'done'
+                coffee = ''
+                ids = Object.keys(pool).sort (a, b) -> a - b
+                for id in ids
+                    card = pool[id]
+                    coffee +=
+                        """
+                        #{id}:
+                            name: '#{card.name}'
+                            imageSm: '#{card.imageSm}'
+                            race: '#{card.race}'
+                            attribute: '#{card.attribute}'
+                            species: '#{card.species}'
+
+                        """
+                @fs.writeFile "data/#{@lang}/cards.coffee", coffee
 
 
     bleachSpecies: (source) ->

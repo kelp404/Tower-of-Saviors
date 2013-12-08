@@ -1,7 +1,6 @@
 (function() {
   var Salmon, salmon,
-    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   Salmon = (function() {
     function Salmon(lang, url) {
@@ -281,24 +280,34 @@
       return _results;
     };
 
-    Salmon.prototype.fetchLocalData = function(id, pool, total) {
+    Salmon.prototype.fetchLocalData = function(cardId, pool, total) {
       var _this = this;
-      return this.request("" + this.url + "/" + id + ".min.js", function(error, response, body) {
-        var card, key, species, _ref;
+      return this.request("" + this.url + "/" + cardId + ".min.js", function(error, response, body) {
+        var card, coffee, id, ids, _i, _len;
         if (!error && response.statusCode < 300) {
-          pool[id] = eval(body);
+          pool[cardId] = eval(body);
+          pool[cardId].species = _this.bleachSpecies(pool[cardId].species);
         } else {
-          pool[id] = null;
+          pool[cardId] = {
+            name: null,
+            imageSm: 'images/cards/100/000.png',
+            race: null,
+            attribute: null,
+            species: null
+          };
         }
         if (Object.keys(pool).length === total) {
-          species = [];
-          for (key in pool) {
-            card = pool[key];
-            if (card && (_ref = card.species, __indexOf.call(species, _ref) < 0)) {
-              species.push(card.species);
-            }
+          console.log('done');
+          coffee = '';
+          ids = Object.keys(pool).sort(function(a, b) {
+            return a - b;
+          });
+          for (_i = 0, _len = ids.length; _i < _len; _i++) {
+            id = ids[_i];
+            card = pool[id];
+            coffee += "" + id + ":\n    name: '" + card.name + "'\n    imageSm: '" + card.imageSm + "'\n    race: '" + card.race + "'\n    attribute: '" + card.attribute + "'\n    species: '" + card.species + "'\n";
           }
-          return console.log(species);
+          return _this.fs.writeFile("data/" + _this.lang + "/cards.coffee", coffee);
         }
       });
     };

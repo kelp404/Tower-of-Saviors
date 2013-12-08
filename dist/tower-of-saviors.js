@@ -235,7 +235,8 @@
         undead: 'Undead',
         greekBeast: 'Greek Beast',
         dragonEnvoy: 'Dragon Envoy',
-        duck: 'B.Duck'
+        duck: 'B.Duck',
+        others: 'Others'
       },
       'zh-TW': {
         light: '光',
@@ -298,7 +299,8 @@
         undead: '不死魔族',
         greekBeast: '希臘妖獸',
         dragonEnvoy: '龍使',
-        duck: 'B.Duck'
+        duck: 'B.Duck',
+        others: '未歸類'
       }
     };
     this.get = function() {
