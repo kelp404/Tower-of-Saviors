@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/172.png'
 imageMd: 'images/cards/600/172.png'
 race: 'beast'
 attribute: 'light'
-species: '機械獸'
+species: 'metallicBeast'
 rarity: 4
 cost: 8
 properties:

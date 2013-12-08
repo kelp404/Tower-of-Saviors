@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/229.png'
 imageMd: 'images/cards/600/229.png'
 race: 'elf'
 attribute: 'dark'
-species: '西遊神'
+species: 'journeyWestGod'
 rarity: 5
 cost: 5
 properties:

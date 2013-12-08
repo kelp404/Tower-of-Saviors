@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/285.png'
 imageMd: 'images/cards/600/285.png'
 race: 'elf'
 attribute: 'fire'
-species: '封王'
+species: 'boss'
 rarity: 6
 cost: 30
 properties:

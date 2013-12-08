@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/357.png'
 imageMd: 'images/cards/600/357.png'
 race: 'god'
 attribute: 'fire'
-species: '黃道十二宮'
+species: 'constellation'
 rarity: 5
 cost: 8
 properties:

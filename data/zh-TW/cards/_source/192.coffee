@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/192.png'
 imageMd: 'images/cards/600/192.png'
 race: 'god'
 attribute: 'water'
-species: '希臘神'
+species: 'greekGod'
 rarity: 6
 cost: 12
 properties:

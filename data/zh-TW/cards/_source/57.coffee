@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/057.png'
 imageMd: 'images/cards/600/057.png'
 race: 'elf'
 attribute: 'water'
-species: '地精'
+species: 'gnome'
 rarity: 3
 cost: 4
 properties:

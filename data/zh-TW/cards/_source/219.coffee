@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/219.png'
 imageMd: 'images/cards/600/219.png'
 race: 'god'
 attribute: 'dark'
-species: '埃及神'
+species: 'egyptianGod'
 rarity: 5
 cost: 6
 properties:

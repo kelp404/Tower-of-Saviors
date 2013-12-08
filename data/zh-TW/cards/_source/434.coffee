@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/434.png'
 imageMd: 'images/cards/600/434.png'
 race: 'beast'
 attribute: 'fire'
-species: 'B.Duck'
+species: 'duck'
 rarity: 5
 cost: 8
 properties:

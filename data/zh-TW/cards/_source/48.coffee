@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/048.png'
 imageMd: 'images/cards/600/048.png'
 race: 'dragon'
 attribute: 'wood'
-species: '防龍'
+species: 'defensiveDragon'
 rarity: 4
 cost: 5
 properties:

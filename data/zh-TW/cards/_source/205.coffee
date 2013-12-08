@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/205.png'
 imageMd: 'images/cards/600/205.png'
 race: 'god'
 attribute: 'wood'
-species: '北歐神'
+species: 'northernEuropeanGod'
 rarity: 5
 cost: 7
 properties:

@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/021.png'
 imageMd: 'images/cards/600/021.png'
 race: 'dragon'
 attribute: 'water'
-species: '中國神獸'
+species: 'chineseBeast'
 rarity: 2
 cost: 1
 properties:

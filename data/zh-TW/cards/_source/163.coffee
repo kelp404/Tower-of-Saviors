@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/163.png'
 imageMd: 'images/cards/600/163.png'
 race: 'beast'
 attribute: 'water'
-species: '機械獸'
+species: 'metallicBeast'
 rarity: 4
 cost: 8
 properties:

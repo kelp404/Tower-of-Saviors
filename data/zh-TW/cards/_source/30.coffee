@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/030.png'
 imageMd: 'images/cards/600/030.png'
 race: 'beast'
 attribute: 'wood'
-species: '中國神獸'
+species: 'chineseBeast'
 rarity: 3
 cost: 2
 properties:

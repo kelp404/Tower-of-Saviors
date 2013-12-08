@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/160.png'
 imageMd: 'images/cards/600/160.png'
 race: 'dragon'
 attribute: 'dark'
-species: '巨像'
+species: 'colossus'
 rarity: 5
 cost: 10
 properties:

@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/380.png'
 imageMd: 'images/cards/600/380.png'
 race: 'element'
 attribute: 'fire'
-species: '星靈'
+species: 'star'
 rarity: 4
 cost: 6
 properties:

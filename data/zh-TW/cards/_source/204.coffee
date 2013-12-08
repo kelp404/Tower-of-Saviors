@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/204.png'
 imageMd: 'images/cards/600/204.png'
 race: 'god'
 attribute: 'fire'
-species: '北歐神'
+species: 'northernEuropeanGod'
 rarity: 6
 cost: 13
 properties:

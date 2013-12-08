@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/050.png'
 imageMd: 'images/cards/600/050.png'
 race: 'dragon'
 attribute: 'light'
-species: '防龍'
+species: 'defensiveDragon'
 rarity: 3
 cost: 2
 properties:

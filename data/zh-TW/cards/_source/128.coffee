@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/128.png'
 imageMd: 'images/cards/600/128.png'
 race: 'god'
 attribute: 'dark'
-species: '命運女神'
+species: 'moiraSister'
 rarity: 3
 cost: 2
 properties:

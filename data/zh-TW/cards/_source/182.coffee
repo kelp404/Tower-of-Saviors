@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/182.png'
 imageMd: 'images/cards/600/182.png'
 race: 'beast'
 attribute: 'wood'
-species: '西方獸'
+species: 'cthulhuBeast'
 rarity: 3
 cost: 2
 properties:

@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/176.png'
 imageMd: 'images/cards/600/176.png'
 race: 'beast'
 attribute: 'water'
-species: '西方獸'
+species: 'cthulhuBeast'
 rarity: 3
 cost: 2
 properties:

@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/228.png'
 imageMd: 'images/cards/600/228.png'
 race: 'god'
 attribute: 'light'
-species: '西遊神'
+species: 'journeyWestGod'
 rarity: 6
 cost: 15
 properties:

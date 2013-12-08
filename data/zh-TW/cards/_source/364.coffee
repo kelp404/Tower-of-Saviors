@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/364.png'
 imageMd: 'images/cards/600/364.png'
 race: 'god'
 attribute: 'light'
-species: '黃道十二宮'
+species: 'constellation'
 rarity: 6
 cost: 14
 properties:

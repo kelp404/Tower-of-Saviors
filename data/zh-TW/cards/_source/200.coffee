@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/200.png'
 imageMd: 'images/cards/600/200.png'
 race: 'god'
 attribute: 'dark'
-species: '希臘神'
+species: 'greekGod'
 rarity: 6
 cost: 12
 properties:

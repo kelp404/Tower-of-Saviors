@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/386.png'
 imageMd: 'images/cards/600/386.png'
 race: 'element'
 attribute: 'dark'
-species: '小丑'
+species: 'clown'
 rarity: 3
 cost: 8
 properties:

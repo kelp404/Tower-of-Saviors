@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/271.png'
 imageMd: 'images/cards/600/271.png'
 race: 'element'
 attribute: 'fire'
-species: '靈魂石'
+species: 'soulStone'
 rarity: 1
 cost: 1
 properties:

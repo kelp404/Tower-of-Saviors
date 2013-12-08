@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/226.png'
 imageMd: 'images/cards/600/226.png'
 race: 'beast'
 attribute: 'wood'
-species: '西遊神'
+species: 'journeyWestGod'
 rarity: 6
 cost: 15
 properties:

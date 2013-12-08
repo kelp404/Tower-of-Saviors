@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/406.png'
 imageMd: 'images/cards/600/406.png'
 race: 'beast'
 attribute: 'light'
-species: '希臘妖獸'
+species: 'greekBeast'
 rarity: 3
 cost: 6
 properties:

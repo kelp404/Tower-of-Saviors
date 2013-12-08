@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/239.png'
 imageMd: 'images/cards/600/239.png'
 race: 'dragon'
 attribute: 'dark'
-species: '機械龍'
+species: 'metallicDragon'
 rarity: 5
 cost: 10
 properties:

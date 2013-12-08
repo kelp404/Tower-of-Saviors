@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/295.png'
 imageMd: 'images/cards/600/295.png'
 race: 'elf'
 attribute: 'water'
-species: '妖女'
+species: 'fairy'
 rarity: 4
 cost: 5
 properties:

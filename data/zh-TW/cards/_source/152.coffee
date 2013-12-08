@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/152.png'
 imageMd: 'images/cards/600/152.png'
 race: 'human'
 attribute: 'wood'
-species: '巨像'
+species: 'colossus'
 rarity: 3
 cost: 3
 properties:

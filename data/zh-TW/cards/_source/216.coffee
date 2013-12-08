@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/216.png'
 imageMd: 'images/cards/600/216.png'
 race: 'dragon'
 attribute: 'wood'
-species: '埃及神'
+species: 'egyptianGod'
 rarity: 6
 cost: 14
 properties:

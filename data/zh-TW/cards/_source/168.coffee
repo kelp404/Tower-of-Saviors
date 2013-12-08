@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/168.png'
 imageMd: 'images/cards/600/168.png'
 race: 'beast'
 attribute: 'wood'
-species: '機械獸'
+species: 'metallicBeast'
 rarity: 3
 cost: 5
 properties:

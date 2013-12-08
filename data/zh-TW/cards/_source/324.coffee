@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/324.png'
 imageMd: 'images/cards/600/324.png'
 race: 'element'
 attribute: 'wood'
-species: '石像'
+species: 'stone'
 rarity: 3
 cost: 3
 properties:

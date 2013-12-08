@@ -354,7 +354,7 @@
           break;
         case '命運女神':
         case 'Moirai Sister':
-          species = 'moiraiSister';
+          species = 'moiraSister';
           break;
         case '遊俠':
         case 'Paladin':
@@ -399,7 +399,7 @@
           break;
         case '靈魂石':
         case 'LevelUp Elements':
-          species = 'soulstone';
+          species = 'soulStone';
           break;
         case '封王':
         case 'Special Boss':

@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/148.png'
 imageMd: 'images/cards/600/148.png'
 race: 'beast'
 attribute: 'water'
-species: '巨像'
+species: 'colossus'
 rarity: 5
 cost: 10
 properties:

@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/211.png'
 imageMd: 'images/cards/600/211.png'
 race: 'beast'
 attribute: 'water'
-species: '埃及神'
+species: 'egyptianGod'
 rarity: 5
 cost: 6
 properties:

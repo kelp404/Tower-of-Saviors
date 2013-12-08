@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/352.png'
 imageMd: 'images/cards/600/352.png'
 race: 'fiend'
 attribute: 'wood'
-species: '貓公爵系列'
+species: 'catDuke'
 rarity: 6
 cost: 15
 properties:

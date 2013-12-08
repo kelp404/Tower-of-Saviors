@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/038.png'
 imageMd: 'images/cards/600/038.png'
 race: 'beast'
 attribute: 'dark'
-species: '中國神獸'
+species: 'chineseBeast'
 rarity: 3
 cost: 2
 properties:

@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/131.png'
 imageMd: 'images/cards/600/131.png'
 race: 'human'
 attribute: 'water'
-species: '遊俠'
+species: 'paladin'
 rarity: 3
 cost: 2
 properties:

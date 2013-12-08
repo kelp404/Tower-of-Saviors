@@ -271,7 +271,7 @@ class Salmon
             when '狼人', 'Wolf'
                 species = 'wolf'
             when '命運女神', 'Moirai Sister'
-                species = 'moiraiSister'
+                species = 'moiraSister'
             when '遊俠', 'Paladin'
                 species = 'paladin'
             when '巨像'   # Gnome
@@ -293,7 +293,7 @@ class Salmon
             when '元素', 'Evolve Elements', '進化素材', 'Special Evolve Elements'
                 species = 'evolveElements'
             when '靈魂石', 'LevelUp Elements'
-                species = 'soulstone'
+                species = 'soulStone'
             when '封王', 'Special Boss'
                 species = 'boss'
             when '妖女', 'Fairy'

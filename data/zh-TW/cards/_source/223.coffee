@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/223.png'
 imageMd: 'images/cards/600/223.png'
 race: 'elf'
 attribute: 'fire'
-species: '西遊神'
+species: 'journeyWestGod'
 rarity: 5
 cost: 5
 properties:

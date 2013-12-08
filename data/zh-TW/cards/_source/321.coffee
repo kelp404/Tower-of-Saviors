@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/321.png'
 imageMd: 'images/cards/600/321.png'
 race: 'element'
 attribute: 'fire'
-species: '石像'
+species: 'stone'
 rarity: 2
 cost: 1
 properties:

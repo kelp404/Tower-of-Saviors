@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/397.png'
 imageMd: 'images/cards/600/397.png'
 race: 'fiend'
 attribute: 'dark'
-species: '不死魔族'
+species: 'undead'
 rarity: 6
 cost: 12
 properties:

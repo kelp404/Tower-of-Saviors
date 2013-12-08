@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/381.png'
 imageMd: 'images/cards/600/381.png'
 race: 'element'
 attribute: 'wood'
-species: '星靈'
+species: 'star'
 rarity: 4
 cost: 6
 properties:

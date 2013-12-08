@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/422.png'
 imageMd: 'images/cards/600/422.png'
 race: 'dragon'
 attribute: 'dark'
-species: '龍使'
+species: 'dragonEnvoy'
 rarity: 6
 cost: 10
 properties:

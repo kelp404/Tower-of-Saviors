@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/232.png'
 imageMd: 'images/cards/600/232.png'
 race: 'dragon'
 attribute: 'water'
-species: '機械龍'
+species: 'metallicDragon'
 rarity: 6
 cost: 20
 properties:

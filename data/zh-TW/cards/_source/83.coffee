@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/083.png'
 imageMd: 'images/cards/600/083.png'
 race: 'dragon'
 attribute: 'light'
-species: '蜥蜴'
+species: 'salamander'
 rarity: 3
 cost: 4
 properties:

@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/222.png'
 imageMd: 'images/cards/600/222.png'
 race: 'dragon'
 attribute: 'water'
-species: '西遊神'
+species: 'journeyWestGod'
 rarity: 6
 cost: 15
 properties:

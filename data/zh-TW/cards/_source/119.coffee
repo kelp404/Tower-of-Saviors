@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/119.png'
 imageMd: 'images/cards/600/119.png'
 race: 'god'
 attribute: 'fire'
-species: '命運女神'
+species: 'moiraSister'
 rarity: 3
 cost: 2
 properties:

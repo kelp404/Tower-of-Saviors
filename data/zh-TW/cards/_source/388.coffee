@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/388.png'
 imageMd: 'images/cards/600/388.png'
 race: 'fiend'
 attribute: 'water'
-species: '不死魔族'
+species: 'undead'
 rarity: 5
 cost: 6
 properties:

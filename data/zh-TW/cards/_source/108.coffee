@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/108.png'
 imageMd: 'images/cards/600/108.png'
 race: 'beast'
 attribute: 'fire'
-species: '狼人'
+species: 'wolf'
 rarity: 2
 cost: 2
 properties:

@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/196.png'
 imageMd: 'images/cards/600/196.png'
 race: 'god'
 attribute: 'wood'
-species: '希臘神'
+species: 'greekGod'
 rarity: 6
 cost: 12
 properties:

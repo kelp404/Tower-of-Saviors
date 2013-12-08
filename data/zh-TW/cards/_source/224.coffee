@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/224.png'
 imageMd: 'images/cards/600/224.png'
 race: 'human'
 attribute: 'fire'
-species: '西遊神'
+species: 'journeyWestGod'
 rarity: 6
 cost: 15
 properties:

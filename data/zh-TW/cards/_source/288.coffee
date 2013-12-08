@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/288.png'
 imageMd: 'images/cards/600/288.png'
 race: 'beast'
 attribute: 'light'
-species: '封王'
+species: 'boss'
 rarity: 6
 cost: 30
 properties:

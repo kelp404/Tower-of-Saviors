@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/332.png'
 imageMd: 'images/cards/600/332.png'
 race: 'elf'
 attribute: 'light'
-species: '史萊姆'
+species: 'slime'
 rarity: 4
 cost: 4
 properties:

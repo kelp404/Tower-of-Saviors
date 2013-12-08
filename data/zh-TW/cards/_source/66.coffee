@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/066.png'
 imageMd: 'images/cards/600/066.png'
 race: 'elf'
 attribute: 'water'
-species: '精靈'
+species: 'elf'
 rarity: 2
 cost: 1
 properties:

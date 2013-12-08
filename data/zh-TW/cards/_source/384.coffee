@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/384.png'
 imageMd: 'images/cards/600/384.png'
 race: 'element'
 attribute: 'light'
-species: '星靈'
+species: 'star'
 rarity: 5
 cost: 10
 properties:

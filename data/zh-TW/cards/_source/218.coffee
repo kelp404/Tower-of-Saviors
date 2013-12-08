@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/218.png'
 imageMd: 'images/cards/600/218.png'
 race: 'beast'
 attribute: 'light'
-species: '埃及神'
+species: 'egyptianGod'
 rarity: 6
 cost: 14
 properties:

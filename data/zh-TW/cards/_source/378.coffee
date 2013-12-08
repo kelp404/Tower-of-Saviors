@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/378.png'
 imageMd: 'images/cards/600/378.png'
 race: 'god'
 attribute: 'water'
-species: '黃道十二宮'
+species: 'constellation'
 rarity: 6
 cost: 14
 properties:

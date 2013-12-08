@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/074.png'
 imageMd: 'images/cards/600/074.png'
 race: 'elf'
 attribute: 'dark'
-species: '精靈'
+species: 'elf'
 rarity: 2
 cost: 1
 properties:

@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/275.png'
 imageMd: 'images/cards/600/275.png'
 race: 'element'
 attribute: 'water'
-species: '靈魂石'
+species: 'soulStone'
 rarity: 2
 cost: 2
 properties:

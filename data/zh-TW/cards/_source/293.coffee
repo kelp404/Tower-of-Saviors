@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/293.png'
 imageMd: 'images/cards/600/293.png'
 race: 'god'
 attribute: 'light'
-species: '封王'
+species: 'boss'
 rarity: 6
 cost: 50
 properties:

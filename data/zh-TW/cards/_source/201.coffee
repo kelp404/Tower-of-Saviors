@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/201.png'
 imageMd: 'images/cards/600/201.png'
 race: 'god'
 attribute: 'water'
-species: '北歐神'
+species: 'northernEuropeanGod'
 rarity: 5
 cost: 7
 properties:

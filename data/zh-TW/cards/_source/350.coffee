@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/350.png'
 imageMd: 'images/cards/600/350.png'
 race: 'fiend'
 attribute: 'water'
-species: '貓公爵系列'
+species: 'catDuke'
 rarity: 6
 cost: 15
 properties:

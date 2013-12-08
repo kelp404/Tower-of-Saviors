@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/345.png'
 imageMd: 'images/cards/600/345.png'
 race: 'human'
 attribute: 'water'
-species: '巫女'
+species: 'hex'
 rarity: 6
 cost: 15
 properties:

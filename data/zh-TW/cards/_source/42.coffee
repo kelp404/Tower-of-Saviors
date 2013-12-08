@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/042.png'
 imageMd: 'images/cards/600/042.png'
 race: 'dragon'
 attribute: 'water'
-species: '防龍'
+species: 'defensiveDragon'
 rarity: 4
 cost: 5
 properties:

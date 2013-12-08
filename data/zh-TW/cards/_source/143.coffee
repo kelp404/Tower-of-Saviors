@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/143.png'
 imageMd: 'images/cards/600/143.png'
 race: 'human'
 attribute: 'dark'
-species: '遊俠'
+species: 'paladin'
 rarity: 3
 cost: 2
 properties:

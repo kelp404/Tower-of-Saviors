@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/155.png'
 imageMd: 'images/cards/600/155.png'
 race: 'beast'
 attribute: 'light'
-species: '巨像'
+species: 'colossus'
 rarity: 3
 cost: 3
 properties:

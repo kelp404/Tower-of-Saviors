@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/320.png'
 imageMd: 'images/cards/600/320.png'
 race: 'element'
 attribute: 'water'
-species: '石像'
+species: 'stone'
 rarity: 3
 cost: 3
 properties:

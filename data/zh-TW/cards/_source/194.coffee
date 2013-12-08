@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/194.png'
 imageMd: 'images/cards/600/194.png'
 race: 'god'
 attribute: 'fire'
-species: '希臘神'
+species: 'greekGod'
 rarity: 6
 cost: 12
 properties:

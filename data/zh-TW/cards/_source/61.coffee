@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/061.png'
 imageMd: 'images/cards/600/061.png'
 race: 'elf'
 attribute: 'wood'
-species: '地精'
+species: 'gnome'
 rarity: 3
 cost: 4
 properties:

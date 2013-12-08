@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/413.png'
 imageMd: 'images/cards/600/413.png'
 race: 'dragon'
 attribute: 'water'
-species: '龍使'
+species: 'dragonEnvoy'
 rarity: 5
 cost: 6
 properties:

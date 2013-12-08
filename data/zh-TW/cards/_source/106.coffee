@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/106.png'
 imageMd: 'images/cards/600/106.png'
 race: 'beast'
 attribute: 'water'
-species: '狼人'
+species: 'wolf'
 rarity: 2
 cost: 2
 properties:

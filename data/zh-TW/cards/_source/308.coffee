@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/308.png'
 imageMd: 'images/cards/600/308.png'
 race: 'elf'
 attribute: 'dark'
-species: '妖女'
+species: 'fairy'
 rarity: 5
 cost: 13
 properties:

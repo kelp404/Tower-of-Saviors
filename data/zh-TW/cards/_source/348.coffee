@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/348.png'
 imageMd: 'images/cards/600/348.png'
 race: 'human'
 attribute: 'wood'
-species: '巫女'
+species: 'hex'
 rarity: 5
 cost: 8
 properties:

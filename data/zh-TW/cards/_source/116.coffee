@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/116.png'
 imageMd: 'images/cards/600/116.png'
 race: 'god'
 attribute: 'water'
-species: '命運女神'
+species: 'moiraSister'
 rarity: 3
 cost: 2
 properties:

@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/290.png'
 imageMd: 'images/cards/600/290.png'
 race: 'dragon'
 attribute: 'wood'
-species: '封王'
+species: 'boss'
 rarity: 6
 cost: 40
 properties:

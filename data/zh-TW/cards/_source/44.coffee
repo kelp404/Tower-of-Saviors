@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/044.png'
 imageMd: 'images/cards/600/044.png'
 race: 'dragon'
 attribute: 'fire'
-species: '防龍'
+species: 'defensiveDragon'
 rarity: 3
 cost: 2
 properties:

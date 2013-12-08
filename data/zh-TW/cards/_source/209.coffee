@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/209.png'
 imageMd: 'images/cards/600/209.png'
 race: 'god'
 attribute: 'dark'
-species: '北歐神'
+species: 'northernEuropeanGod'
 rarity: 5
 cost: 7
 properties:

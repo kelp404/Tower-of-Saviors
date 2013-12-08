@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/351.png'
 imageMd: 'images/cards/600/351.png'
 race: 'fiend'
 attribute: 'fire'
-species: '貓公爵系列'
+species: 'catDuke'
 rarity: 6
 cost: 15
 properties:
