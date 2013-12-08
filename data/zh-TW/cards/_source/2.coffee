@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/002.png'
 imageMd: 'images/cards/600/002.png'
 race: 'human'
 attribute: 'water'
-species: '主角'
+species: 'main'
 rarity: 3
 cost: 2
 properties:

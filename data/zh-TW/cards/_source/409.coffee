@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/409.png'
 imageMd: 'images/cards/600/409.png'
 race: 'human'
 attribute: 'fire'
-species: '主角'
+species: 'main'
 rarity: 6
 cost: 12
 properties:

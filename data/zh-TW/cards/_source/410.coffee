@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/410.png'
 imageMd: 'images/cards/600/410.png'
 race: 'human'
 attribute: 'wood'
-species: '主角'
+species: 'main'
 rarity: 6
 cost: 12
 properties:

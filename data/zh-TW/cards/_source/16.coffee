@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/016.png'
 imageMd: 'images/cards/600/016.png'
 race: 'human'
 attribute: 'light'
-species: '主角'
+species: 'main'
 rarity: 5
 cost: 9
 properties:
