@@ -7,9 +7,13 @@ module.exports = (config) ->
 
         # list of files / patterns to load in the browser
         files: [
+            'test/lib/jquery/jquery-2.0.3.min.js'
             'test/lib/angularjs/angular.1.2.3.min.js'
             'test/lib/angularjs/angular-mocks.1.2.3.js'
-            'test/lib/jquery/jquery-2.0.3.min.js'
+            'test/lib/nprogress/nprogress.js'
+            'test/lib/AlertView/dist/alert_view.min.js'
+            'dist/bootstrap.min.js'
+            'test/lib/ui-router/release/angular-ui-router.min.js'
             'dist/tower-of-saviors.js'
             'test/specs/*.coffee'
         ]

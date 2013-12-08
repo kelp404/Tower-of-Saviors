@@ -81,8 +81,6 @@ module.exports = (grunt) ->
                     base: '.'
 
         karma:
-            min:
-                configFile: './test/karma-min.config.coffee'
             js:
                 configFile: './test/karma.config.coffee'
 
