@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/315.png'
 imageMd: 'images/cards/600/315.png'
 race: 'dragon'
 attribute: 'light'
-species: '異界龍'
+species: 'cthulhuDragon'
 rarity: 4
 cost: 5
 properties:

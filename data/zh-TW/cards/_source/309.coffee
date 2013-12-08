@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/309.png'
 imageMd: 'images/cards/600/309.png'
 race: 'dragon'
 attribute: 'water'
-species: '異界龍'
+species: 'cthulhuDragon'
 rarity: 4
 cost: 5
 properties:
