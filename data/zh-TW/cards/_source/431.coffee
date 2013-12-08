@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/431.png'
 imageMd: 'images/cards/600/431.png'
 race: 'elf'
 attribute: 'light'
-species: 'others'
+species: 'otherSpecies'
 rarity: 6
 cost: 20
 properties:

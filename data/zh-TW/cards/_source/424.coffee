@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/424.png'
 imageMd: 'images/cards/600/424.png'
 race: 'element'
 attribute: 'fire'
-species: 'others'
+species: 'otherSpecies'
 rarity: 3
 cost: 2
 properties:

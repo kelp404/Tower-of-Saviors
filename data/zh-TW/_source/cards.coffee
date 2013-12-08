@@ -2391,7 +2391,7 @@
     imageSm: 'images/cards/100/399.png'
     race: 'elf'
     attribute: 'water'
-    species: 'others'
+    species: 'otherSpecies'
 400:
     name: '瘋頭'
     imageSm: 'images/cards/100/400.png'
@@ -2403,13 +2403,13 @@
     imageSm: 'images/cards/100/401.png'
     race: 'god'
     attribute: 'light'
-    species: 'others'
+    species: 'otherSpecies'
 402:
     name: '夜言歌姬 ‧ 希'
     imageSm: 'images/cards/100/402.png'
     race: 'fiend'
     attribute: 'dark'
-    species: 'others'
+    species: 'otherSpecies'
 403:
     name: '波拉'
     imageSm: 'images/cards/100/403.png'
@@ -2535,19 +2535,19 @@
     imageSm: 'images/cards/100/423.png'
     race: 'element'
     attribute: 'wood'
-    species: 'others'
+    species: 'otherSpecies'
 424:
     name: '機關騎士'
     imageSm: 'images/cards/100/424.png'
     race: 'element'
     attribute: 'fire'
-    species: 'others'
+    species: 'otherSpecies'
 425:
     name: '永劫碑文像'
     imageSm: 'images/cards/100/425.png'
     race: 'element'
     attribute: 'water'
-    species: 'others'
+    species: 'otherSpecies'
 426:
     name: null
     imageSm: 'images/cards/100/000.png'
@@ -2583,7 +2583,7 @@
     imageSm: 'images/cards/100/431.png'
     race: 'elf'
     attribute: 'light'
-    species: 'others'
+    species: 'otherSpecies'
 432:
     name: '奪寶海盜'
     imageSm: 'images/cards/100/432.png'

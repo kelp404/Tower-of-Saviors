@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/425.png'
 imageMd: 'images/cards/600/425.png'
 race: 'element'
 attribute: 'water'
-species: 'others'
+species: 'otherSpecies'
 rarity: 5
 cost: 3
 properties:

@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/399.png'
 imageMd: 'images/cards/600/399.png'
 race: 'elf'
 attribute: 'water'
-species: 'others'
+species: 'otherSpecies'
 rarity: 6
 cost: 20
 properties:

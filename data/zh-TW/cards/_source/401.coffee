@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/401.png'
 imageMd: 'images/cards/600/401.png'
 race: 'god'
 attribute: 'light'
-species: 'others'
+species: 'otherSpecies'
 rarity: 6
 cost: 12
 properties:

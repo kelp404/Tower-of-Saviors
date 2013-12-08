@@ -4,7 +4,7 @@ imageSm: 'images/cards/100/402.png'
 imageMd: 'images/cards/600/402.png'
 race: 'fiend'
 attribute: 'dark'
-species: 'others'
+species: 'otherSpecies'
 rarity: 6
 cost: 12
 properties:
