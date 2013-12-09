@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v0.0.0-beta1-0e015eaa67ebfba5c3fdf4ad6269f9519c3ad51b
+# v0.0.0-beta1-e87c2fbf695ce8481f3fa9be6ed15631f150ff1c
 
 CACHE:
 index.html
@@ -11,7 +11,7 @@ submodules/jquery/jquery-2.0.3.min.js
 submodules/nprogress/nprogress.js
 submodules/AlertView/dist/alert_view.min.js
 dist/bootstrap.min.js
-submodules/angularjs/angular.1.2.3.min.js
+submodules/angularjs/angular.1.2.4.min.js
 submodules/ui-router/release/angular-ui-router.min.js
 dist/tower-of-saviors.js
 
