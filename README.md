@@ -10,6 +10,17 @@
 
 
 
+##Frameworks, Libraries
+1. [AngularJS](http://angularjs.org/)
+2. [jQuery](http://jquery.com/)
+3. [Bootstrap 3](http://getbootstrap.com/)
+4. [AlertView](https://github.com/kelp404/AlertView)
+5. [NProgress](https://github.com/rstacruz/nprogress)
+6. [ui-router](https://github.com/angular-ui/ui-router)
+7. [CoffeeScript](http://coffeescript.org/)
+
+
+
 
 ##Unit Test
 >
