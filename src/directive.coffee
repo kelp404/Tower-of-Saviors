@@ -35,5 +35,10 @@ a.directive 'tosGotoTop', tosGotoTop
 tosLoadingCover = ->
     restrict: 'A'
     link: (scope, element, attrs) ->
-        element.bind 'load', -> $(attrs.tosLoadingCover).fadeOut()
+        $cover = $ attrs.tosLoadingCover
+        $cover.bind 'load', ->
+            $cover.parent().css 'min-height', $cover.height()
+        element.bind 'load', ->
+            $cover.parent().css 'min-height', ''
+            $cover.fadeOut()
 a.directive 'tosLoadingCover', tosLoadingCover

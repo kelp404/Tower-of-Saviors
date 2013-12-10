@@ -160,8 +160,14 @@
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {
+        var $cover;
+        $cover = $(attrs.tosLoadingCover);
+        $cover.bind('load', function() {
+          return $cover.parent().css('min-height', $cover.height());
+        });
         return element.bind('load', function() {
-          return $(attrs.tosLoadingCover).fadeOut();
+          $cover.parent().css('min-height', '');
+          return $cover.fadeOut();
         });
       }
     };
