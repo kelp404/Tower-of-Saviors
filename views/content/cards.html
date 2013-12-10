@@ -1,6 +1,10 @@
 <div class="gallery">
     <div ng-repeat="card in cards" class="card col-xs-3 col-sm-2 col-md-1">
-        <a ng-if="card.name" href="#/cards/{{card.id}}"><img ng-src="{{card.imageSm}}" tos-fadein-onload title="{{card.name}}" class="img-responsive fade"/></a>
-        <a ng-if="!card.name"><img ng-src="{{card.imageSm}}" tos-fadein-onload title="{{card.name}}" class="img-responsive fade"/></a>
+        <a ng-if="card.name" href="#/cards/{{card.id}}">
+            <img ng-src="{{card.imageSm}}" title="{{card.name}}" class="img-responsive"/>
+        </a>
+        <a ng-if="!card.name">
+            <img src="images/cards/100/000.png" class="img-responsive"/>
+        </a>
     </div>
 </div>

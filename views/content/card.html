@@ -1,5 +1,8 @@
 <div class="card">
-    <img ng-src="{{card.imageMd}}" class="img-responsive pull-right col-xs-12 col-md-6 no-padding"/>
+    <div class="pull-right col-xs-12 col-md-6 no-padding">
+        <img id="photo" src="images/cards/600/000.png" class="img-responsive cover"/>
+        <img ng-src="{{card.imageMd}}" class="img-responsive" tos-loading-cover="#photo"/>
+    </div>
     <div class="visible-xs visible-sm" style="height: 7px; clear: both;"></div>
 
     <!-- icon, name -->

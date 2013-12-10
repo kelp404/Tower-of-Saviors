@@ -30,10 +30,10 @@ a.directive 'tosGotoTop', tosGotoTop
 
 
 # ----------------------------------------
-# tos-fadein-onload
+# tos-loading-cover
 # ----------------------------------------
-tosFadeinOnload = ->
+tosLoadingCover = ->
     restrict: 'A'
-    link: (scope, element) ->
-        element.bind 'load', -> element.addClass 'in'
-a.directive 'tosFadeinOnload', tosFadeinOnload
+    link: (scope, element, attrs) ->
+        element.bind 'load', -> $(attrs.tosLoadingCover).fadeOut()
+a.directive 'tosLoadingCover', tosLoadingCover

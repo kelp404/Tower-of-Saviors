@@ -119,7 +119,7 @@
 }).call(this);
 
 (function() {
-  var a, tosFadeinOnload, tosGotoTop, tosLang;
+  var a, tosGotoTop, tosLang, tosLoadingCover;
 
   a = angular.module('tos.directive', ['tos.provider']);
 
@@ -156,18 +156,18 @@
 
   a.directive('tosGotoTop', tosGotoTop);
 
-  tosFadeinOnload = function() {
+  tosLoadingCover = function() {
     return {
       restrict: 'A',
-      link: function(scope, element) {
+      link: function(scope, element, attrs) {
         return element.bind('load', function() {
-          return element.addClass('in');
+          return $(attrs.tosLoadingCover).fadeOut();
         });
       }
     };
   };
 
-  a.directive('tosFadeinOnload', tosFadeinOnload);
+  a.directive('tosLoadingCover', tosLoadingCover);
 
 }).call(this);
 

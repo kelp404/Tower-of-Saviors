@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v0.0.0-beta1-e87c2fbf695ce8481f3fa9be6ed15631f150ff1c
+# v0.0.0-beta1-60a428c460f3a2d402464ce679e3c6a8008e8061
 
 CACHE:
 index.html
@@ -19,6 +19,7 @@ views/content/card.html
 views/content/cards.html
 views/menu/navigation.html
 
+images/cards/600/000.png
 images/cards/100/001.png
 images/cards/100/002.png
 images/cards/100/003.png
