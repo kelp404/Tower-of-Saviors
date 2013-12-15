@@ -30,10 +30,14 @@ class Salmon
         # apply jquery to the window
         @jquery.create window
 
-    fetchIcons: =>
+    fetchIcons: (start, end) =>
         @fetchIndex (error, response, body) =>
             $ = @setupJquery body
-            for img in $('[data-image-key]')
+            images = $('[data-image-key]')
+            end ?= images.length - 1
+            end = images.length - 1 if end >= images.length
+            for index in [start..end] by 1
+                img = images[index]
                 src = $(img).attr 'data-src'
                 src ?= $(img).attr 'src'
                 src = src.replace /thumb\/|\/60px-.*/g, ''
@@ -366,7 +370,7 @@ class Salmon
         attribute
 
 
-salmon = new Salmon 'zh-TW', 'http://localhost:8000/data/zh-TW/cards'
-salmon.updateData()
-#salmon.fetchIcons()
+salmon = new Salmon 'zh-TW'
+#salmon.updateData()
+salmon.fetchIcons 470
 #salmon.fetchCards 424, 424

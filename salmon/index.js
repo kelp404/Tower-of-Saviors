@@ -51,15 +51,21 @@
       return this.jquery.create(window);
     };
 
-    Salmon.prototype.fetchIcons = function() {
+    Salmon.prototype.fetchIcons = function(start, end) {
       var _this = this;
       return this.fetchIndex(function(error, response, body) {
-        var $, fileName, img, src, _i, _len, _ref, _results;
+        var $, fileName, images, img, index, src, _i, _results;
         $ = _this.setupJquery(body);
-        _ref = $('[data-image-key]');
+        images = $('[data-image-key]');
+        if (end == null) {
+          end = images.length - 1;
+        }
+        if (end >= images.length) {
+          end = images.length - 1;
+        }
         _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          img = _ref[_i];
+        for (index = _i = start; _i <= end; index = _i += 1) {
+          img = images[index];
           src = $(img).attr('data-src');
           if (src == null) {
             src = $(img).attr('src');
@@ -536,8 +542,8 @@
 
   })();
 
-  salmon = new Salmon('zh-TW', 'http://localhost:8000/data/zh-TW/cards');
+  salmon = new Salmon('zh-TW');
 
-  salmon.updateData();
+  salmon.fetchIcons(470);
 
 }).call(this);
