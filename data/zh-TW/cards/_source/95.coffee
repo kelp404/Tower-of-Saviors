@@ -31,8 +31,8 @@ leaderSkill:
     description: '人類攻擊力 1.5 倍'
 evolve:
     origin: 94
-    resources: []
-    result: null
+    resources: [255, 260, 268, 265, 266]
+    result: 460
 origin:
     friendPointSeal: yes
     diamondSeal: no

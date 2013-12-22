@@ -76,6 +76,8 @@ a.provider '$lan', ->
             dragonEnvoy: 'Dragon Envoy'
             duck: 'B.Duck'
             otherSpecies: 'Others'
+            blood: 'Blood'
+            christmas: 'Christmas'
 
         # ----------------------------------------
         # Chinese
@@ -148,6 +150,8 @@ a.provider '$lan', ->
             dragonEnvoy: '龍使'
             duck: 'B.Duck'
             otherSpecies: '未歸類'
+            blood: '鮮紅恩典'
+            christmas: '聖誕節'
 
     # ----------------------------------------
     # $get

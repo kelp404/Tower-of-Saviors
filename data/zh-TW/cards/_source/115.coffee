@@ -32,7 +32,7 @@ leaderSkill:
 evolve:
     origin: 114
     resources: []
-    result: null
+    result: 465
 origin:
     friendPointSeal: no
     diamondSeal: no

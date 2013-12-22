@@ -372,5 +372,5 @@ class Salmon
 
 salmon = new Salmon 'zh-TW'
 #salmon.updateData()
-salmon.fetchIcons 470
-#salmon.fetchCards 424, 424
+#salmon.fetchIcons 470
+salmon.fetchCards 444

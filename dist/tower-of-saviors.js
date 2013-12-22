@@ -246,7 +246,9 @@
         greekBeast: 'Greek Beast',
         dragonEnvoy: 'Dragon Envoy',
         duck: 'B.Duck',
-        otherSpecies: 'Others'
+        otherSpecies: 'Others',
+        blood: 'Blood',
+        christmas: 'Christmas'
       },
       'zh-TW': {
         light: '光',
@@ -310,7 +312,9 @@
         greekBeast: '希臘妖獸',
         dragonEnvoy: '龍使',
         duck: 'B.Duck',
-        otherSpecies: '未歸類'
+        otherSpecies: '未歸類',
+        blood: '鮮紅恩典',
+        christmas: '聖誕節'
       }
     };
     this.get = function() {
