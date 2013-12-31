@@ -544,6 +544,6 @@
 
   salmon = new Salmon('zh-TW');
 
-  salmon.fetchCards(444);
+  salmon.fetchIcons(0, 100);
 
 }).call(this);
