@@ -28,7 +28,7 @@ class Salmon
             QuerySelector: no
         .createWindow()
         # apply jquery to the window
-        @jquery.create window
+        @jquery window
 
     fetchIcons: (start, end) =>
         @fetchIndex (error, response, body) =>

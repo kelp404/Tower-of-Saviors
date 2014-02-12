@@ -49,7 +49,7 @@
         MutationEvents: false,
         QuerySelector: false
       }).createWindow();
-      return this.jquery.create(window);
+      return this.jquery(window);
     };
 
     Salmon.prototype.fetchIcons = function(start, end) {
