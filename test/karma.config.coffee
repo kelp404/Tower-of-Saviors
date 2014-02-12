@@ -7,9 +7,9 @@ module.exports = (config) ->
 
         # list of files / patterns to load in the browser
         files: [
-            'test/lib/jquery/jquery-2.0.3.min.js'
-            'test/lib/angularjs/angular.1.2.6.min.js'
-            'test/lib/angularjs/angular-mocks.1.2.6.js'
+            'test/lib/jquery/jquery-2.1.0.min.js'
+            'test/lib/angularjs/angular.1.2.12.min.js'
+            'test/lib/angularjs/angular-mocks.1.2.12.js'
             'test/lib/nprogress/nprogress.js'
             'test/lib/AlertView/dist/alert_view.min.js'
             'dist/bootstrap.min.js'
