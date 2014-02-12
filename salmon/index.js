@@ -30,14 +30,15 @@
     }
 
     Salmon.prototype.fetchIndex = function(func) {
-      var _this = this;
-      return this.request(this.url, function(error, response, body) {
-        if (!error && response.statusCode < 300) {
-          return func(error, response, body);
-        } else {
-          return console.error("fetch '" + _this.url + "' failed.");
-        }
-      });
+      return this.request(this.url, (function(_this) {
+        return function(error, response, body) {
+          if (!error && response.statusCode < 300) {
+            return func(error, response, body);
+          } else {
+            return console.error("fetch '" + _this.url + "' failed.");
+          }
+        };
+      })(this));
     };
 
     Salmon.prototype.setupJquery = function(body) {
@@ -52,200 +53,204 @@
     };
 
     Salmon.prototype.fetchIcons = function(start, end) {
-      var _this = this;
-      return this.fetchIndex(function(error, response, body) {
-        var $, fileName, images, img, index, src, _i, _results;
-        $ = _this.setupJquery(body);
-        images = $('[data-image-key]');
-        if (end == null) {
-          end = images.length - 1;
-        }
-        if (end >= images.length) {
-          end = images.length - 1;
-        }
-        _results = [];
-        for (index = _i = start; _i <= end; index = _i += 1) {
-          img = images[index];
-          src = $(img).attr('data-src');
-          if (src == null) {
-            src = $(img).attr('src');
+      return this.fetchIndex((function(_this) {
+        return function(error, response, body) {
+          var $, fileName, images, img, index, src, _i, _results;
+          $ = _this.setupJquery(body);
+          images = $('[data-image-key]');
+          if (end == null) {
+            end = images.length - 1;
           }
-          src = src.replace(/thumb\/|\/60px-.*/g, '');
-          fileName = src.match(/^.*\/([0-9]+i\.png)$/)[1].replace('i.png', '.png');
-          _results.push(_this.fetchImage(src, "100/" + fileName));
-        }
-        return _results;
-      });
+          if (end >= images.length) {
+            end = images.length - 1;
+          }
+          _results = [];
+          for (index = _i = start; _i <= end; index = _i += 1) {
+            img = images[index];
+            src = $(img).attr('data-src');
+            if (src == null) {
+              src = $(img).attr('src');
+            }
+            src = src.replace(/thumb\/|\/60px-.*/g, '');
+            fileName = src.match(/^.*\/([0-9]+i\.png)$/)[1].replace('i.png', '.png');
+            _results.push(_this.fetchImage(src, "100/" + fileName));
+          }
+          return _results;
+        };
+      })(this));
     };
 
     Salmon.prototype.fetchImage = function(url, fileName) {
-      var _this = this;
       return this.request({
         url: url,
         encoding: null
-      }, function(error, response, body) {
-        return _this.fs.writeFile("images/cards/" + fileName, body);
-      });
+      }, (function(_this) {
+        return function(error, response, body) {
+          return _this.fs.writeFile("images/cards/" + fileName, body);
+        };
+      })(this));
     };
 
     Salmon.prototype.fetchCards = function(start, end) {
-      var cards,
-        _this = this;
+      var cards;
       cards = {};
-      return this.fetchIndex(function(error, response, body) {
-        var $, index, link, total, _i, _results;
-        $ = _this.setupJquery(body);
-        total = $('#mw-content-text a').length;
-        if (end == null) {
-          end = total - 1;
-        }
-        if (end >= total) {
-          end = total - 1;
-        }
-        _results = [];
-        for (index = _i = start; _i <= end; index = _i += 1) {
-          link = $('#mw-content-text a')[index];
-          _results.push(_this.fetchCard("" + _this.origin + ($(link).attr('href')), cards, end - start + 1));
-        }
-        return _results;
-      });
+      return this.fetchIndex((function(_this) {
+        return function(error, response, body) {
+          var $, index, link, total, _i, _results;
+          $ = _this.setupJquery(body);
+          total = $('#mw-content-text a').length;
+          if (end == null) {
+            end = total - 1;
+          }
+          if (end >= total) {
+            end = total - 1;
+          }
+          _results = [];
+          for (index = _i = start; _i <= end; index = _i += 1) {
+            link = $('#mw-content-text a')[index];
+            _results.push(_this.fetchCard("" + _this.origin + ($(link).attr('href')), cards, end - start + 1));
+          }
+          return _results;
+        };
+      })(this));
     };
 
     Salmon.prototype.fetchCard = function(url, pool, total) {
-      var _this = this;
-      return this.request(url, function(error, response, body) {
-        var $, activeSkill, attribute, cost, evolve, id, leaderSkill, name, origin, properties, race, rarity, species;
-        $ = _this.setupJquery(body);
-        id = $($('.wikitable tr')[1]).find('td:first').text().trim();
-        name = $($($('.wikitable tr')[0]).find('td')[1]).text().trim();
-        race = _this.bleachRace($($($('.wikitable tr')[1]).find('td')[3]).text().trim());
-        attribute = _this.bleachAttribute($($($('.wikitable tr')[0]).find('td')[2]).text().trim());
-        if (race === 'error' || attribute === 'error') {
-          console.log("======= error ======= " + id);
-        }
-        species = $($($('.wikitable tr')[1]).find('td')[4]).text().trim();
-        rarity = parseInt($($($('.wikitable tr')[1]).find('td')[1]).text());
-        cost = parseInt($($($('.wikitable tr')[1]).find('td')[2]).text());
-        properties = {
-          lvMin: {
-            lv: 1,
-            hp: parseInt($($($('.wikitable tr')[4]).find('td')[0]).text()),
-            attack: parseInt($($($('.wikitable tr')[4]).find('td')[1]).text()),
-            recovery: parseInt($($($('.wikitable tr')[4]).find('td')[2]).text()),
-            total: parseInt($($($('.wikitable tr')[4]).find('td')[3]).text())
-          },
-          lvMax: {
-            lv: parseInt($($($('.wikitable tr')[2]).find('td')[0]).text()),
-            hp: parseInt($($($('.wikitable tr')[5]).find('td')[0]).text()),
-            attack: parseInt($($($('.wikitable tr')[5]).find('td')[1]).text()),
-            recovery: parseInt($($($('.wikitable tr')[5]).find('td')[2]).text()),
-            total: parseInt($($($('.wikitable tr')[5]).find('td')[3]).text())
+      return this.request(url, (function(_this) {
+        return function(error, response, body) {
+          var $, activeSkill, attribute, cost, evolve, id, leaderSkill, name, origin, properties, race, rarity, species;
+          $ = _this.setupJquery(body);
+          id = $($('.wikitable tr')[1]).find('td:first').text().trim();
+          name = $($($('.wikitable tr')[0]).find('td')[1]).text().trim();
+          race = _this.bleachRace($($($('.wikitable tr')[1]).find('td')[3]).text().trim());
+          attribute = _this.bleachAttribute($($($('.wikitable tr')[0]).find('td')[2]).text().trim());
+          if (race === 'error' || attribute === 'error') {
+            console.log("======= error ======= " + id);
+          }
+          species = $($($('.wikitable tr')[1]).find('td')[4]).text().trim();
+          rarity = parseInt($($($('.wikitable tr')[1]).find('td')[1]).text());
+          cost = parseInt($($($('.wikitable tr')[1]).find('td')[2]).text());
+          properties = {
+            lvMin: {
+              lv: 1,
+              hp: parseInt($($($('.wikitable tr')[4]).find('td')[0]).text()),
+              attack: parseInt($($($('.wikitable tr')[4]).find('td')[1]).text()),
+              recovery: parseInt($($($('.wikitable tr')[4]).find('td')[2]).text()),
+              total: parseInt($($($('.wikitable tr')[4]).find('td')[3]).text())
+            },
+            lvMax: {
+              lv: parseInt($($($('.wikitable tr')[2]).find('td')[0]).text()),
+              hp: parseInt($($($('.wikitable tr')[5]).find('td')[0]).text()),
+              attack: parseInt($($($('.wikitable tr')[5]).find('td')[1]).text()),
+              recovery: parseInt($($($('.wikitable tr')[5]).find('td')[2]).text()),
+              total: parseInt($($($('.wikitable tr')[5]).find('td')[3]).text())
+            }
+          };
+          activeSkill = {
+            name: $($($('.wikitable tr')[6]).find('td')[1]).text().trim(),
+            description: $($($('.wikitable tr')[7]).find('td')[0]).text().trim(),
+            cd: {
+              ori: $($($('.wikitable tr')[6]).find('td')[2]).text().trim(),
+              min: $($($('.wikitable tr')[6]).find('td')[3]).text().trim()
+            }
+          };
+          leaderSkill = {
+            name: $($($('.wikitable tr')[8]).find('td')[1]).text().trim(),
+            description: $($($('.wikitable tr')[9]).find('td')[0]).text().trim()
+          };
+          evolve = {
+            origin: null,
+            resources: [],
+            result: null
+          };
+          origin = {
+            friendPointSeal: false,
+            diamondSeal: false,
+            others: [],
+            levels: []
+          };
+          if (race === 'element') {
+            origin.friendPointSeal = $($($('.wikitable tr')[10]).find('td')[1]).text().trim() === '有';
+            origin.diamondSeal = $($($('.wikitable tr')[10]).find('td')[2]).text().trim() === '有';
+            origin.others = (function() {
+              var links, x, _i, _len, _results;
+              links = $($($('.wikitable tr')[10]).find('td')[3]).find('a');
+              if (links.length === 0) {
+                return [];
+              }
+              _results = [];
+              for (_i = 0, _len = links.length; _i < _len; _i++) {
+                x = links[_i];
+                _results.push($(x).text().trim());
+              }
+              return _results;
+            })();
+            origin.levels = (function() {
+              var links, x, _i, _len, _results;
+              links = $($($('.wikitable tr')[11]).find('td')[0]).find('a');
+              if (links.length === 0) {
+                return [];
+              }
+              _results = [];
+              for (_i = 0, _len = links.length; _i < _len; _i++) {
+                x = links[_i];
+                _results.push($(x).text().trim());
+              }
+              return _results;
+            })();
+          } else {
+            origin.friendPointSeal = $($($('.wikitable tr')[11]).find('td')[1]).text().trim() === '有';
+            origin.diamondSeal = $($($('.wikitable tr')[11]).find('td')[2]).text().trim() === '有';
+            origin.others = (function() {
+              var links, x, _i, _len, _results;
+              links = $($($('.wikitable tr')[11]).find('td')[3]).find('a');
+              if (links.length === 0) {
+                return [];
+              }
+              _results = [];
+              for (_i = 0, _len = links.length; _i < _len; _i++) {
+                x = links[_i];
+                _results.push($(x).text().trim());
+              }
+              return _results;
+            })();
+            origin.levels = (function() {
+              var links, x, _i, _len, _results;
+              links = $($($('.wikitable tr')[12]).find('td')[0]).find('a');
+              if (links.length === 0) {
+                return [];
+              }
+              _results = [];
+              for (_i = 0, _len = links.length; _i < _len; _i++) {
+                x = links[_i];
+                _results.push($(x).text().trim());
+              }
+              return _results;
+            })();
+          }
+          pool[id] = {
+            id: id,
+            name: name,
+            imageSm: "images/cards/100/" + id + ".png",
+            imageMd: "images/cards/600/" + id + ".png",
+            race: race,
+            attribute: attribute,
+            species: species,
+            rarity: rarity,
+            cost: cost,
+            properties: properties,
+            activeSkill: activeSkill,
+            leaderSkill: leaderSkill,
+            evolve: evolve,
+            origin: origin
+          };
+          _this.writeCardCoffee(pool[id]);
+          _this.fetchImage($('#mw-content-text img:first').attr('src'), "600/" + id + ".png");
+          if (Object.keys(pool).length === total) {
+            return _this.writeCardsCoffee(pool);
           }
         };
-        activeSkill = {
-          name: $($($('.wikitable tr')[6]).find('td')[1]).text().trim(),
-          description: $($($('.wikitable tr')[7]).find('td')[0]).text().trim(),
-          cd: {
-            ori: $($($('.wikitable tr')[6]).find('td')[2]).text().trim(),
-            min: $($($('.wikitable tr')[6]).find('td')[3]).text().trim()
-          }
-        };
-        leaderSkill = {
-          name: $($($('.wikitable tr')[8]).find('td')[1]).text().trim(),
-          description: $($($('.wikitable tr')[9]).find('td')[0]).text().trim()
-        };
-        evolve = {
-          origin: null,
-          resources: [],
-          result: null
-        };
-        origin = {
-          friendPointSeal: false,
-          diamondSeal: false,
-          others: [],
-          levels: []
-        };
-        if (race === 'element') {
-          origin.friendPointSeal = $($($('.wikitable tr')[10]).find('td')[1]).text().trim() === '有';
-          origin.diamondSeal = $($($('.wikitable tr')[10]).find('td')[2]).text().trim() === '有';
-          origin.others = (function() {
-            var links, x, _i, _len, _results;
-            links = $($($('.wikitable tr')[10]).find('td')[3]).find('a');
-            if (links.length === 0) {
-              return [];
-            }
-            _results = [];
-            for (_i = 0, _len = links.length; _i < _len; _i++) {
-              x = links[_i];
-              _results.push($(x).text().trim());
-            }
-            return _results;
-          })();
-          origin.levels = (function() {
-            var links, x, _i, _len, _results;
-            links = $($($('.wikitable tr')[11]).find('td')[0]).find('a');
-            if (links.length === 0) {
-              return [];
-            }
-            _results = [];
-            for (_i = 0, _len = links.length; _i < _len; _i++) {
-              x = links[_i];
-              _results.push($(x).text().trim());
-            }
-            return _results;
-          })();
-        } else {
-          origin.friendPointSeal = $($($('.wikitable tr')[11]).find('td')[1]).text().trim() === '有';
-          origin.diamondSeal = $($($('.wikitable tr')[11]).find('td')[2]).text().trim() === '有';
-          origin.others = (function() {
-            var links, x, _i, _len, _results;
-            links = $($($('.wikitable tr')[11]).find('td')[3]).find('a');
-            if (links.length === 0) {
-              return [];
-            }
-            _results = [];
-            for (_i = 0, _len = links.length; _i < _len; _i++) {
-              x = links[_i];
-              _results.push($(x).text().trim());
-            }
-            return _results;
-          })();
-          origin.levels = (function() {
-            var links, x, _i, _len, _results;
-            links = $($($('.wikitable tr')[12]).find('td')[0]).find('a');
-            if (links.length === 0) {
-              return [];
-            }
-            _results = [];
-            for (_i = 0, _len = links.length; _i < _len; _i++) {
-              x = links[_i];
-              _results.push($(x).text().trim());
-            }
-            return _results;
-          })();
-        }
-        pool[id] = {
-          id: id,
-          name: name,
-          imageSm: "images/cards/100/" + id + ".png",
-          imageMd: "images/cards/600/" + id + ".png",
-          race: race,
-          attribute: attribute,
-          species: species,
-          rarity: rarity,
-          cost: cost,
-          properties: properties,
-          activeSkill: activeSkill,
-          leaderSkill: leaderSkill,
-          evolve: evolve,
-          origin: origin
-        };
-        _this.writeCardCoffee(pool[id]);
-        _this.fetchImage($('#mw-content-text img:first').attr('src'), "600/" + id + ".png");
-        if (Object.keys(pool).length === total) {
-          return _this.writeCardsCoffee(pool);
-        }
-      });
+      })(this));
     };
 
     Salmon.prototype.writeCardsCoffee = function(cards) {
@@ -287,35 +292,36 @@
     };
 
     Salmon.prototype.fetchLocalData = function(cardId, pool, total) {
-      var _this = this;
-      return this.request("" + this.url + "/" + cardId + ".min.js", function(error, response, body) {
-        var card, coffee, id, ids, _i, _len;
-        if (!error && response.statusCode < 300) {
-          pool[cardId] = eval(body);
-          pool[cardId].species = _this.bleachSpecies(pool[cardId].species);
-        } else {
-          pool[cardId] = {
-            name: null,
-            imageSm: 'images/cards/100/000.png',
-            race: null,
-            attribute: null,
-            species: null
-          };
-        }
-        if (Object.keys(pool).length === total) {
-          console.log('done');
-          coffee = '';
-          ids = Object.keys(pool).sort(function(a, b) {
-            return a - b;
-          });
-          for (_i = 0, _len = ids.length; _i < _len; _i++) {
-            id = ids[_i];
-            card = pool[id];
-            coffee += "" + id + ":\n    name: '" + card.name + "'\n    imageSm: '" + card.imageSm + "'\n    race: '" + card.race + "'\n    attribute: '" + card.attribute + "'\n    species: '" + card.species + "'\n";
+      return this.request("" + this.url + "/" + cardId + ".min.js", (function(_this) {
+        return function(error, response, body) {
+          var card, coffee, id, ids, _i, _len;
+          if (!error && response.statusCode < 300) {
+            pool[cardId] = eval(body);
+            pool[cardId].species = _this.bleachSpecies(pool[cardId].species);
+          } else {
+            pool[cardId] = {
+              name: null,
+              imageSm: 'images/cards/100/000.png',
+              race: null,
+              attribute: null,
+              species: null
+            };
           }
-          return _this.fs.writeFile("data/" + _this.lang + "/cards.coffee", coffee);
-        }
-      });
+          if (Object.keys(pool).length === total) {
+            console.log('done');
+            coffee = '';
+            ids = Object.keys(pool).sort(function(a, b) {
+              return a - b;
+            });
+            for (_i = 0, _len = ids.length; _i < _len; _i++) {
+              id = ids[_i];
+              card = pool[id];
+              coffee += "" + id + ":\n    name: '" + card.name + "'\n    imageSm: '" + card.imageSm + "'\n    race: '" + card.race + "'\n    attribute: '" + card.attribute + "'\n    species: '" + card.species + "'\n";
+            }
+            return _this.fs.writeFile("data/" + _this.lang + "/cards.coffee", coffee);
+          }
+        };
+      })(this));
     };
 
     Salmon.prototype.bleachSpecies = function(source) {

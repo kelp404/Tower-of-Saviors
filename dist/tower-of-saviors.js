@@ -339,206 +339,219 @@
   a = angular.module('tos.provider', ['tos.languageResource']);
 
   a.provider('$tos', function() {
-    var $http, $injector, $lan,
-      _this = this;
+    var $http, $injector, $lan;
     $injector = null;
     $http = null;
     $lan = null;
     this.languages = {
+
       /*
       All language codes.
-      */
-
+       */
       en: 'English',
       'zh-TW': '繁體中文'
     };
-    this.currentLanguage = (function() {
-      /*
-      The current language code.
-      */
+    this.currentLanguage = (function(_this) {
+      return function() {
 
-      if (_this.languages[navigator.language] != null) {
-        return navigator.language;
-      } else {
-        switch (navigator.language.toLowerCase()) {
-          case 'zh-tw':
-          case 'zh-cn':
-          case 'zh-hk':
-            return 'zh-TW';
-          default:
-            return 'zh-TW';
+        /*
+        The current language code.
+         */
+        if (_this.languages[navigator.language] != null) {
+          return navigator.language;
+        } else {
+          switch (navigator.language.toLowerCase()) {
+            case 'zh-tw':
+            case 'zh-cn':
+            case 'zh-hk':
+              return 'zh-TW';
+            default:
+              return 'zh-TW';
+          }
         }
-      }
-    })();
+      };
+    })(this)();
     this.setupProvider = function(injector) {
       $injector = injector;
       $http = $injector.get('$http');
       return $lan = $injector.get('$lan');
     };
-    this.getResource = function(url) {
-      var h;
-      h = $http({
-        method: 'get',
-        url: url,
-        cache: true,
-        transformResponse: [
-          function(data) {
-            return eval(data);
-          }
-        ].concat($http.defaults.transformResponse)
-      });
-      return h.error(function() {
-        return $.av.pop({
-          title: 'Error',
-          message: 'Data loading failed.',
-          template: 'error',
-          mode: 'notification'
+    this.getResource = (function(_this) {
+      return function(url) {
+        var h;
+        h = $http({
+          method: 'get',
+          url: url,
+          cache: true,
+          transformResponse: [
+            function(data) {
+              return eval(data);
+            }
+          ].concat($http.defaults.transformResponse)
         });
-      });
-    };
-    this.getCards = function(flatten) {
-      var h;
-      if (flatten == null) {
-        flatten = false;
-      }
-      /*
-      Get all cards.
-      @param flatten: yes -> return .then(), no -> return $http()
-      @return flatten=no: {$http}
-          id: {int} The card id.
-              name: {string} The card name.
-              imageSm: {string} The small image url.
-              race: {string} The card's race. [human, dragon, beast, elf, god, fiend, element]
-              attribute: {string} The card's attribute. [light, dark, water, fire, wood]
-      @return flatten=yes: {$http}
-          [id, name, imageSm, race, attribute]
-      */
-
-      h = _this.getResource("data/" + _this.currentLanguage + "/cards.min.js");
-      return h.then(function(response) {
-        var cards, id, ids, result, _i, _len;
-        cards = response.data;
-        if (flatten) {
-          result = [];
-          ids = Object.keys(cards).sort(function(a, b) {
-            return a - b;
+        return h.error(function() {
+          return $.av.pop({
+            title: 'Error',
+            message: 'Data loading failed.',
+            template: 'error',
+            mode: 'notification'
           });
-          for (_i = 0, _len = ids.length; _i < _len; _i++) {
-            id = ids[_i];
-            cards[id].id = id;
-            result.push(cards[id]);
-          }
-          return result;
-        } else {
-          return cards;
-        }
-      });
-    };
-    this.getCard = function(cardId, isForRouter) {
-      var h;
-      if (isForRouter == null) {
-        isForRouter = false;
-      }
-      /*
-      Get the card by id.
-      @param cardId: The card id.
-      @param isForRouter: yes -> return .then(), no -> return $http()
-      */
-
-      h = _this.getResource("data/" + _this.currentLanguage + "/cards/" + cardId + ".min.js");
-      if (isForRouter) {
-        return h.then(function(response) {
-          return response.data;
         });
-      } else {
-        return h;
-      }
-    };
-    this.searchCards = function(keywords, cards) {
-      /*
-      Search cards by keywords.
-      @param keywords: {array} ["keyword"]
-      @param cards: {array} [{id, name, ...}]
-      */
-
-      var attributes, card, keyword, races, result, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1, _ref2, _ref3;
-      attributes = [];
-      races = [];
-      for (_i = 0, _len = keywords.length; _i < _len; _i++) {
-        keyword = keywords[_i];
-        switch (keyword) {
-          case 'human':
-          case 'dragon':
-          case 'beast':
-          case 'elf':
-          case 'god':
-          case 'fiend':
-          case 'element':
-            races.push(keyword);
-            break;
-          case 'light':
-          case 'dark':
-          case 'water':
-          case 'fire':
-          case 'wood':
-            attributes.push(keyword);
-            break;
+      };
+    })(this);
+    this.getCards = (function(_this) {
+      return function(flatten) {
+        var h;
+        if (flatten == null) {
+          flatten = false;
         }
-      }
-      result = [];
-      if (attributes.length > 0 && races.length > 0) {
-        for (_j = 0, _len1 = cards.length; _j < _len1; _j++) {
-          card = cards[_j];
-          if ((_ref = card.attribute, __indexOf.call(attributes, _ref) >= 0) && (_ref1 = card.race, __indexOf.call(races, _ref1) >= 0)) {
+
+        /*
+        Get all cards.
+        @param flatten: yes -> return .then(), no -> return $http()
+        @return flatten=no: {$http}
+            id: {int} The card id.
+                name: {string} The card name.
+                imageSm: {string} The small image url.
+                race: {string} The card's race. [human, dragon, beast, elf, god, fiend, element]
+                attribute: {string} The card's attribute. [light, dark, water, fire, wood]
+        @return flatten=yes: {$http}
+            [id, name, imageSm, race, attribute]
+         */
+        h = _this.getResource("data/" + _this.currentLanguage + "/cards.min.js");
+        return h.then(function(response) {
+          var cards, id, ids, result, _i, _len;
+          cards = response.data;
+          if (flatten) {
+            result = [];
+            ids = Object.keys(cards).sort(function(a, b) {
+              return a - b;
+            });
+            for (_i = 0, _len = ids.length; _i < _len; _i++) {
+              id = ids[_i];
+              cards[id].id = id;
+              result.push(cards[id]);
+            }
+            return result;
+          } else {
+            return cards;
+          }
+        });
+      };
+    })(this);
+    this.getCard = (function(_this) {
+      return function(cardId, isForRouter) {
+        var h;
+        if (isForRouter == null) {
+          isForRouter = false;
+        }
+
+        /*
+        Get the card by id.
+        @param cardId: The card id.
+        @param isForRouter: yes -> return .then(), no -> return $http()
+         */
+        h = _this.getResource("data/" + _this.currentLanguage + "/cards/" + cardId + ".min.js");
+        if (isForRouter) {
+          return h.then(function(response) {
+            return response.data;
+          });
+        } else {
+          return h;
+        }
+      };
+    })(this);
+    this.searchCards = (function(_this) {
+      return function(keywords, cards) {
+
+        /*
+        Search cards by keywords.
+        @param keywords: {array} ["keyword"]
+        @param cards: {array} [{id, name, ...}]
+         */
+        var attributes, card, keyword, races, result, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1, _ref2, _ref3;
+        attributes = [];
+        races = [];
+        for (_i = 0, _len = keywords.length; _i < _len; _i++) {
+          keyword = keywords[_i];
+          switch (keyword) {
+            case 'human':
+            case 'dragon':
+            case 'beast':
+            case 'elf':
+            case 'god':
+            case 'fiend':
+            case 'element':
+              races.push(keyword);
+              break;
+            case 'light':
+            case 'dark':
+            case 'water':
+            case 'fire':
+            case 'wood':
+              attributes.push(keyword);
+              break;
+          }
+        }
+        result = [];
+        if (attributes.length > 0 && races.length > 0) {
+          for (_j = 0, _len1 = cards.length; _j < _len1; _j++) {
+            card = cards[_j];
+            if ((_ref = card.attribute, __indexOf.call(attributes, _ref) >= 0) && (_ref1 = card.race, __indexOf.call(races, _ref1) >= 0)) {
+              result.push(card);
+            }
+          }
+        } else if (attributes.length > 0) {
+          for (_k = 0, _len2 = cards.length; _k < _len2; _k++) {
+            card = cards[_k];
+            if (_ref2 = card.attribute, __indexOf.call(attributes, _ref2) >= 0) {
+              result.push(card);
+            }
+          }
+        } else if (races.length > 0) {
+          for (_l = 0, _len3 = cards.length; _l < _len3; _l++) {
+            card = cards[_l];
+            if (_ref3 = card.race, __indexOf.call(races, _ref3) >= 0) {
+              result.push(card);
+            }
+          }
+        }
+        return result;
+      };
+    })(this);
+    this.searchCardsBySpecies = (function(_this) {
+      return function(species, cards) {
+
+        /*
+        Search cards by species.
+        @param keywords: {string} "species"
+        @param cards: {array} [{id, name, ...}]
+         */
+        var card, result, _i, _len;
+        result = [];
+        for (_i = 0, _len = cards.length; _i < _len; _i++) {
+          card = cards[_i];
+          if (card.species === species) {
             result.push(card);
           }
         }
-      } else if (attributes.length > 0) {
-        for (_k = 0, _len2 = cards.length; _k < _len2; _k++) {
-          card = cards[_k];
-          if (_ref2 = card.attribute, __indexOf.call(attributes, _ref2) >= 0) {
-            result.push(card);
-          }
-        }
-      } else if (races.length > 0) {
-        for (_l = 0, _len3 = cards.length; _l < _len3; _l++) {
-          card = cards[_l];
-          if (_ref3 = card.race, __indexOf.call(races, _ref3) >= 0) {
-            result.push(card);
-          }
-        }
-      }
-      return result;
-    };
-    this.searchCardsBySpecies = function(species, cards) {
-      /*
-      Search cards by species.
-      @param keywords: {string} "species"
-      @param cards: {array} [{id, name, ...}]
-      */
+        return result;
+      };
+    })(this);
+    this._ = (function(_this) {
+      return function(key) {
 
-      var card, result, _i, _len;
-      result = [];
-      for (_i = 0, _len = cards.length; _i < _len; _i++) {
-        card = cards[_i];
-        if (card.species === species) {
-          result.push(card);
+        /*
+        Get the language resource by the key.
+         */
+        var text;
+        text = $lan.resource[_this.currentLanguage][key];
+        if (text != null) {
+          return text;
         }
-      }
-      return result;
-    };
-    this._ = function(key) {
-      /*
-      Get the language resource by the key.
-      */
-
-      var text;
-      text = $lan.resource[_this.currentLanguage][key];
-      if (text != null) {
-        return text;
-      }
-      return key;
-    };
+        return key;
+      };
+    })(this);
     this.get = function($injector) {
       this.setupProvider($injector);
       return {
